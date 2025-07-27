@@ -9,3 +9,8 @@ export const fetchUsers = async (): Promise<User[]> => {
   const response = await apiClient.get("/users");
   return response.data;
 };
+
+export const submitUser = async () => {
+  const response = await apiClient.post("/users");
+  return response.data;
+};

@@ -1,29 +1,67 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import MessagesContainer from "./MessageContainer";
+
+interface FormTypes {
+  fullname: string;
+  email: string;
+  password1: string;
+  password2: string;
+}
 
 const Signup = () => {
   const [passwordVisibility1, setPasswordVisibility1] = useState(false);
   const [passwordVisibility2, setPasswordVisibility2] = useState(false);
 
+  // message to show to user after a failed operation
+  const [message, setMesssage] = useState("");
+
+  const { register, handleSubmit } = useForm<FormTypes>();
+
+  const onSubmit = (data: FormTypes): void => {
+    const { password1, password2 } = data;
+
+    if (password1 !== password2) {
+      setMesssage("Passwords don't match");
+      return;
+    }
+  };
+
   return (
     <div className="h-screen text-neutral-500 text-center flex justify-center items-center">
-      <form className="w-[600px] py-10 px-8 bg-neutral-50 flex flex-col gap-4 border border-neutral-200  rounded-2xl [&>*]:w-full [&_input]:w-full [&_input]:bg-neutral-100 [&_input]:border [&_input]:border-neutral-200 [&_input]:py-2.5 [&_input]:px-3 [&_input]:text-black [&_input]:placeholder-gray-500 [&_input]:rounded-xl">
+      <form
+        className="w-[580px] p-8 bg-neutral-50 flex flex-col gap-4 border border-neutral-200  rounded-2xl [&>*]:w-full [&_input]:w-full [&_input]:bg-neutral-100 [&_input]:border [&_input]:border-neutral-200 [&_input]:py-2 [&_input]:px-3 [&_input]:text-black [&_input]:placeholder-gray-500 [&_input]:rounded-xl"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <h1 className="text-black text-3xl font-semibold">
           Join Our Community!
         </h1>
         <p>Create your account to start trading your talents.</p>
-        <input className="min-w-[220px]" type="email" placeholder="Email" />
+
+        <input
+          {...register("fullname", { required: true })}
+          placeholder="Your names"
+        />
+
+        <input
+          type="email"
+          {...register("email", { required: true })}
+          placeholder="Email"
+        />
 
         <div className="relative">
           <input
             type={passwordVisibility1 ? "input" : "password"}
-            placeholder="Enter your password"
+            {...register("password1", { required: true })}
+            placeholder="Password"
           />
+
           <FontAwesomeIcon
-            icon={passwordVisibility1 ? faEye : faEyeSlash}
+            icon={passwordVisibility1 ? faEyeSlash : faEye}
             onClick={() => {
               setPasswordVisibility1(!passwordVisibility1);
             }}
@@ -34,10 +72,12 @@ const Signup = () => {
         <div className="relative">
           <input
             type={passwordVisibility2 ? "input" : "password"}
-            placeholder="Confirm password"
+            {...register("password2", { required: true })}
+            placeholder="Confirm Password"
           />
+
           <FontAwesomeIcon
-            icon={passwordVisibility2 ? faEye : faEyeSlash}
+            icon={passwordVisibility2 ? faEyeSlash : faEye}
             onClick={() => {
               setPasswordVisibility2(!passwordVisibility2);
             }}
@@ -45,7 +85,10 @@ const Signup = () => {
           />
         </div>
 
-        <button className="p-2.5 bg-teal-500 text-white font-semibold rounded-2xl">
+        <button
+          type="submit"
+          className="p-2.5 bg-teal-500 text-white font-semibold rounded-2xl"
+        >
           Sign Up
         </button>
         <button className="p-2.5 bg-white text-black rounded-2xl font-semibold flex justify-center items-center gap-1 border border-neutral-200">
@@ -53,13 +96,15 @@ const Signup = () => {
           <p>Sign Up with Google</p>
         </button>
 
-        <div className="mt-5 flex justify-center items-center gap-2">
+        <div className="mt-2 flex justify-center items-center gap-2">
           <p>Already have an account ?</p>{" "}
           <Link to="/login" className="text-teal-500 font-semibold">
             Log In
           </Link>
         </div>
       </form>
+
+      <MessagesContainer message={message} setMessage={setMesssage} />
     </div>
   );
 };

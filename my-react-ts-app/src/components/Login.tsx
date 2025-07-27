@@ -9,7 +9,7 @@ const Login = () => {
 
   return (
     <div className="h-screen text-neutral-500 text-center flex justify-center items-center">
-      <form className="w-[600px] py-10 px-8 bg-neutral-50 flex flex-col gap-4 border border-neutral-200  rounded-2xl [&_p]:text-left [&_p]:text-black [&_p]:mb-2 [&_input]:w-full [&_input]:bg-neutral-100 [&_input]:border [&_input]:border-neutral-200 [&_input]:py-2.5 [&_input]:px-3 [&_input]:text-black [&_input]:placeholder-gray-500 [&_input]:rounded-xl">
+      <form className="w-[560px] py-10 px-8 bg-neutral-50 flex flex-col gap-4 border border-neutral-200  rounded-2xl [&_p]:text-left [&_p]:text-black [&_p]:mb-2 [&_input]:w-full [&_input]:bg-neutral-100 [&_input]:border [&_input]:border-neutral-200 [&_input]:py-2 [&_input]:px-3 [&_input]:text-black [&_input]:placeholder-gray-500 [&_input]:rounded-xl">
         <h1 className="text-black text-3xl font-semibold">
           Login In to TradeTalent
         </h1>
@@ -25,7 +25,7 @@ const Login = () => {
               placeholder="Enter your password"
             />
             <FontAwesomeIcon
-              icon={passwordVisibility ? faEye : faEyeSlash}
+              icon={passwordVisibility ? faEyeSlash : faEye}
               onClick={() => {
                 setPasswordVisibility(!passwordVisibility);
               }}
@@ -33,10 +33,10 @@ const Login = () => {
             />
           </div>
         </div>
-        <button className="p-2.5 bg-teal-500 text-white font-semibold rounded-2xl">
+        <button className="p-2 bg-teal-500 text-white font-semibold rounded-2xl">
           Log In
         </button>
-        <button className="p-2.5 bg-white text-black rounded-2xl font-semibold flex justify-center items-center gap-1 border border-neutral-200">
+        <button className="p-2 bg-white text-black rounded-2xl font-semibold flex justify-center items-center gap-1 border border-neutral-200">
           <FontAwesomeIcon icon={faChrome} />
           <span>Log In with Google</span>
         </button>
