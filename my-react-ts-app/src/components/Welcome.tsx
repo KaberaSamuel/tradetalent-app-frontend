@@ -1,6 +1,21 @@
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchUsers } from "../api";
 
 const WelcomePage = () => {
+  const { data, error, isError } = useQuery({
+    queryKey: ["get-posts"],
+    queryFn: fetchUsers,
+  });
+
+  if (isError) {
+    console.log(error);
+  }
+
+  if (data) {
+    console.log(data);
+  }
+
   return (
     <div className="w-screen  flex justify-center">
       <div className="w-1/2 h-screen text-center flex flex-col justify-center items-center gap-9">
