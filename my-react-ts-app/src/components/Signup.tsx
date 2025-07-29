@@ -1,17 +1,14 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import MessagesContainer from "./MessageContainer";
 
-interface FormTypes {
-  fullname: string;
-  email: string;
-  password1: string;
-  password2: string;
-}
+import type { SignupFormTypes } from "../App.types";
+import { submitUser } from "../api";
+import MessagesContainer from "./MessageContainer";
 
 const Signup = () => {
   const [passwordVisibility1, setPasswordVisibility1] = useState(false);
@@ -20,14 +17,27 @@ const Signup = () => {
   // message to show to user after a failed operation
   const [message, setMesssage] = useState("");
 
-  const { register, handleSubmit } = useForm<FormTypes>();
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm<SignupFormTypes>();
 
-  const onSubmit = (data: FormTypes): void => {
-    const { password1, password2 } = data;
+  const onSubmit = async (data: SignupFormTypes): Promise<void> => {
+    try {
+      const { password1, password2 } = data;
 
-    if (password1 !== password2) {
-      setMesssage("Passwords don't match");
-      return;
+      if (password1 !== password2) {
+        setMesssage("Passwords don't match");
+        return;
+      }
+
+      const { status } = await submitUser(data);
+      if (status !== 201) {
+        setMesssage("Failed to register, try again");
+      } else {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+      setMesssage("Internal error. Refresh and try again");
     }
   };
 
