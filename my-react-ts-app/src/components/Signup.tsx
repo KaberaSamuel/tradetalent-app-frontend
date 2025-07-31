@@ -23,21 +23,27 @@ const Signup = () => {
   const onSubmit = async (data: SignupFormTypes): Promise<void> => {
     try {
       const { password1, password2 } = data;
-
       if (password1 !== password2) {
         setMesssage("Passwords don't match");
         return;
       }
 
-      const { status } = await submitUser(data);
-      if (status !== 201) {
-        setMesssage("Failed to register, try again");
-      } else {
+      const response = await submitUser(data);
+      if (response.status == 201) {
         navigate("/login");
+      } else {
+        setMesssage("Failed to register, try again");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      setMesssage("Internal error. Refresh and try again");
+      if (error.response?.status === 400) {
+        const errorData = error.response.data;
+        setMesssage(
+          errorData.username || errorData.email || "Validation error"
+        );
+      } else {
+        setMesssage("Internal Error. Refresh and try again");
+      }
     }
   };
 
