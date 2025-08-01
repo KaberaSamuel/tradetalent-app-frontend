@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { User, SignupFormTypes } from "./App.types";
+import type { User, SignupFormTypes, LoginFormTypes } from "./App.types";
 
 const apiClient = axios.create({
   baseURL: "http://127.0.0.1:8000/api",
@@ -13,7 +13,6 @@ export const fetchUsers = async (): Promise<User[]> => {
 export const submitUser = async (data: SignupFormTypes) => {
   const { fullname, email, password1: password } = data;
 
-  const username = fullname.replaceAll(" ", "");
   const names = fullname.split(" ");
   let first_name: string;
   let last_name: string;
@@ -27,7 +26,6 @@ export const submitUser = async (data: SignupFormTypes) => {
   }
 
   const formData = {
-    username,
     first_name,
     last_name,
     email,
@@ -35,5 +33,10 @@ export const submitUser = async (data: SignupFormTypes) => {
   };
 
   const response = await apiClient.post("/users/", formData);
+  return response;
+};
+
+export const loginUser = async (data: LoginFormTypes) => {
+  const response = await apiClient.post("/login/", data);
   return response;
 };

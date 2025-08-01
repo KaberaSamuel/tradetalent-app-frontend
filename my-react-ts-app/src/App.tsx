@@ -1,7 +1,5 @@
-import { Navigate } from "react-router-dom";
-
 const App = () => {
-  return <Navigate to="/public" />;
+  return <div>Welcome to the home page</div>;
 };
 
 export default App;

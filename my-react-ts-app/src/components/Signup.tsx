@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -42,7 +41,7 @@ const Signup = () => {
           errorData.username || errorData.email || "Validation error"
         );
       } else {
-        setMesssage("Internal Error. Refresh and try again");
+        setMesssage("Internal Server Error. Refresh and try again");
       }
     }
   };

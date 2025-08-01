@@ -66,7 +66,7 @@ const MessagesContainer = ({ message, setMessage }: MessageContainerProps) => {
           <div
             ref={messageContainerRef}
             onClick={() => setMessage("")}
-            className="py-3 px-4 bg-red-600 text-white text-left leading-tight flex items-start rounded-lg"
+            className="py-2.5 px-4 bg-red-600 text-white text-left leading-tight flex items-start rounded-lg"
           >
             <MessageIcon isSmall={isSmall} />
             <p>{message}</p>
