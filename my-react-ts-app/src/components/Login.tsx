@@ -1,44 +1,25 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
+import { useAuth } from "../hooks/AuthProvider";
 import type { LoginFormTypes } from "../App.types";
-import { loginUser } from "../api";
 import MessagesContainer from "./MessageContainer";
 
 const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-
-  // message to show to user after a failed operation
   const [message, setMesssage] = useState("");
 
-  const navigate = useNavigate();
+  const auth = useAuth();
   const { register, handleSubmit } = useForm<LoginFormTypes>();
-
-  const onSubmit = async (data: LoginFormTypes): Promise<void> => {
-    try {
-      const response = await loginUser(data);
-      if (response.status == 200) {
-        navigate("/");
-      }
-    } catch (error: any) {
-      console.log(error);
-      if (error.response?.status === 400) {
-        const errorData = error.response.data;
-        setMesssage(errorData.error || "Invalid email or password");
-      } else {
-        setMesssage("Internal Server Error. Refresh and try again");
-      }
-    }
-  };
 
   return (
     <div className="h-screen text-neutral-500 text-center flex justify-center items-center">
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(auth!.loginAction)}
         className="w-[560px] py-10 px-8 bg-neutral-50 flex flex-col gap-4 border border-neutral-200  rounded-2xl [&_p]:text-left [&_p]:text-black [&_p]:mb-2 [&_input]:w-full [&_input]:bg-neutral-100 [&_input]:border [&_input]:border-neutral-200 [&_input]:py-2 [&_input]:px-3 [&_input]:text-black [&_input]:placeholder-gray-500 [&_input]:rounded-xl"
       >
         <h1 className="text-black text-3xl font-semibold">

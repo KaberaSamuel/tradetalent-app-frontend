@@ -1,5 +1,4 @@
-export interface User {
-  id: number;
+export interface UserTypes {
   fullname: string;
   email: string;
   password: string;
@@ -15,4 +14,10 @@ export interface SignupFormTypes {
 export interface LoginFormTypes {
   email: string;
   password: string;
+  token?: string;
+}
+
+export interface TokenTypes {
+  refresh: string;
+  access: string
 }

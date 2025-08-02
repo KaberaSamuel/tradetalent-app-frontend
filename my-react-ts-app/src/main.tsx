@@ -1,31 +1,12 @@
+// main.tsx
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.css";
-import App from "./App";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import WelcomePage from "./components/Welcome";
+import { BrowserRouter } from "react-router-dom";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
-  },
-  {
-    path: "/public",
-    element: <WelcomePage />,
-  },
-]);
+import "./index.css";
+import AppRouter from "./AppRouter";
+import AuthProvider from "./hooks/AuthProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,7 +22,11 @@ const container = document.getElementById("root") as HTMLElement;
 ReactDOM.createRoot(container).render(
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <AuthProvider>
+          <AppRouter />
+        </AuthProvider>
+      </BrowserRouter>
     </React.StrictMode>
   </QueryClientProvider>
 );
