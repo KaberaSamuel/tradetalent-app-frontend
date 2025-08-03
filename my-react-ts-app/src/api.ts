@@ -5,16 +5,22 @@ const apiClient = axios.create({
   baseURL: "http://127.0.0.1:8000/api",
 });
 
-export const fetchToken = async () => {
-  const response = await apiClient.post("/token/", {
-    email: "sam@gmail.com",
-    password: "sam",
-  });
+export const fetchToken = async (formData: LoginFormTypes) => {
+  const response = await apiClient.post("/token/", formData);
   return response;
 };
 
 export const fetchUsers = async (): Promise<UserTypes[]> => {
-  const response = await apiClient.get("/users");
+  const response = await apiClient.get("/users/");
+  return response.data;
+};
+
+export const fetchUser = async (token: string): Promise<UserTypes> => {
+  const response = await apiClient.get("/home/", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };
 

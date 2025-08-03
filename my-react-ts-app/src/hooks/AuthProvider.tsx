@@ -1,13 +1,13 @@
 // AuthProvider.tsx (updated)
 import { useContext, createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser, fetchToken } from "../api";
+import { loginUser, fetchToken, fetchUser } from "../api";
 
 import type { ReactNode } from "react";
 import type { UserTypes, LoginFormTypes } from "../App.types";
 
 interface AuthContextType {
-  token: string;
+  accessToken: string;
   user: UserTypes | null;
   loginAction: (data: LoginFormTypes) => Promise<void>;
   logOut: () => void;
@@ -20,41 +20,37 @@ interface AuthProviderProps {
 }
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("site") || "");
+  const [user, setUser] = useState<UserTypes | null>(null);
+  const [accessToken, setToken] = useState(localStorage.getItem("site") || "");
 
   const navigate = useNavigate();
 
-  // Initialize token from localStorage/server on mount
-  useEffect(() => {
-    const storedToken = localStorage.getItem("site");
-    if (storedToken) {
-      setToken(storedToken);
-    }
-    {
-      const getToken = async () => {
-        const response = await fetchToken();
-
-        if (response.status === 200) {
-          setToken(response.data?.access || "");
-        }
-      };
-
-      getToken();
-    }
-  }, []);
-
-  const loginAction = async (data: LoginFormTypes): Promise<void> => {
+  // get access token after login
+  const getToken = async (formData: LoginFormTypes) => {
     try {
-      // adding auth token to the form data
-      if (token) {
-        data.token = token;
-      }
+      if (!formData || !formData?.email || !formData?.password) {
+        return;
+      } else {
+        const response = await fetchToken(formData);
+        if (response.status != 400) {
+          setToken(response.data?.access || "");
 
-      const response = await loginUser(data);
+          // fetching user data with token
+          const data = await fetchUser(response.data.access);
+          console.log(data);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const loginAction = async (formData: LoginFormTypes): Promise<void> => {
+    try {
+      const response = await loginUser(formData);
       if (response.status === 200) {
         setUser(response.data.user);
-        setToken(response.data.token);
+        await getToken(formData);
         navigate("/");
       }
     } catch (error: any) {
@@ -70,8 +66,16 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     navigate("/login");
   };
 
+  // updated stored token on the local storage
+  useEffect(() => {
+    const storedToken = localStorage.getItem("site");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, [accessToken]);
+
   return (
-    <AuthContext.Provider value={{ token, user, loginAction, logOut }}>
+    <AuthContext.Provider value={{ accessToken, user, loginAction, logOut }}>
       {children}
     </AuthContext.Provider>
   );

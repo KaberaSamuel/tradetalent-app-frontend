@@ -5,7 +5,7 @@ import { useAuth } from "../hooks/AuthProvider";
 const PrivateRoute = () => {
   const auth = useAuth();
 
-  if (auth?.token) {
+  if (auth?.accessToken) {
     return <Outlet />;
   }
   return <Navigate to="/login" replace />;
