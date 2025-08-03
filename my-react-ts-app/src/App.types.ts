@@ -1,6 +1,6 @@
 export interface UserTypes {
-  fullname: string;
-  email: string;
+  first_name: string;
+  last_name: string;
   password: string;
 }
 
@@ -19,5 +19,5 @@ export interface LoginFormTypes {
 
 export interface TokenTypes {
   refresh: string;
-  access: string
+  access: string;
 }

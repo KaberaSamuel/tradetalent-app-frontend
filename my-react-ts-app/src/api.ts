@@ -15,13 +15,20 @@ export const fetchUsers = async (): Promise<UserTypes[]> => {
   return response.data;
 };
 
-export const fetchUser = async (token: string): Promise<UserTypes> => {
+export const fetchUser = async (
+  token: string
+): Promise<{ user: UserTypes } | null> => {
   const response = await apiClient.get("/home/", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  return response.data;
+
+  if (response.status == 200) {
+    return response.data;
+  }
+
+  return null;
 };
 
 export const submitUser = async (data: SignupFormTypes) => {

@@ -32,12 +32,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         return;
       } else {
         const response = await fetchToken(formData);
-        if (response.status != 400) {
+        if (response.status === 200) {
           setToken(response.data?.access || "");
-
-          // fetching user data with token
-          const data = await fetchUser(response.data.access);
-          console.log(data);
         }
       }
     } catch (error) {
@@ -45,12 +41,13 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  // login user using form data
   const loginAction = async (formData: LoginFormTypes): Promise<void> => {
     try {
       const response = await loginUser(formData);
       if (response.status === 200) {
-        setUser(response.data.user);
         await getToken(formData);
+        setUser(response.data.user);
         navigate("/");
       }
     } catch (error: any) {
@@ -60,18 +57,35 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  // logout and clear token and user variables
   const logOut = () => {
     setUser(null);
     setToken("");
     navigate("/login");
   };
 
-  // updated stored token on the local storage
+  // get user data on page load (if stored token is valid)
   useEffect(() => {
-    const storedToken = localStorage.getItem("site");
-    if (storedToken) {
-      setToken(storedToken);
+    if (accessToken) {
+      (async () => {
+        try {
+          const data = await fetchUser(accessToken);
+          if (data?.user) {
+            setUser(data.user);
+            return;
+          }
+          // clearing token as it is invalid
+          setToken("");
+        } catch (error) {
+          setToken("");
+        }
+      })();
     }
+  }, []);
+
+  // update stored token on the local storage
+  useEffect(() => {
+    localStorage.setItem("site", accessToken);
   }, [accessToken]);
 
   return (
