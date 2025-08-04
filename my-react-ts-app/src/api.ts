@@ -5,8 +5,17 @@ const apiClient = axios.create({
   baseURL: "http://127.0.0.1:8000/api",
 });
 
-export const fetchToken = async (formData: LoginFormTypes) => {
+export const fetchAcessToken = async (formData: LoginFormTypes) => {
   const response = await apiClient.post("/token/", formData);
+  return response;
+};
+
+// get new access token, when existing one have expired
+export const fetchNewToken = async (refreshToken: string) => {
+  const response = await apiClient.post("/token/refresh/", {
+    refresh: refreshToken,
+  });
+
   return response;
 };
 
@@ -15,23 +24,17 @@ export const fetchUsers = async (): Promise<UserTypes[]> => {
   return response.data;
 };
 
-export const fetchUser = async (
-  token: string
-): Promise<{ user: UserTypes } | null> => {
+export const fetchUser = async (token: string) => {
   const response = await apiClient.get("/home/", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
-  if (response.status == 200) {
-    return response.data;
-  }
-
-  return null;
+  return response;
 };
 
-export const submitUser = async (data: SignupFormTypes) => {
+export const registerUser = async (data: SignupFormTypes) => {
   const { fullname, email, password1: password } = data;
 
   const names = fullname.split(" ");

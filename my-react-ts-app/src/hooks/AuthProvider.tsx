@@ -1,7 +1,6 @@
-// AuthProvider.tsx (updated)
 import { useContext, createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser, fetchToken, fetchUser } from "../api";
+import { loginUser, fetchAcessToken, fetchNewToken, fetchUser } from "../api";
 
 import type { ReactNode } from "react";
 import type { UserTypes, LoginFormTypes } from "../App.types";
@@ -21,23 +20,58 @@ interface AuthProviderProps {
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<UserTypes | null>(null);
-  const [accessToken, setToken] = useState(localStorage.getItem("site") || "");
+  const [accessToken, setAccessToken] = useState(
+    localStorage.getItem("site") || ""
+  );
+  const [refreshToken, setRefreshToken] = useState(
+    localStorage.getItem("refresh") || ""
+  );
 
   const navigate = useNavigate();
 
+  // get userdata and update variables on page load
+  const getDataOnLoad = async () => {
+    if (accessToken) {
+      try {
+        const response = await fetchUser(accessToken);
+        setUser(response.data.user);
+      } catch (error) {
+        console.log("Error fetchin access token:", error);
+        // Try to refresh token if available
+        if (refreshToken) {
+          try {
+            const newTokenResponse = await fetchNewToken(refreshToken);
+            setAccessToken(newTokenResponse.data.access);
+          } catch (refreshError) {
+            console.log("Error refreshing token:", refreshError);
+            // Clear tokens since they are invalid
+            setAccessToken("");
+            setRefreshToken("");
+            localStorage.removeItem("site");
+            localStorage.removeItem("refresh");
+          }
+        } else {
+          // Clear tokens since they are invalid
+          setAccessToken("");
+          setRefreshToken("");
+          localStorage.removeItem("site");
+          localStorage.removeItem("refresh");
+        }
+      }
+    }
+  };
+
   // get access token after login
-  const getToken = async (formData: LoginFormTypes) => {
+  const getAccessToken = async (formData: LoginFormTypes) => {
     try {
       if (!formData || !formData?.email || !formData?.password) {
         return;
-      } else {
-        const response = await fetchToken(formData);
-        if (response.status === 200) {
-          setToken(response.data?.access || "");
-        }
       }
+      const response = await fetchAcessToken(formData);
+      setAccessToken(response.data.access);
+      setRefreshToken(response.data.refresh);
     } catch (error) {
-      console.log(error);
+      console.log("Error getting access token:", error);
     }
   };
 
@@ -46,47 +80,41 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     try {
       const response = await loginUser(formData);
       if (response.status === 200) {
-        await getToken(formData);
+        await getAccessToken(formData);
         setUser(response.data.user);
         navigate("/");
       }
     } catch (error: any) {
-      console.log(error);
+      console.log("Login error:", error);
       setUser(null);
-      setToken("");
+      setAccessToken("");
     }
   };
 
   // logout and clear token and user variables
   const logOut = () => {
     setUser(null);
-    setToken("");
+    setAccessToken("");
+    setRefreshToken("");
+    localStorage.removeItem("site");
+    localStorage.removeItem("refresh");
     navigate("/login");
   };
 
-  // get user data on page load (if stored token is valid)
+  // get user data on page load (if stored tokens are valid)
+  useEffect(() => {
+    getDataOnLoad();
+  }, [accessToken]);
+
+  // update stored tokens on the local storage
   useEffect(() => {
     if (accessToken) {
-      (async () => {
-        try {
-          const data = await fetchUser(accessToken);
-          if (data?.user) {
-            setUser(data.user);
-            return;
-          }
-          // clearing token as it is invalid
-          setToken("");
-        } catch (error) {
-          setToken("");
-        }
-      })();
+      localStorage.setItem("site", accessToken);
     }
-  }, []);
-
-  // update stored token on the local storage
-  useEffect(() => {
-    localStorage.setItem("site", accessToken);
-  }, [accessToken]);
+    if (refreshToken) {
+      localStorage.setItem("refresh", refreshToken);
+    }
+  }, [accessToken, refreshToken]);
 
   return (
     <AuthContext.Provider value={{ accessToken, user, loginAction, logOut }}>
@@ -96,7 +124,11 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 };
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 };
 
 export default AuthProvider;

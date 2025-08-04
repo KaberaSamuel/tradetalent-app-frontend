@@ -6,7 +6,7 @@ import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import type { SignupFormTypes } from "../App.types";
-import { submitUser } from "../api";
+import { registerUser } from "../api";
 import MessagesContainer from "./MessageContainer";
 
 const Signup = () => {
@@ -27,7 +27,7 @@ const Signup = () => {
         return;
       }
 
-      const response = await submitUser(data);
+      const response = await registerUser(data);
       if (response.status == 201) {
         navigate("/login");
       } else {
