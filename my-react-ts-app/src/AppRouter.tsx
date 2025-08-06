@@ -5,7 +5,6 @@ import Signup from "./components/Signup";
 import WelcomePage from "./components/Welcome";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
-import UserPage from "./components/user";
 
 const AppRouter = () => {
   return (
@@ -14,7 +13,6 @@ const AppRouter = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/public" element={<WelcomePage />} />
-        <Route path="/user" element={<UserPage />} />
       </Route>
 
       <Route element={<PrivateRoute />}>

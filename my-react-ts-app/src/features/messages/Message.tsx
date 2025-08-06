@@ -1,12 +1,9 @@
 import Icon from "@mdi/react";
-import { useEffect, useRef, useState } from "react";
 import { mdiAlertCircleOutline } from "@mdi/js";
 import { motion, AnimatePresence } from "framer-motion";
-
-interface MessageContainerProps {
-  message: string;
-  setMessage: (string: string) => void;
-}
+import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
+import { messageSelector, setMessage } from "./messageSlice";
+import { useEffect } from "react";
 
 const MessageIcon = ({ isSmall }: { isSmall: boolean }) => {
   return (
@@ -23,24 +20,15 @@ const MessageIcon = ({ isSmall }: { isSmall: boolean }) => {
 };
 
 // container for showing important messages (like errors or completed actions) to user
-const MessagesContainer = ({ message, setMessage }: MessageContainerProps) => {
-  const messageContainerRef = useRef<HTMLDivElement>(null);
-  const [isSmall, setSmall] = useState(true);
+const MessagePopup = () => {
+  const message = useAppSelector(messageSelector);
+  const dispatch = useAppDispatch();
 
+  // clearing message after one second after rendering
   useEffect(() => {
-    // updating element width
-    if (messageContainerRef.current) {
-      setSmall(
-        messageContainerRef.current.getBoundingClientRect().width < 400
-          ? true
-          : false
-      );
-    }
-
     const timer = setTimeout(() => {
-      // resetting relevant variables
       setMessage("");
-      setSmall(true);
+      dispatch(setMessage(""));
     }, 3000);
 
     return () => {
@@ -64,11 +52,10 @@ const MessagesContainer = ({ message, setMessage }: MessageContainerProps) => {
           transition={{ duration: 0.3 }}
         >
           <div
-            ref={messageContainerRef}
             onClick={() => setMessage("")}
             className="py-2.5 px-4 bg-red-600 text-white text-left leading-tight flex items-start rounded-lg"
           >
-            <MessageIcon isSmall={isSmall} />
+            <MessageIcon isSmall={message.length <= 50} />
             <p>{message}</p>
           </div>
         </motion.div>
@@ -77,4 +64,4 @@ const MessagesContainer = ({ message, setMessage }: MessageContainerProps) => {
   );
 };
 
-export default MessagesContainer;
+export default MessagePopup;

@@ -7,7 +7,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import { useAuth } from "../hooks/AuthProvider";
 import type { LoginFormTypes } from "../App.types";
-import MessagesContainer from "./MessageContainer";
+import MessagesContainer from "../features/messages/Message";
 
 const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);

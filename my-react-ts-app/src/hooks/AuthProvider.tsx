@@ -1,9 +1,11 @@
+import type { ReactNode } from "react";
 import { useContext, createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser, fetchAcessToken, fetchNewToken, fetchUser } from "../api";
 
-import type { ReactNode } from "react";
+import { loginUser, fetchAcessToken, fetchNewToken, fetchUser } from "../api";
 import type { UserTypes, LoginFormTypes } from "../App.types";
+import { useAppDispatch } from "../hooks/reduxHooks";
+import { setMessage } from "../features/messages/messageSlice";
 
 interface AuthContextType {
   accessToken: string;
@@ -28,6 +30,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   );
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   // get userdata and update variables on page load
   const getDataOnLoad = async () => {
@@ -86,6 +89,12 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       }
     } catch (error: any) {
       console.log("Login error:", error);
+      dispatch(
+        setMessage(
+          error?.response?.data?.error ||
+            "Internal server error. Refresh and try again"
+        )
+      );
       setUser(null);
       setAccessToken("");
     }

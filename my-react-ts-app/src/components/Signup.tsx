@@ -1,29 +1,29 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
+import { useAppDispatch } from "../hooks/reduxHooks";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import type { SignupFormTypes } from "../App.types";
 import { registerUser } from "../api";
-import MessagesContainer from "./MessageContainer";
+import { setMessage } from "../features/messages/messageSlice";
 
 const Signup = () => {
   const [passwordVisibility1, setPasswordVisibility1] = useState(false);
   const [passwordVisibility2, setPasswordVisibility2] = useState(false);
 
-  // message to show to user after a failed operation
-  const [message, setMesssage] = useState("");
-
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm<SignupFormTypes>();
 
   const onSubmit = async (data: SignupFormTypes): Promise<void> => {
     try {
       const { password1, password2 } = data;
       if (password1 !== password2) {
-        setMesssage("Passwords don't match");
+        dispatch(setMessage("Passwords don't match"));
         return;
       }
 
@@ -31,17 +31,19 @@ const Signup = () => {
       if (response.status == 201) {
         navigate("/login");
       } else {
-        setMesssage("Failed to register, try again");
+        dispatch(setMessage("Failed to register, try again"));
       }
     } catch (error: any) {
       console.log(error);
       if (error.response?.status === 400) {
         const errorData = error.response.data;
-        setMesssage(
-          errorData.username || errorData.email || "Validation error"
+        dispatch(
+          setMessage(
+            errorData.username || errorData.email || "Validation error"
+          )
         );
       } else {
-        setMesssage("Internal Server Error. Refresh and try again");
+        dispatch(setMessage("Internal Server Error. Refresh and try again"));
       }
     }
   };
@@ -118,8 +120,6 @@ const Signup = () => {
           </Link>
         </div>
       </form>
-
-      <MessagesContainer message={message} setMessage={setMesssage} />
     </div>
   );
 };
