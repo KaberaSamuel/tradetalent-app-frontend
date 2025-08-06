@@ -21,3 +21,10 @@ export interface TokenTypes {
   refresh: string;
   access: string;
 }
+
+// redux tut
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+}

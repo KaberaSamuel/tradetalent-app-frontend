@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import "./index.css";
+import { store } from "./store";
 import AppRouter from "./AppRouter";
 import AuthProvider from "./hooks/AuthProvider";
 
@@ -19,13 +21,15 @@ const queryClient = new QueryClient({
 const container = document.getElementById("root") as HTMLElement;
 
 ReactDOM.createRoot(container).render(
-  <QueryClientProvider client={queryClient}>
-    <React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
       <BrowserRouter>
-        <AuthProvider>
-          <AppRouter />
-        </AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <AppRouter />
+          </AuthProvider>
+        </QueryClientProvider>
       </BrowserRouter>
-    </React.StrictMode>
-  </QueryClientProvider>
+    </Provider>
+  </React.StrictMode>
 );
