@@ -1,10 +1,11 @@
 import axios from "axios";
-import type { UserTypes, SignupFormTypes, LoginFormTypes } from "./App.types";
+import type { SignupFormTypes, LoginFormTypes } from "./App.types";
 
 const apiClient = axios.create({
   baseURL: "http://127.0.0.1:8000/api",
 });
 
+// getch access token after login
 export const fetchAcessToken = async (formData: LoginFormTypes) => {
   const response = await apiClient.post("/token/", formData);
   return response;
@@ -19,19 +20,39 @@ export const fetchNewToken = async (refreshToken: string) => {
   return response;
 };
 
-export const fetchUsers = async (): Promise<UserTypes[]> => {
-  const response = await apiClient.get("/users/");
-  return response.data;
-};
+// fetch user data on page load using access token
+export const fetchUser = async (accessToken: string, refreshToken: string) => {
+  try {
+    const response = await apiClient.get("/home/", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
-export const fetchUser = async (token: string) => {
-  const response = await apiClient.get("/home/", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+    return response;
+  } catch (error) {
+    console.log(error);
+    // fetch user again with refresh token
+    try {
+      const tokenResponse = await apiClient.post("/token/refresh/", {
+        refresh: refreshToken,
+      });
 
-  return response;
+      const userResponse = await apiClient.get("/home/", {
+        headers: {
+          Authorization: `Bearer ${tokenResponse.data.access}`,
+        },
+      });
+
+      console.log(userResponse);
+
+      return userResponse;
+    } catch (error) {
+      console.log(error);
+
+      // return {data:}
+    }
+  }
 };
 
 export const registerUser = async (data: SignupFormTypes) => {
