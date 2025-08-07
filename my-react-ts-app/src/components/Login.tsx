@@ -22,7 +22,7 @@ const Login = () => {
   const onSubmit = async (data: LoginFormTypes): Promise<void> => {
     try {
       const userResponse = await loginUser(data);
-      dispatch(updateUser(userResponse.data));
+      dispatch(updateUser(userResponse.data.user));
 
       const tokenResponse = await fetchAcessToken(data);
       dispatch(updateTokens(tokenResponse.data));

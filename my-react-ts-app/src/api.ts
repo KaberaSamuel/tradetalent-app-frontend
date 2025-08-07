@@ -11,15 +11,6 @@ export const fetchAcessToken = async (formData: LoginFormTypes) => {
   return response;
 };
 
-// get new access token, when existing one have expired
-export const fetchNewToken = async (refreshToken: string) => {
-  const response = await apiClient.post("/token/refresh/", {
-    refresh: refreshToken,
-  });
-
-  return response;
-};
-
 // fetch user data on page load using access token
 export const fetchUser = async (accessToken: string, refreshToken: string) => {
   try {
@@ -31,7 +22,6 @@ export const fetchUser = async (accessToken: string, refreshToken: string) => {
 
     return response;
   } catch (error) {
-    console.log(error);
     // fetch user again with refresh token
     try {
       const tokenResponse = await apiClient.post("/token/refresh/", {
@@ -43,8 +33,6 @@ export const fetchUser = async (accessToken: string, refreshToken: string) => {
           Authorization: `Bearer ${tokenResponse.data.access}`,
         },
       });
-
-      console.log(userResponse);
 
       return userResponse;
     } catch (error) {
@@ -83,5 +71,17 @@ export const registerUser = async (data: SignupFormTypes) => {
 
 export const loginUser = async (data: LoginFormTypes) => {
   const response = await apiClient.post("/login/", data);
+  return response;
+};
+
+export const logoutUser = async (accessToken: string, refreshToken: string) => {
+  const response = await apiClient.post("/logout/", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: {
+      refresh: refreshToken,
+    },
+  });
   return response;
 };
