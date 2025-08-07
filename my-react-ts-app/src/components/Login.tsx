@@ -1,25 +1,52 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-import { useAuth } from "../hooks/AuthProvider";
+import { useAppDispatch } from "../hooks/reduxHooks";
+import { updateTokens, updateUser } from "../features/auth/authSlice";
+import { updateMessage } from "../features/messages/messageSlice";
+
+import { fetchAcessToken, loginUser } from "../api";
 import type { LoginFormTypes } from "../App.types";
-import MessagesContainer from "../features/messages/Message";
 
 const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const [message, setMesssage] = useState("");
 
-  const auth = useAuth();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm<LoginFormTypes>();
+
+  const onSubmit = async (data: LoginFormTypes): Promise<void> => {
+    try {
+      const userResponse = await loginUser(data);
+      dispatch(updateUser(userResponse.data));
+
+      const tokenResponse = await fetchAcessToken(data);
+      dispatch(updateTokens(tokenResponse.data));
+
+      // update tokens on localstorage
+      localStorage.setItem("access", tokenResponse.data.access);
+      localStorage.setItem("refresh", tokenResponse.data.refresh);
+
+      // redirecting user to home page
+      navigate("/");
+    } catch (error: any) {
+      console.log(error);
+      dispatch(
+        updateMessage(
+          error.response?.data?.error || "Internal error. Refresh and try again"
+        )
+      );
+    }
+  };
 
   return (
     <div className="h-screen text-neutral-500 text-center flex justify-center items-center">
       <form
-        onSubmit={handleSubmit(auth!.loginAction)}
+        onSubmit={handleSubmit(onSubmit)}
         className="w-[560px] py-10 px-8 bg-neutral-50 flex flex-col gap-4 border border-neutral-200  rounded-2xl [&_p]:text-left [&_p]:text-black [&_p]:mb-2 [&_input]:w-full [&_input]:bg-neutral-100 [&_input]:border [&_input]:border-neutral-200 [&_input]:py-2 [&_input]:px-3 [&_input]:text-black [&_input]:placeholder-gray-500 [&_input]:rounded-xl"
       >
         <h1 className="text-black text-3xl font-semibold">
@@ -67,8 +94,6 @@ const Login = () => {
           <span>Don't have an account ?</span> <Link to="/signup">Sign Up</Link>
         </div>
       </form>
-
-      <MessagesContainer message={message} setMessage={setMesssage} />
     </div>
   );
 };

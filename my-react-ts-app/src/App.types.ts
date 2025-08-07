@@ -1,7 +1,7 @@
 export interface UserTypes {
   first_name: string;
   last_name: string;
-  password: string;
+  email: string;
 }
 
 export interface SignupFormTypes {
@@ -20,11 +20,4 @@ export interface LoginFormTypes {
 export interface TokenTypes {
   refresh: string;
   access: string;
-}
-
-// redux tut
-export interface User {
-  id: string;
-  name: string;
-  email: string;
 }

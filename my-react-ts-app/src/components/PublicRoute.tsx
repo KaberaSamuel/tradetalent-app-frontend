@@ -1,11 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../hooks/AuthProvider";
 import MessagePopup from "../features/messages/Message";
+import { useAppSelector } from "../hooks/reduxHooks";
+import { authSelector } from "../features/auth/authSlice";
 
 const PublicRoute = () => {
-  const auth = useAuth();
+  const auth = useAppSelector(authSelector);
 
-  if (!auth?.accessToken) {
+  if (!auth.token.access) {
     return (
       <div>
         <Outlet />

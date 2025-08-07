@@ -7,7 +7,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import { store } from "./store";
 import AppRouter from "./AppRouter";
-import AuthProvider from "./hooks/AuthProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,9 +24,7 @@ ReactDOM.createRoot(container).render(
     <Provider store={store}>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <AppRouter />
-          </AuthProvider>
+          <AppRouter />
         </QueryClientProvider>
       </BrowserRouter>
     </Provider>

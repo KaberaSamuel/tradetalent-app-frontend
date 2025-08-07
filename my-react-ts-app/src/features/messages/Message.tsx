@@ -2,7 +2,7 @@ import Icon from "@mdi/react";
 import { mdiAlertCircleOutline } from "@mdi/js";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
-import { messageSelector, setMessage } from "./messageSlice";
+import { messageSelector, clearMessage } from "./messageSlice";
 import { useEffect } from "react";
 
 const MessageIcon = ({ isSmall }: { isSmall: boolean }) => {
@@ -27,8 +27,7 @@ const MessagePopup = () => {
   // clearing message after one second after rendering
   useEffect(() => {
     const timer = setTimeout(() => {
-      setMessage("");
-      dispatch(setMessage(""));
+      dispatch(clearMessage());
     }, 3000);
 
     return () => {
@@ -52,7 +51,7 @@ const MessagePopup = () => {
           transition={{ duration: 0.3 }}
         >
           <div
-            onClick={() => setMessage("")}
+            onClick={() => clearMessage()}
             className="py-2.5 px-4 bg-red-600 text-white text-left leading-tight flex items-start rounded-lg"
           >
             <MessageIcon isSmall={message.length <= 50} />
