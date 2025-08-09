@@ -9,9 +9,9 @@ import {
   mdiPlusCircleOutline,
 } from "@mdi/js";
 
-const Sidebar = () => {
+const NavBar = () => {
   return (
-    <div className="w-[21vw] min-h-screen p-4 border-r-2 border-neutral-200">
+    <div className="w-[30vw] min-h-screen p-4 border-r-1 border-neutral-300">
       <div className="mb-8">
         <Link to="/" className="text-xl font-semibold">
           TradeTalentApp
@@ -48,4 +48,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default NavBar;

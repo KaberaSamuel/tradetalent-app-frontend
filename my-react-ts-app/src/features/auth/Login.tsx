@@ -7,7 +7,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import { useAppDispatch } from "../../hooks/reduxHooks";
 import { updateTokens, updateUser } from "./authSlice";
-import { updateMessage } from "../messages/messageSlice";
+import { updateMessage } from "../popups/messageSlicePopUp";
 
 import { fetchAcessToken, loginUser } from "../../api";
 import type { LoginFormTypes } from "../../App.types";

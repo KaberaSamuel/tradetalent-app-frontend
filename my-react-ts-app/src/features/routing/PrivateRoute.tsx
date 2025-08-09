@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import MessagePopup from "../messages/Message";
+import MessagePopup from "../popups/MessagePopUp";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { authSelector, updateTokens, updateUser } from "../auth/authSlice";
 import { fetchUser } from "../../api";

@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import MessagePopup from "../messages/Message";
+import MessagePopup from "../popups/MessagePopUp";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { authSelector } from "../auth/authSlice";
 

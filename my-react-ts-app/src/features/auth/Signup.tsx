@@ -9,7 +9,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import type { SignupFormTypes } from "../../App.types";
 import { registerUser } from "../../api";
-import { updateMessage } from "../messages/messageSlice";
+import { updateMessage } from "../popups/messageSlicePopUp";
 
 const Signup = () => {
   const [passwordVisibility1, setPasswordVisibility1] = useState(false);

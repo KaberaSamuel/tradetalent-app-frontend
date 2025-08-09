@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import messageReducer from "./features/messages/messageSlice";
+import messageReducer from "./features/popups/messageSlicePopUp";
 import authReducer from "./features/auth/authSlice";
 
 export const store = configureStore({
