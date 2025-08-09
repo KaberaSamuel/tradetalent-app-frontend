@@ -13,11 +13,11 @@ const TopBar = () => {
         <input
           type="text"
           placeholder="Search skills, needs or users"
-          className="w-100 py-1.5 px-10 bg-neutral-100 border border-neutral-300 rounded-lg"
+          className="w-120 py-1.5 px-10 bg-neutral-100 border border-neutral-300 rounded-lg"
         />
       </form>
 
-      <div className="flex gap-3">
+      <div className="flex gap-4">
         <div className="w-10 h-10 bg-neutral-200 text-neutral-500 rounded-full flex justify-center items-center">
           <Icon path={mdiBellOutline} size={1} />
         </div>

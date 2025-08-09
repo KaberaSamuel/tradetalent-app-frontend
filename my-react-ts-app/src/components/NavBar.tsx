@@ -18,7 +18,7 @@ const NavBar = () => {
         </Link>
       </div>
 
-      <div className="flex flex-col gap-2 text-neutral-700 [&>*]:p-2.5 [&>*]:rounded-md [&>*]:flex [&>*]:gap-2 [&>*]:items-center">
+      <div className="flex flex-col gap-2 text-neutral-700 [&>*]:py-2.5 [&>*]:px-3  [&>*]:rounded-xl [&>*]:flex [&>*]:gap-2 [&>*]:items-center">
         <div className="text-black bg-neutral-200">
           <Icon path={mdiViewDashboardOutline} size={1} />
           <p>Dashboard</p>

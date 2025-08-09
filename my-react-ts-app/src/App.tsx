@@ -5,6 +5,7 @@ import { logoutUser } from "./api";
 
 import NavBar from "./components/NavBar";
 import TopBar from "./components/TopBar";
+import Home from "./components/Home";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +25,11 @@ const App = () => {
   return (
     <div className="flex">
       <NavBar />
-      <TopBar />
+
+      <div className="w-[100%]">
+        <TopBar />
+        <Home />
+      </div>
     </div>
   );
 };
