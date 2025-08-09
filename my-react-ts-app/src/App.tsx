@@ -1,11 +1,11 @@
 import { useAppDispatch, useAppSelector } from "./hooks/reduxHooks";
+import { Outlet } from "react-router-dom";
 import { clear } from "./features/auth/authSlice";
 import { authSelector } from "./features/auth/authSlice";
 import { logoutUser } from "./api";
 
 import NavBar from "./components/NavBar";
 import TopBar from "./components/TopBar";
-import Home from "./components/Home";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -28,7 +28,8 @@ const App = () => {
 
       <div className="w-[100%]">
         <TopBar />
-        <Home />
+
+        <Outlet />
       </div>
     </div>
   );

@@ -5,6 +5,15 @@ import Signup from "../auth/Signup";
 import WelcomePage from "../../components/Welcome";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
+import Home from "../../components/Home";
+
+const UnderDevelopment = () => {
+  return (
+    <div className="p-5 text-xl">
+      <p>The page is still in development</p>
+    </div>
+  );
+};
 
 const AppRouter = () => {
   return (
@@ -16,7 +25,10 @@ const AppRouter = () => {
       </Route>
 
       <Route element={<PrivateRoute />}>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<App />}>
+          <Route index element={<Home />} />
+          <Route path="*" element={<UnderDevelopment />} />
+        </Route>
       </Route>
     </Routes>
   );
