@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
-import { useAppDispatch } from "../hooks/reduxHooks";
+import { useAppDispatch } from "../../hooks/reduxHooks";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-import type { SignupFormTypes } from "../App.types";
-import { registerUser } from "../api";
-import { updateMessage } from "../features/messages/messageSlice";
+import type { SignupFormTypes } from "../../App.types";
+import { registerUser } from "../../api";
+import { updateMessage } from "../messages/messageSlice";
 
 const Signup = () => {
   const [passwordVisibility1, setPasswordVisibility1] = useState(false);

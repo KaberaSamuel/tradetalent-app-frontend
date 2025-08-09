@@ -1,13 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import MessagePopup from "../features/messages/Message";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import {
-  authSelector,
-  updateTokens,
-  updateUser,
-} from "../features/auth/authSlice";
-import { fetchUser } from "../api";
+import MessagePopup from "../messages/Message";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { authSelector, updateTokens, updateUser } from "../auth/authSlice";
+import { fetchUser } from "../../api";
 import { useEffect } from "react";
 
 const PrivateRoute = () => {

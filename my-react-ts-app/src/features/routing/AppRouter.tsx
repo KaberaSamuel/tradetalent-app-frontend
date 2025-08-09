@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import App from "./App";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import WelcomePage from "./components/Welcome";
-import PrivateRoute from "./components/PrivateRoute";
-import PublicRoute from "./components/PublicRoute";
+import App from "../../App";
+import Login from "../auth/Login";
+import Signup from "../auth/Signup";
+import WelcomePage from "../../components/Welcome";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 
 const AppRouter = () => {
   return (

@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import "./index.css";
 import { store } from "./store";
-import AppRouter from "./AppRouter";
+import AppRouter from "./features/routing/AppRouter";
 
 const queryClient = new QueryClient({
   defaultOptions: {
