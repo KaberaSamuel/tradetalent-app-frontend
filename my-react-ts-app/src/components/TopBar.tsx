@@ -24,7 +24,7 @@ const TopBar = () => {
 
         <div>
           <img
-            src="public/profile_picture.png"
+            src="/profile_picture.png"
             alt="profile picture"
             className="w-10 h-10 rounded-full"
           />
