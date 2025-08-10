@@ -2,7 +2,7 @@ import axios from "axios";
 import type { SignupFormTypes, LoginFormTypes } from "./App.types";
 
 const apiClient = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
+  baseURL: "http://127.0.0.1:8000/users",
 });
 
 // getch access token after login

@@ -36,7 +36,7 @@ const Welcome = () => {
 
 const Home = () => {
   return (
-    <div className="py-5 px-6 flex flex-col gap-10">
+    <div className="flex flex-col gap-10">
       <Welcome />
       <ActivityOverview />
     </div>

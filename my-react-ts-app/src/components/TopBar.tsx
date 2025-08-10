@@ -1,7 +1,13 @@
 import Icon from "@mdi/react";
 import { mdiMagnify, mdiBellOutline } from "@mdi/js";
+import { useAppSelector } from "../hooks/reduxHooks";
+import { authSelector } from "../features/auth/authSlice";
 
 const TopBar = () => {
+  const auth = useAppSelector(authSelector);
+  const usernameShortned =
+    auth.user.first_name.charAt(0) + auth.user.last_name.charAt(0);
+
   return (
     <div className="w-[100%] h-fit py-3 px-4 flex justify-between border-b-1 border-neutral-300">
       <form className="relative">
@@ -23,11 +29,15 @@ const TopBar = () => {
         </div>
 
         <div>
-          <img
+          {/* <img
             src="/profile_picture.png"
             alt="profile picture"
             className="w-10 h-10 rounded-full"
-          />
+          /> */}
+
+          <div className="w-10 h-10 bg-neutral-200 text-neutral-500 rounded-full flex justify-center items-center">
+            {usernameShortned}
+          </div>
         </div>
       </div>
     </div>

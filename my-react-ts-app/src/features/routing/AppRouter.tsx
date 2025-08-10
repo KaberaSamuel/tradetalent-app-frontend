@@ -1,16 +1,17 @@
 import { Routes, Route } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 import App from "../../App";
 import Login from "../auth/Login";
 import Signup from "../auth/Signup";
 import WelcomePage from "../../components/Welcome";
-import PrivateRoute from "./PrivateRoute";
-import PublicRoute from "./PublicRoute";
 import Home from "../../components/Home";
+import EditProfile from "../../components/EditProfile";
 
 const UnderDevelopment = () => {
   return (
-    <div className="p-5 text-xl">
-      <p>The page is still in development</p>
+    <div className="text-xl">
+      <p>This page is still in development</p>
     </div>
   );
 };
@@ -27,6 +28,7 @@ const AppRouter = () => {
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
+          <Route path="/profile/edit" element={<EditProfile />} />
           <Route path="*" element={<UnderDevelopment />} />
         </Route>
       </Route>

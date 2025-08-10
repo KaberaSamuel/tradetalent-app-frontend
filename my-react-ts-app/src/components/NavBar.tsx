@@ -43,7 +43,7 @@ const NavBar = () => {
         <Link
           to="/messages"
           onClick={() => setActiveTab("/messages")}
-          className={activeTab == "/messages" ? "active" : ""}
+          className={activeTab.startsWith("/messages") ? "active" : ""}
         >
           <Icon path={mdiMessageOutline} size={1} />
           <p>Messages</p>
@@ -52,7 +52,7 @@ const NavBar = () => {
         <Link
           to="/profile"
           onClick={() => setActiveTab("/profile")}
-          className={activeTab == "/profile" ? "active" : ""}
+          className={activeTab.startsWith("/profile") ? "active" : ""}
         >
           <Icon path={mdiAccountOutline} size={1} />
           <p>Profile</p>
@@ -61,7 +61,7 @@ const NavBar = () => {
         <Link
           to="/new"
           onClick={() => setActiveTab("/new")}
-          className={activeTab == "/new" ? "active" : ""}
+          className={activeTab.startsWith("/new") ? "active" : ""}
         >
           <Icon path={mdiPlusCircleOutline} size={1} />
           <p>Post a Skill/Need</p>
