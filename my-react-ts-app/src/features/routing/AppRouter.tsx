@@ -7,6 +7,7 @@ import Signup from "../auth/Signup";
 import WelcomePage from "../../components/Welcome";
 import Home from "../../components/Home";
 import EditProfile from "../../components/EditProfile";
+import Profile from "../../components/Profile";
 
 const UnderDevelopment = () => {
   return (
@@ -28,6 +29,7 @@ const AppRouter = () => {
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
           <Route path="*" element={<UnderDevelopment />} />
         </Route>

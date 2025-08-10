@@ -8,7 +8,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch } from "../../hooks/reduxHooks";
 import { updateTokens, updateUser } from "./authSlice";
 import { updateMessage } from "../popups/messageSlicePopUp";
-
+import { getNameInitials } from "../routing/PrivateRoute";
 import { fetchAcessToken, loginUser } from "./api";
 
 export interface LoginFormTypes {
@@ -27,7 +27,11 @@ const Login = () => {
   const onSubmit = async (data: LoginFormTypes): Promise<void> => {
     try {
       const userResponse = await loginUser(data);
-      dispatch(updateUser(userResponse.data.user));
+
+      // adding name initials to the user
+      const user = userResponse.data.user;
+      user.name_initials = getNameInitials(user);
+      dispatch(updateUser(user));
 
       const tokenResponse = await fetchAcessToken(data);
       dispatch(updateTokens(tokenResponse.data));

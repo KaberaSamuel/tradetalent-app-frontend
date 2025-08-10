@@ -1,5 +1,5 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-
 import Icon from "@mdi/react";
 import {
   mdiViewDashboardOutline,
@@ -8,13 +8,29 @@ import {
   mdiAccountOutline,
   mdiPlusCircleOutline,
 } from "@mdi/js";
-import { useState } from "react";
+
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { authSelector, clear } from "../features/auth/authSlice";
+import { logoutUser } from "../features/auth/api";
 
 const NavBar = () => {
   const [activeTab, setActiveTab] = useState(window.location.pathname);
+  const dispatch = useAppDispatch();
+  const auth = useAppSelector(authSelector);
+
+  const logout = async () => {
+    try {
+      await logoutUser(auth.token.access, auth.token.refresh);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(clear());
+      localStorage.clear();
+    }
+  };
 
   return (
-    <div className="w-[30vw] min-h-screen p-4 border-r-1 border-neutral-300 [&_.active]:text-black [&_.active]:bg-neutral-200">
+    <div className="relative w-[30vw] min-h-screen p-4 border-r-1 border-neutral-300 [&_.active]:text-black [&_.active]:bg-neutral-200">
       <div className="mb-8">
         <Link to="/" className="text-xl font-semibold">
           ServiceExchange
@@ -67,6 +83,10 @@ const NavBar = () => {
           <p>Post a Skill/Need</p>
         </Link>
       </div>
+
+      <button onClick={logout} className="absolute bottom-5 text-lg underline">
+        Logout
+      </button>
     </div>
   );
 };
