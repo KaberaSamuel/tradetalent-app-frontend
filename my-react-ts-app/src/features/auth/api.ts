@@ -1,5 +1,6 @@
 import axios from "axios";
-import type { SignupFormTypes, LoginFormTypes } from "./App.types";
+import type { LoginFormTypes } from "./Login";
+import type { SignupFormTypes } from "./Signup";
 
 const apiClient = axios.create({
   baseURL: "http://127.0.0.1:8000/users",
@@ -43,6 +44,18 @@ export const fetchUser = async (accessToken: string, refreshToken: string) => {
   }
 };
 
+export const editUser = async (accessToken: string) => {
+  const response = await apiClient.put("/home/", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: {
+      form_data: "",
+    },
+  });
+  return response;
+};
+
 export const registerUser = async (data: SignupFormTypes) => {
   const { fullname, email, password1: password } = data;
 
@@ -65,7 +78,7 @@ export const registerUser = async (data: SignupFormTypes) => {
     password,
   };
 
-  const response = await apiClient.post("/users/", formData);
+  const response = await apiClient.post("/register/", formData);
   return response;
 };
 

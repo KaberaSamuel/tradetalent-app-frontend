@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "./hooks/reduxHooks";
 import { Outlet } from "react-router-dom";
 import { clear } from "./features/auth/authSlice";
 import { authSelector } from "./features/auth/authSlice";
-import { logoutUser } from "./api";
+import { logoutUser } from "./features/auth/api";
 
 import NavBar from "./components/NavBar";
 import TopBar from "./components/TopBar";

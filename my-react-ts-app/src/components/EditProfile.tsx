@@ -107,7 +107,7 @@ function EditProfile() {
         </div>
 
         <div>
-          <p>Skills Offered (comma-separated)</p>
+          <p>Services Offered (comma-separated)</p>
           <input
             {...register("servicesOffered", { required: true })}
             type="text"
@@ -116,7 +116,7 @@ function EditProfile() {
         </div>
 
         <div>
-          <p>Skills Needed (comma-separated)</p>
+          <p>Services Needed (comma-separated)</p>
           <input
             {...register("servicesNeeded", { required: true })}
             type="text"

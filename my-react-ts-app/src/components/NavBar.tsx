@@ -17,7 +17,7 @@ const NavBar = () => {
     <div className="w-[30vw] min-h-screen p-4 border-r-1 border-neutral-300 [&_.active]:text-black [&_.active]:bg-neutral-200">
       <div className="mb-8">
         <Link to="/" className="text-xl font-semibold">
-          TradeTalentApp
+          ServiceExchange
         </Link>
       </div>
 

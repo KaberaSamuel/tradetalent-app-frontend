@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import MessagePopup from "../popups/MessagePopUp";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { authSelector, updateTokens, updateUser } from "../auth/authSlice";
-import { fetchUser } from "../../api";
+import { fetchUser } from "../auth/api";
 import { useEffect } from "react";
 
 const PrivateRoute = () => {

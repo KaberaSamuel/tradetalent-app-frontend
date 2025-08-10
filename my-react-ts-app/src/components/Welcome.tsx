@@ -5,7 +5,7 @@ const WelcomePage = () => {
     <div className="w-screen  flex justify-center">
       <div className="w-1/2 h-screen text-center flex flex-col justify-center items-center gap-9">
         <h1 className="text-5xl leading-tight font-semibold">
-          Exchange Skills, Grow Together
+          Exchange Services, Grow Together
         </h1>
         <p className="text-lg text-neutral-500">
           Connect with a community of talented individuals to share your

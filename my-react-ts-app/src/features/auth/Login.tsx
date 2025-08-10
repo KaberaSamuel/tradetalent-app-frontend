@@ -9,8 +9,13 @@ import { useAppDispatch } from "../../hooks/reduxHooks";
 import { updateTokens, updateUser } from "./authSlice";
 import { updateMessage } from "../popups/messageSlicePopUp";
 
-import { fetchAcessToken, loginUser } from "../../api";
-import type { LoginFormTypes } from "../../App.types";
+import { fetchAcessToken, loginUser } from "./api";
+
+export interface LoginFormTypes {
+  email: string;
+  password: string;
+  token?: string;
+}
 
 const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -50,7 +55,7 @@ const Login = () => {
         className="w-[560px] py-10 px-8 bg-neutral-50 flex flex-col gap-4 border border-neutral-200  rounded-2xl [&_p]:text-left [&_p]:text-black [&_p]:mb-2 [&_input]:w-full [&_input]:bg-neutral-100 [&_input]:border [&_input]:border-neutral-200 [&_input]:py-2 [&_input]:px-3 [&_input]:text-black [&_input]:placeholder-gray-500 [&_input]:rounded-xl"
       >
         <h1 className="text-black text-3xl font-semibold">
-          Login In to TradeTalent
+          Login In to ServiceExchange
         </h1>
 
         <div>
