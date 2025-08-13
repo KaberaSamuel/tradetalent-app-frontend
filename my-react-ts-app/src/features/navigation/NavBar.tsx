@@ -9,9 +9,9 @@ import {
   mdiPlusCircleOutline,
 } from "@mdi/js";
 
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import { authSelector, clear } from "../features/auth/authSlice";
-import { logoutUser } from "../features/auth/api";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { authSelector, clear } from "../auth/authSlice";
+import { logoutUser } from "../auth/api";
 
 const NavBar = () => {
   const [activeTab, setActiveTab] = useState(window.location.pathname);

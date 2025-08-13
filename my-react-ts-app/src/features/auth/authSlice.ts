@@ -11,6 +11,7 @@ interface InitialStateTypes {
 }
 
 const initialUser = {
+  name: "",
   first_name: "",
   email: "",
   location: "",
@@ -18,7 +19,7 @@ const initialUser = {
   name_initials: "",
   services_offered: "",
   services_needed: "",
-  profile_image: "",
+  profile_image: null,
 };
 
 const initialState: InitialStateTypes = {

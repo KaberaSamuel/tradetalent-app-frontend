@@ -71,7 +71,6 @@ const PrivateRoute = () => {
     }
 
     if (data) {
-      console.log(data);
       return (
         <div>
           <Outlet />

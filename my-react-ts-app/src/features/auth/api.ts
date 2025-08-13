@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { LoginFormTypes } from "./Login";
 import type { SignupFormTypes } from "./Signup";
-import type { EditFormTypes } from "../../components/EditProfile";
+import type { EditFormTypes } from "../userProfile/EditProfile";
 import type { UserTypes } from "../../App.types";
 
 interface FetchUserResult {
@@ -65,8 +65,8 @@ export const fetchUser = async (
 export const editUser = async (accessToken: string, data: EditFormTypes) => {
   let form_data = new FormData();
 
-  if (data.image_url) {
-    form_data.append("profile_image", data.image_url);
+  if (data.uploaded_image) {
+    form_data.append("profile_image", data.uploaded_image);
   }
 
   form_data.append("name", data.name);

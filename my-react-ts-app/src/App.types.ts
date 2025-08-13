@@ -1,11 +1,12 @@
 export interface UserTypes {
-  first_name: string;
-  email: string;
+  name: string;
+  first_name?: string;
   name_initials?: string;
-  location?: string;
-  about?: string;
-  services_offered?: string;
-  services_needed?: string;
+  email: string;
+  location: string;
+  about: string;
+  services_offered: string;
+  services_needed: string;
   profile_image?: null | string;
 }
 

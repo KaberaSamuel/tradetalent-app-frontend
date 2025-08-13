@@ -6,8 +6,8 @@ import Login from "../auth/Login";
 import Signup from "../auth/Signup";
 import WelcomePage from "../../components/Welcome";
 import Home from "../../components/Home";
-import EditProfile from "../../components/EditProfile";
-import Profile from "../../components/Profile";
+import EditProfile from "../userProfile/EditProfile";
+import Profile from "../userProfile/Profile";
 
 const UnderDevelopment = () => {
   return (
