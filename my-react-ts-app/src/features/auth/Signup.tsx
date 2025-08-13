@@ -11,10 +11,10 @@ import { registerUser } from "./api";
 import { updateMessage } from "../popups/messageSlicePopUp";
 
 export interface SignupFormTypes {
-  fullname: string;
+  name: string;
   email: string;
-  password1: string;
-  password2: string;
+  password: string;
+  password2?: string;
 }
 
 const Signup = () => {
@@ -27,11 +27,14 @@ const Signup = () => {
 
   const onSubmit = async (data: SignupFormTypes): Promise<void> => {
     try {
-      const { password1, password2 } = data;
-      if (password1 !== password2) {
+      const { password, password2 } = data;
+      if (password !== password2) {
         dispatch(updateMessage("Passwords don't match"));
         return;
       }
+
+      // remove password2 on data object
+      delete data.password2;
 
       const response = await registerUser(data);
       if (response.status == 201) {
@@ -66,7 +69,7 @@ const Signup = () => {
         <p>Create your account to start trading your talents.</p>
 
         <input
-          {...register("fullname", { required: true })}
+          {...register("name", { required: true })}
           placeholder="Your names"
         />
 
@@ -79,7 +82,7 @@ const Signup = () => {
         <div className="relative">
           <input
             type={passwordVisibility1 ? "input" : "password"}
-            {...register("password1", { required: true })}
+            {...register("password", { required: true })}
             placeholder="Password"
           />
 

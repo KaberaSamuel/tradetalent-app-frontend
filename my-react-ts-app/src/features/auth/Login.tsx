@@ -28,6 +28,8 @@ const Login = () => {
       const response = await loginUser(data);
       const { user, tokens } = response.data;
 
+      console.log(user);
+
       // Update Redux store
       dispatch(updateUser(user));
       dispatch(updateTokens(tokens));

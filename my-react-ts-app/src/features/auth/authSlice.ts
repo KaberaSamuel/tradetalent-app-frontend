@@ -12,7 +12,6 @@ interface InitialStateTypes {
 
 const initialUser = {
   first_name: "",
-  last_name: "",
   email: "",
   location: "",
   about: "",

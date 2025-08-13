@@ -1,6 +1,5 @@
 export interface UserTypes {
   first_name: string;
-  last_name: string;
   email: string;
   name_initials?: string;
   location?: string;

@@ -18,23 +18,6 @@ const apiClient = axios.create({
   baseURL: "http://127.0.0.1:8000/users",
 });
 
-// get first and last name from fullname
-const getIndividualNames = (name: string) => {
-  const names = name.split(" ");
-  let first_name: string;
-  let last_name: string;
-  let restNames: string[];
-
-  if (names.length <= 2) {
-    [first_name, last_name = ""] = names;
-  } else {
-    [first_name, ...restNames] = names;
-    last_name = restNames.join(" ");
-  }
-
-  return { first_name, last_name };
-};
-
 export const fetchUser = async (
   accessToken: string,
   refreshToken: string
@@ -80,14 +63,13 @@ export const fetchUser = async (
 };
 
 export const editUser = async (accessToken: string, data: EditFormTypes) => {
-  const { first_name, last_name } = getIndividualNames(data.name);
   let form_data = new FormData();
 
   if (data.image_url) {
     form_data.append("profile_image", data.image_url);
   }
-  form_data.append("first_name", first_name);
-  form_data.append("last_name", last_name);
+
+  form_data.append("name", data.name);
   form_data.append("location", data.location);
   form_data.append("about", data.about);
   form_data.append("services_offered", data.services_offered);
@@ -102,18 +84,7 @@ export const editUser = async (accessToken: string, data: EditFormTypes) => {
 };
 
 export const registerUser = async (data: SignupFormTypes) => {
-  const { fullname, email, password1: password } = data;
-
-  const { first_name, last_name } = getIndividualNames(fullname);
-
-  const formData = {
-    first_name,
-    last_name,
-    email,
-    password,
-  };
-
-  const response = await apiClient.post("/register/", formData);
+  const response = await apiClient.post("/register/", data);
   return response;
 };
 

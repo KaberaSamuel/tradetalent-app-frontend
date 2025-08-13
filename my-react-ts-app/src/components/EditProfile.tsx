@@ -38,8 +38,6 @@ const ProfileImageUpload = ({ updateFile }: ProfileImageProps) => {
   };
 
   const auth = useAppSelector(authSelector);
-  const usernameShortened =
-    auth.user.first_name.charAt(0) + auth.user.last_name.charAt(0);
 
   // function to trigger input click event on file input
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -56,7 +54,7 @@ const ProfileImageUpload = ({ updateFile }: ProfileImageProps) => {
           <img src={fileUrl} alt="Profile" className="w-25 h-25 rounded-full" />
         ) : (
           <div className="w-25 h-25 bg-neutral-200 text-neutral-500 rounded-full flex justify-center items-center text-3xl">
-            {usernameShortened}
+            {auth.user.name_initials}
           </div>
         )}
 
