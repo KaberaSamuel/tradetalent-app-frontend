@@ -5,13 +5,6 @@ import MessagePopup from "../popups/MessagePopUp";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { authSelector, updateTokens, updateUser } from "../auth/authSlice";
 import { fetchUser } from "../auth/api";
-import type { UserTypes } from "../../App.types";
-
-export const getNameInitials = (user: UserTypes): string => {
-  const nameInitials = user.first_name.charAt(0) + user.last_name.charAt(0);
-
-  return nameInitials.toUpperCase();
-};
 
 const PrivateRoute = () => {
   const auth = useAppSelector(authSelector);
@@ -30,25 +23,26 @@ const PrivateRoute = () => {
     queryKey: ["get user data"],
     queryFn: () => fetchUser(accessToken!, refreshToken!),
     enabled: shouldFetchUser,
+    retry: false,
   });
 
-  // Effect to dispatch actions only when a condition is met
+  // Effect to update redux store when user data is fetched
   useEffect(() => {
-    // Check if the react query has successfully fetched data
     if (data) {
-      dispatch(
-        updateTokens({
-          access: accessToken!,
-          refresh: refreshToken!,
-        })
-      );
+      const newTokens = {
+        access: data.newAccessToken || accessToken!,
+        refresh: refreshToken!,
+      };
 
-      // adding name initials to the user response
-      const user = data.data.user;
-      user.name_initials = getNameInitials(user);
-      dispatch(updateUser(user));
+      dispatch(updateTokens(newTokens));
+      dispatch(updateUser(data.data.user));
+
+      // Update localStorage if new token was provided
+      if (data.newAccessToken) {
+        localStorage.setItem("access", data.newAccessToken);
+      }
     }
-  }, [data, accessToken, refreshToken, dispatch, updateUser, updateTokens]);
+  }, [data, accessToken, refreshToken, dispatch]);
 
   // If already logged in
   if (auth.token.access) {
@@ -60,19 +54,24 @@ const PrivateRoute = () => {
     );
   }
 
-  // If not logged in, but have tokens on local storage
+  // If not logged in, but have tokens in localStorage
   if (accessToken && refreshToken) {
     if (isLoading) {
-      return <p>Loading....</p>;
+      return (
+        <div className="h-screen flex justify-center items-center">
+          <div className="text-xl">Loading...</div>
+        </div>
+      );
     }
 
     if (isError) {
-      // clear localstorage as stored tokesn are invalid
+      // Clear localStorage as stored tokens are invalid
       localStorage.clear();
       return <Navigate to="/login" replace />;
     }
 
     if (data) {
+      console.log(data);
       return (
         <div>
           <Outlet />

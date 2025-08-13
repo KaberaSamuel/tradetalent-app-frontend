@@ -2,6 +2,17 @@ import axios from "axios";
 import type { LoginFormTypes } from "./Login";
 import type { SignupFormTypes } from "./Signup";
 import type { EditFormTypes } from "../../components/EditProfile";
+import type { UserTypes } from "../../App.types";
+
+interface FetchUserResult {
+  data: {
+    user: UserTypes;
+  };
+  newAccessToken?: string;
+  status: number;
+  statusText: string;
+  headers: any;
+}
 
 const apiClient = axios.create({
   baseURL: "http://127.0.0.1:8000/users",
@@ -24,14 +35,10 @@ const getIndividualNames = (name: string) => {
   return { first_name, last_name };
 };
 
-// get access token after login
-export const fetchAcessToken = async (formData: LoginFormTypes) => {
-  const response = await apiClient.post("/token/", formData);
-  return response;
-};
-
-// fetch user data on page load using access token
-export const fetchUser = async (accessToken: string, refreshToken: string) => {
+export const fetchUser = async (
+  accessToken: string,
+  refreshToken: string
+): Promise<FetchUserResult> => {
   try {
     const response = await apiClient.get("/home/", {
       headers: {
@@ -39,7 +46,13 @@ export const fetchUser = async (accessToken: string, refreshToken: string) => {
       },
     });
 
-    return response;
+    return {
+      data: response.data,
+      status: response.status,
+      statusText: response.statusText,
+      headers: response.headers,
+      // No newAccessToken since we didn't refresh
+    };
   } catch (error) {
     // fetch user again with refresh token
     try {
@@ -53,11 +66,15 @@ export const fetchUser = async (accessToken: string, refreshToken: string) => {
         },
       });
 
-      return userResponse;
+      return {
+        data: userResponse.data,
+        status: userResponse.status,
+        statusText: userResponse.statusText,
+        headers: userResponse.headers,
+        newAccessToken: tokenResponse.data.access, // Include the new token
+      };
     } catch (error) {
-      console.log(error);
-
-      // return {data:}
+      throw error;
     }
   }
 };

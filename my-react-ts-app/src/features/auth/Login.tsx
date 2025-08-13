@@ -8,8 +8,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch } from "../../hooks/reduxHooks";
 import { updateTokens, updateUser } from "./authSlice";
 import { updateMessage } from "../popups/messageSlicePopUp";
-import { getNameInitials } from "../routing/PrivateRoute";
-import { fetchAcessToken, loginUser } from "./api";
+import { loginUser } from "./api";
 
 export interface LoginFormTypes {
   email: string;
@@ -26,21 +25,18 @@ const Login = () => {
 
   const onSubmit = async (data: LoginFormTypes): Promise<void> => {
     try {
-      const userResponse = await loginUser(data);
+      const response = await loginUser(data);
+      const { user, tokens } = response.data;
 
-      // adding name initials to the user
-      const user = userResponse.data.user;
-      user.name_initials = getNameInitials(user);
+      // Update Redux store
       dispatch(updateUser(user));
+      dispatch(updateTokens(tokens));
 
-      const tokenResponse = await fetchAcessToken(data);
-      dispatch(updateTokens(tokenResponse.data));
+      // Update localStorage
+      localStorage.setItem("access", tokens.access);
+      localStorage.setItem("refresh", tokens.refresh);
 
-      // update tokens on localstorage
-      localStorage.setItem("access", tokenResponse.data.access);
-      localStorage.setItem("refresh", tokenResponse.data.refresh);
-
-      // redirecting user to home page
+      // Redirect to home page
       navigate("/");
     } catch (error: any) {
       console.log(error);
