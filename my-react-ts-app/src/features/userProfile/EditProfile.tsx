@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useAppSelector } from "../../hooks/reduxHooks";
-import { authSelector } from "../auth/authSlice";
+import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
+import { authSelector, updateUser } from "../auth/authSlice";
+import { updateMessage } from "../popups/messageSlicePopUp";
 import { editUser } from "../auth/api";
 import ProfileImageUpload from "./ProfileImageUpload";
 
@@ -19,6 +20,7 @@ export interface EditFormTypes {
 function EditProfile() {
   const auth = useAppSelector(authSelector);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const [file, setFile] = useState<File | null>(null);
   const defaultData = { ...auth.user };
@@ -28,26 +30,31 @@ function EditProfile() {
   delete defaultData.first_name;
   delete defaultData.name_initials;
 
-  const { register, handleSubmit, reset } = useForm<EditFormTypes>({
+  const { register, handleSubmit, reset, setValue } = useForm<EditFormTypes>({
     defaultValues: defaultData,
   });
 
   const updateFile = (file: File) => {
     setFile(file);
+    setValue("uploaded_image", file);
   };
 
   const onSubmit = async (data: EditFormTypes) => {
     try {
       const updatedUserData = {
         ...data,
-        uploaded_image: file, // Add the uploaded_image from the state
+        uploaded_image: file,
       };
 
-      await editUser(auth.token.access, updatedUserData);
+      const response = await editUser(auth.token.access, updatedUserData);
+
+      dispatch(updateUser(response.data.user));
+
       navigate("/profile");
     } catch (error) {
       ("/profile");
       console.log(error);
+      dispatch(updateMessage("Failed to update user. Refresh and try again"));
     }
   };
 

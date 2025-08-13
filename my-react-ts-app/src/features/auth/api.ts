@@ -69,6 +69,7 @@ export const editUser = async (accessToken: string, data: EditFormTypes) => {
     form_data.append("profile_image", data.uploaded_image);
   }
 
+  form_data.append("email", data.email);
   form_data.append("name", data.name);
   form_data.append("location", data.location);
   form_data.append("about", data.about);
