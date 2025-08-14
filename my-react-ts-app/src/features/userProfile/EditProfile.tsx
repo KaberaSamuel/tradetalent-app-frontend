@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import Icon from "@mdi/react";
+import { mdiAlertCircleOutline } from "@mdi/js";
+
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
 import { authSelector, updateUser } from "../auth/authSlice";
 import { updateMessage } from "../popups/messageSlicePopUp";
+
 import { editUser } from "../auth/api";
-import ProfileImageUpload from "./ProfileImageUpload";
+import ProfileImageUpload from "./ImageUpload";
 
 export interface EditFormTypes {
   name: string;
@@ -16,6 +20,15 @@ export interface EditFormTypes {
   services_needed: string;
   uploaded_image: File | null;
 }
+
+const FieldValidationError = ({ message }: { message: string }) => {
+  return (
+    <div className="text-red-600 flex items-center gap-1 mt-2">
+      <Icon path={mdiAlertCircleOutline} size={0.8} />
+      <p>{message}</p>
+    </div>
+  );
+};
 
 function EditProfile() {
   const auth = useAppSelector(authSelector);
@@ -30,13 +43,17 @@ function EditProfile() {
   delete defaultData.first_name;
   delete defaultData.name_initials;
 
-  const { register, handleSubmit, reset, setValue } = useForm<EditFormTypes>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<EditFormTypes>({
     defaultValues: defaultData,
   });
 
   const updateFile = (file: File) => {
     setFile(file);
-    setValue("uploaded_image", file);
   };
 
   const onSubmit = async (data: EditFormTypes) => {
@@ -58,6 +75,7 @@ function EditProfile() {
     }
   };
 
+  // Effect to populate fields with default data
   useEffect(() => {
     reset(defaultData);
   }, [auth.user]);
@@ -89,32 +107,64 @@ function EditProfile() {
         <div>
           <p>About Me</p>
           <textarea
-            {...register("about")}
+            {...register("about", {
+              maxLength: {
+                value: 250,
+                message: "Input has reached maximum limit of 250 characters",
+              },
+            })}
             placeholder="Tell us about yourself"
             className="min-h-20"
           ></textarea>
+
+          {errors.about && (
+            <FieldValidationError message={errors.about.message!} />
+          )}
         </div>
 
         <div>
           <p>Services Offered (comma-separated)</p>
           <input
-            {...register("services_offered")}
+            {...register("services_offered", {
+              maxLength: {
+                value: 130,
+                message: "Input has reached maximum limit of 130 characters",
+              },
+            })}
             type="text"
             placeholder="Web development, Photography,..."
           />
+          {errors.services_offered && (
+            <FieldValidationError message={errors.services_offered.message!} />
+          )}
         </div>
 
         <div>
           <p>Services Needed (comma-separated)</p>
           <input
-            {...register("services_needed")}
+            {...register("services_needed", {
+              maxLength: {
+                value: 130,
+                message: "Input has reached maximum limit of 130 characters",
+              },
+            })}
             type="text"
             placeholder="French Coaching, Novel Writer,..."
           />
+
+          {errors.services_needed && (
+            <FieldValidationError message={errors.services_needed.message!} />
+          )}
         </div>
 
         <div className="mt-5 flex justify-end gap-5 [&_button]:py-2 [&_button]:px-5 [&_button]:rounded-xl">
-          <button type="button" className="bg-neutral-200 text-neutral-500">
+          <button
+            type="button"
+            onClick={() => {
+              navigate("/profile");
+            }}
+            className="bg-neutral-200 text-neutral-500"
+          >
             Cancel
           </button>
           <button type="submit" className="bg-teal-400 text-white">
