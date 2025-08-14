@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type ReactElement } from "react";
 import { useState, useRef } from "react";
 import Icon from "@mdi/react";
 import { mdiTrayArrowUp } from "@mdi/js";
@@ -36,16 +36,32 @@ const ProfileImageUpload = ({ updateFile }: ProfileImageProps) => {
     inputRef.current.click();
   };
 
+  let picture: ReactElement;
+
+  if (fileUrl) {
+    picture = (
+      <img src={fileUrl} alt="Profile" className="w-25 h-25 rounded-full" />
+    );
+  } else if (auth.user.profile_image) {
+    picture = (
+      <img
+        src={auth.user.profile_image}
+        alt="Profile"
+        className="w-25 h-25 rounded-full"
+      />
+    );
+  } else {
+    picture = (
+      <div className="w-25 h-25 bg-neutral-200 text-neutral-500 rounded-full flex justify-center items-center text-3xl">
+        {auth.user.name_initials}
+      </div>
+    );
+  }
+
   return (
     <form>
       <div className="flex gap-7 items-center">
-        {fileUrl ? (
-          <img src={fileUrl} alt="Profile" className="w-25 h-25 rounded-full" />
-        ) : (
-          <div className="w-25 h-25 bg-neutral-200 text-neutral-500 rounded-full flex justify-center items-center text-3xl">
-            {auth.user.name_initials}
-          </div>
-        )}
+        {picture}
 
         <button
           onClick={handleButtonClick}

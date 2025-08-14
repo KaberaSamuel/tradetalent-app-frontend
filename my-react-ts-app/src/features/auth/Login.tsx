@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
@@ -19,7 +19,6 @@ export interface LoginFormTypes {
 const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
 
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm<LoginFormTypes>();
 
@@ -36,8 +35,8 @@ const Login = () => {
       localStorage.setItem("access", tokens.access);
       localStorage.setItem("refresh", tokens.refresh);
 
-      // Redirect to home page
-      navigate("/");
+      // Redirect to home page with a refresh
+      window.location.href = "/";
     } catch (error: any) {
       console.log(error);
       dispatch(
