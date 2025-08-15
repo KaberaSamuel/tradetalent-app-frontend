@@ -127,8 +127,8 @@ function EditProfile() {
           <input
             {...register("services_offered", {
               maxLength: {
-                value: 130,
-                message: "Input has reached maximum limit of 130 characters",
+                value: 150,
+                message: "Input has reached maximum limit of 150 characters",
               },
             })}
             type="text"
@@ -144,8 +144,8 @@ function EditProfile() {
           <input
             {...register("services_needed", {
               maxLength: {
-                value: 130,
-                message: "Input has reached maximum limit of 130 characters",
+                value: 150,
+                message: "Input has reached maximum limit of 150 characters",
               },
             })}
             type="text"

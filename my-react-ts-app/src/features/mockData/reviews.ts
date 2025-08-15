@@ -3,6 +3,7 @@ import type { ReviewTypes } from "../../App.types";
 export const mockReviews: ReviewTypes[] = [
   // Reviews for Anya Sharma
   {
+    id: "e49c71e8-7821-435b-803a-3c58b1932387",
     user: {
       name: "David Miller",
       first_name: "David",
@@ -15,13 +16,14 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Digital Marketing, Financial Consulting",
       profile_image: "https://picsum.photos/seed/davidmiller/200/200",
     },
-    revieweeEmail: "anyasharma@example.com",
+    revieweeEmail: "kaberanshutisamuel@gmail.com",
     date: "Jun 2, 2025",
     message:
       "Incredibly professional and delivered the work on time. Highly recommend!",
     rating: 4,
   },
   {
+    id: "8f8b0068-d055-46f0-a15e-e47c23171351",
     user: {
       name: "Maria Sanchez",
       first_name: "Maria",
@@ -35,13 +37,14 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Digital Marketing, Web Development",
       profile_image: "https://picsum.photos/seed/mariasanch/200/200",
     },
-    revieweeEmail: "anyasharma@example.com",
+    revieweeEmail: "kaberanshutisamuel@gmail.com",
     date: "Jul 8, 2025",
     message:
       "Great collaboration and communication throughout the project. Very happy with the result.",
     rating: 5,
   },
   {
+    id: "97b1029c-648c-4a30-81f1-c42e20b3221b",
     user: {
       name: "Patrick Jones",
       first_name: "Patrick",
@@ -54,13 +57,14 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Web Development, Social Media Management",
       profile_image: "https://picsum.photos/seed/patrickjones/200/200",
     },
-    revieweeEmail: "anyasharma@example.com",
+    revieweeEmail: "kaberanshutisamuel@gmail.com",
     date: "Aug 4, 2025",
     message:
       "A pleasure to work with. The quality of work exceeded my expectations.",
     rating: 4,
   },
   {
+    id: "27e462d7-c81b-4393-979a-2475e11059f1",
     user: {
       name: "Frank Williams",
       first_name: "Frank",
@@ -73,13 +77,14 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Copywriting, Data Analysis",
       profile_image: "https://picsum.photos/seed/frankwilliams/200/200",
     },
-    revieweeEmail: "anyasharma@example.com",
+    revieweeEmail: "kaberanshutisamuel@gmail.com",
     date: "Jul 29, 2025",
     message:
       "Provided valuable insights and a great solution. Will definitely hire again.",
     rating: 5,
   },
   {
+    id: "e98e2197-e898-4c91-9556-912a76f658b1",
     user: {
       name: "Tina Wong",
       first_name: "Tina",
@@ -93,13 +98,14 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "App Development, Video Editing",
       profile_image: "https://picsum.photos/seed/tinawong/200/200",
     },
-    revieweeEmail: "anyasharma@example.com",
+    revieweeEmail: "kaberanshutisamuel@gmail.com",
     date: "Aug 11, 2025",
     message:
       "Super fast and efficient. The final product was exactly what I was looking for.",
     rating: 4,
   },
   {
+    id: "c6204c6b-9c7a-4286-905e-a61250325d30",
     user: {
       name: "Jack Smith",
       first_name: "Jack",
@@ -112,13 +118,14 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Graphic Design, Video Editing",
       profile_image: "https://picsum.photos/seed/jacksmith/200/200",
     },
-    revieweeEmail: "anyasharma@example.com",
+    revieweeEmail: "kaberanshutisamuel@gmail.com",
     date: "Jun 26, 2025",
     message:
       "Excellent skills and a very positive attitude. Made the entire process enjoyable.",
     rating: 5,
   },
   {
+    id: "1d2d385f-8c3b-482a-a924-118c7c9868e8",
     user: {
       name: "Olivia White",
       first_name: "Olivia",
@@ -131,12 +138,13 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Digital Marketing, Photography",
       profile_image: "https://picsum.photos/seed/oliviawhite/200/200",
     },
-    revieweeEmail: "anyasharma@example.com",
+    revieweeEmail: "kaberanshutisamuel@gmail.com",
     date: "Jul 17, 2025",
     message: "Very thoughtful and detail-oriented. The work was flawless.",
     rating: 4,
   },
   {
+    id: "a5d09f7b-99f6-424a-826d-a60d009b0b4b",
     user: {
       name: "Isabella Rossi",
       first_name: "Isabella",
@@ -149,13 +157,14 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "UI/UX Design, Digital Marketing",
       profile_image: "https://picsum.photos/seed/isabellarossi/200/200",
     },
-    revieweeEmail: "anyasharma@example.com",
+    revieweeEmail: "kaberanshutisamuel@gmail.com",
     date: "May 31, 2025",
     message:
       "Handled all my requests and revisions quickly and professionally.",
     rating: 5,
   },
   {
+    id: "02587522-a5e2-4161-9c63-469b82875149",
     user: {
       name: "Noah Kim",
       first_name: "Noah",
@@ -168,13 +177,14 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Graphic Design, Content Writing",
       profile_image: "https://picsum.photos/seed/noahkim/200/200",
     },
-    revieweeEmail: "anyasharma@example.com",
+    revieweeEmail: "kaberanshutisamuel@gmail.com",
     date: "Jun 16, 2025",
     message:
       "Showed great initiative and helped me improve my original idea. Thank you!",
     rating: 4,
   },
   {
+    id: "e4d754b2-a42e-4b68-b3d1-443b717c1a8c",
     user: {
       name: "Samuel Garcia",
       first_name: "Samuel",
@@ -187,13 +197,14 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Web Development, Graphic Design",
       profile_image: "https://picsum.photos/seed/samuelgarcia/200/200",
     },
-    revieweeEmail: "anyasharma@example.com",
+    revieweeEmail: "kaberanshutisamuel@gmail.com",
     date: "Jul 2, 2025",
     message:
       "An expert in their field. I learned a lot just from working with them.",
     rating: 5,
   },
   {
+    id: "c1f73752-d1d6-4447-9759-d890066b1a32",
     user: {
       name: "Liam O'Connell",
       first_name: "Liam",
@@ -207,12 +218,13 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Graphic Design, Web Development",
       profile_image: "https://picsum.photos/seed/liamoconnell/200/200",
     },
-    revieweeEmail: "anyasharma@example.com",
+    revieweeEmail: "kaberanshutisamuel@gmail.com",
     date: "Aug 7, 2025",
     message: "Highly reliable and committed to the project's success.",
     rating: 4,
   },
   {
+    id: "766522c0-82d8-4f16-836e-d306b3a2468f",
     user: {
       name: "Yara Haddad",
       first_name: "Yara",
@@ -225,7 +237,7 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Web Development, Graphic Design",
       profile_image: "https://picsum.photos/seed/yarahaddad/200/200",
     },
-    revieweeEmail: "anyasharma@example.com",
+    revieweeEmail: "kaberanshutisamuel@gmail.com",
     date: "Aug 4, 2025",
     message:
       "The project was complex, but they made it seem easy. Truly a professional.",
@@ -233,6 +245,7 @@ export const mockReviews: ReviewTypes[] = [
   },
   // Reviews for Chen Wei
   {
+    id: "217a6a48-4c8d-4a11-8551-7e8c339c63b4",
     user: {
       name: "Emily Rodriguez",
       first_name: "Emily",
@@ -253,11 +266,12 @@ export const mockReviews: ReviewTypes[] = [
     rating: 5,
   },
   {
+    id: "d748f323-95c5-4235-866a-122e1b12b582",
     user: {
       name: "Anya Sharma",
       first_name: "Anya",
       name_initials: "AS",
-      email: "anyasharma@example.com",
+      email: "kaberanshutisamuel@gmail.com",
       location: "Mumbai, India",
       about:
         "Graphic designer with a passion for creating impactful brand identities. Experienced in both digital and print media, always looking for new challenges.",
@@ -272,6 +286,7 @@ export const mockReviews: ReviewTypes[] = [
     rating: 4,
   },
   {
+    id: "a98e8211-e408-46c5-ac33-b922055621a6",
     user: {
       name: "Kira Suzuki",
       first_name: "Kira",
@@ -291,6 +306,7 @@ export const mockReviews: ReviewTypes[] = [
     rating: 5,
   },
   {
+    id: "e6a0d2f0-f94a-43d9-a41b-4f6b088b9070",
     user: {
       name: "Victor Nwankwo",
       first_name: "Victor",
@@ -310,6 +326,7 @@ export const mockReviews: ReviewTypes[] = [
     rating: 4,
   },
   {
+    id: "b11a0f9b-1e76-4a41-8656-658f8b6c4961",
     user: {
       name: "Tina Wong",
       first_name: "Tina",
@@ -330,6 +347,7 @@ export const mockReviews: ReviewTypes[] = [
     rating: 5,
   },
   {
+    id: "f86230f8-a006-4074-b778-9842a20e2e9c",
     user: {
       name: "Jack Smith",
       first_name: "Jack",
@@ -349,6 +367,7 @@ export const mockReviews: ReviewTypes[] = [
     rating: 4,
   },
   {
+    id: "35d6447e-8c67-4251-b847-1905398d5c48",
     user: {
       name: "Yara Haddad",
       first_name: "Yara",
@@ -367,6 +386,7 @@ export const mockReviews: ReviewTypes[] = [
     rating: 5,
   },
   {
+    id: "18f9c0c1-26c6-4318-8f83-d28f09d8d641",
     user: {
       name: "Olivia White",
       first_name: "Olivia",
@@ -386,6 +406,7 @@ export const mockReviews: ReviewTypes[] = [
     rating: 4,
   },
   {
+    id: "51406456-4252-4752-9653-5290b22a6135",
     user: {
       name: "Rachel Tan",
       first_name: "Rachel",
@@ -405,6 +426,7 @@ export const mockReviews: ReviewTypes[] = [
     rating: 5,
   },
   {
+    id: "7f870a31-6415-46b6-8968-3e4b4765d796",
     user: {
       name: "Frank Williams",
       first_name: "Frank",
@@ -424,6 +446,7 @@ export const mockReviews: ReviewTypes[] = [
     rating: 4,
   },
   {
+    id: "893d5006-c875-43a0-8914-1e0f6b3e346f",
     user: {
       name: "Hassan Khan",
       first_name: "Hassan",
@@ -442,6 +465,7 @@ export const mockReviews: ReviewTypes[] = [
     rating: 5,
   },
   {
+    id: "4164b8f3-8b43-4315-9988-c70a84e6015f",
     user: {
       name: "Samuel Garcia",
       first_name: "Samuel",

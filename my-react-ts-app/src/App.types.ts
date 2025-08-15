@@ -14,3 +14,12 @@ export interface TokenTypes {
   refresh: string;
   access: string;
 }
+
+export interface ReviewTypes {
+  id: string;
+  user: UserTypes;
+  revieweeEmail: string;
+  date: string;
+  message: string;
+  rating: number;
+}
