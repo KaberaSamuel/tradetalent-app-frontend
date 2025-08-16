@@ -60,8 +60,8 @@ const LatestReview = () => {
   const formattedDate = getTimePassed(latestReview.date);
 
   return (
-    <div className="py-1 flex flex-col gap-3">
-      <div className="flex items-center gap-3">
+    <div className="py-2">
+      <div className="mb-4 flex items-center gap-3">
         <ProfileImage isSmall={true} user={latestReview.user} />
         <p className="font-semibold">{latestReview.user.name}</p>
         <p className="text-neutral-600 text-[1rem]">{formattedDate}</p>
@@ -69,7 +69,7 @@ const LatestReview = () => {
       <p>"{latestReview.message}"</p>
       <Link
         to="#"
-        className="self-end w-fit py-2 px-4 bg-white font-semibold border border-neutral-300 rounded-2xl"
+        className="absolute bottom-5 right-5 w-fit py-2 px-4 bg-white text-sm font-semibold border border-neutral-300 rounded-2xl"
       >
         Show all {reviews.length} reviews
       </Link>

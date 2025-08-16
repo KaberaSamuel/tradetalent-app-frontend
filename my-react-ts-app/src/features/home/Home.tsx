@@ -1,5 +1,5 @@
-import { useAppSelector } from "../hooks/reduxHooks";
-import { authSelector } from "../features/auth/authSlice";
+import { useAppSelector } from "../../hooks/reduxHooks";
+import { authSelector } from "../auth/authSlice";
 import { Link } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiPlus, mdiMagnify } from "@mdi/js";

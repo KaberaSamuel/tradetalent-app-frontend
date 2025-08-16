@@ -7,7 +7,7 @@ const ServicesItems = ({ items }: { items: string[] }) => {
 
   if (validatedArray.length > 0) {
     return (
-      <div className="text-base flex flex-wrap gap-3 mt-5">
+      <div className="text-sm flex flex-wrap gap-3 mt-5">
         {validatedArray.map((item) => (
           <p
             key={item}
@@ -29,7 +29,7 @@ const ProfileCards = () => {
   const servicesOffered = auth.user.services_offered.split(",");
 
   const cardStyles =
-    "[&>*]:min-h-60 [&>*]:py-4 [&>*]:px-5 [&>*]:bg-neutral-50 [&>*]:text-lg [&>*]:border [&>*]:border-neutral-200 [&>*]:rounded-2xl [&_.title]:text-xl [&_.title]:font-semibold [&_.title]:mb-4";
+    "[&>*]:min-h-60 [&>*]:py-4 [&>*]:px-5 [&>*]:bg-neutral-50 [&>*]:border [&>*]:border-neutral-200 [&>*]:rounded-2xl [&_.title]:text-xl [&_.title]:font-semibold [&_.title]:mb-4";
 
   return (
     <div className={"grid grid-cols-1 xl:grid-cols-2 gap-7 " + cardStyles}>
@@ -50,7 +50,7 @@ const ProfileCards = () => {
         <ServicesItems items={servicesOffered} />
       </div>
 
-      <div>
+      <div className="relative">
         <p className="title">Latest Review</p>
         <LatestReview />
       </div>
