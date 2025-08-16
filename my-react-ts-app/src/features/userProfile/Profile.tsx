@@ -2,10 +2,11 @@ import { useAppSelector } from "../../hooks/reduxHooks";
 import { authSelector } from "../auth/authSlice";
 import { Link } from "react-router-dom";
 import Icon from "@mdi/react";
-import { mdiStarOutline, mdiPencilOutline, mdiMapMarkerOutline } from "@mdi/js";
+import { mdiPencilOutline, mdiMapMarkerOutline } from "@mdi/js";
 
+import ReviewsSummary from "../reviews/ReviewsSummary";
 import ProfileImage from "./ProfileImage";
-import LatestReviews from "../reviews/LatestReviews";
+import LatestReview from "../reviews/LatestReview";
 
 const ServicesItems = ({ items }: { items: string[] }) => {
   const validatedArray = items.filter((item) => item != "");
@@ -25,7 +26,7 @@ const ServicesItems = ({ items }: { items: string[] }) => {
     );
   }
 
-  return <div>Nothing here yet!</div>;
+  return <div>No posted services yet</div>;
 };
 
 const Cards = () => {
@@ -34,7 +35,7 @@ const Cards = () => {
   const servicesOffered = auth.user.services_offered.split(",");
 
   const cardStyles =
-    "[&>*]:min-h-60 [&>*]:py-4 [&>*]:px-5 [&>*]:bg-neutral-50 [&>*]:text-lg [&>*]:border [&>*]:border-neutral-200 [&>*]:rounded-2xl [&_.title]:text-xl [&_.title]:font-semibold [&_.title]:mb-3";
+    "[&>*]:min-h-60 [&>*]:py-4 [&>*]:px-5 [&>*]:bg-neutral-50 [&>*]:text-lg [&>*]:border [&>*]:border-neutral-200 [&>*]:rounded-2xl [&_.title]:text-xl [&_.title]:font-semibold [&_.title]:mb-4";
 
   return (
     <div className={"grid grid-cols-1 xl:grid-cols-2 gap-7 " + cardStyles}>
@@ -57,7 +58,7 @@ const Cards = () => {
 
       <div>
         <p className="title">Latest Review</p>
-        <LatestReviews />
+        <LatestReview />
       </div>
     </div>
   );
@@ -85,11 +86,7 @@ const Profile = () => {
               <p>{auth.user.location || "No location yet"}</p>
             </div>
 
-            <div className="text-amber-500 items-center flex gap-1">
-              <Icon path={mdiStarOutline} size={1} />
-              <p className="text-black font-semibold">4.8</p>
-              <p>(24 Reviews)</p>
-            </div>
+            <ReviewsSummary user={auth.user} />
           </div>
 
           <Link
