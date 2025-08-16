@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { authSelector } from "../auth/authSlice";
 import { mockReviews } from "../mockData/reviews";
-import ProfileImage from "../userProfile/ProfileImage";
+import ProfileImage from "../profile/ProfileImage";
 import type { ReviewTypes } from "../../App.types";
 
 function getTimePassed(dateString: string): string {

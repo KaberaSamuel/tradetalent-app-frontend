@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { LoginFormTypes } from "./Login";
 import type { SignupFormTypes } from "./Signup";
-import type { EditFormTypes } from "../userProfile/EditProfile";
+import type { EditFormTypes } from "../profile/EditProfile";
 import type { UserTypes } from "../../App.types";
 
 interface FetchUserResult {

@@ -2,7 +2,7 @@ import Icon from "@mdi/react";
 import { mdiMagnify, mdiBellOutline } from "@mdi/js";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { authSelector } from "../auth/authSlice";
-import ProfileImage from "../userProfile/ProfileImage";
+import ProfileImage from "../profile/ProfileImage";
 
 const TopBar = () => {
   const auth = useAppSelector(authSelector);
