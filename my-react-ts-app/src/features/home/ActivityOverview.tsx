@@ -53,7 +53,7 @@ const ActivityOverview = () => {
 
           <div className="right">
             <Icon path={mdiMessageOutline} size={1} />
-            <p>Go to messages</p>
+            <p>Go to Messages</p>
           </div>
         </div>
 

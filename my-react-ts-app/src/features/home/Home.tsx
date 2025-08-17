@@ -8,7 +8,7 @@ import ActivityOverview from "./ActivityOverview";
 
 const Welcome = () => {
   const auth = useAppSelector(authSelector);
-  const username = auth.user.first_name.toLowerCase();
+  const username = auth.user.first_name?.toLowerCase();
 
   return (
     <div className="bg-teal-100 text-teal-500 py-5 px-6 rounded-xl">
@@ -21,7 +21,7 @@ const Welcome = () => {
       </p>
 
       <div className="w-[100%] flex gap-5 [&>*]:w-[100%] [&>*]:p-2.5 [&>*]:font-semibold [&>*]:flex [&>*]:justify-center [&>*]:items-center [&>*]:gap-2 [&>*]:rounded-xl">
-        <Link to="#" className="bg-teal-500 text-white">
+        <Link to="/listings/new" className="bg-teal-500 text-white">
           <Icon path={mdiPlus} size={1} />
           <p>Post New Listing</p>
         </Link>

@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
+
 import App from "../../App";
 import Login from "../auth/Login";
 import Signup from "../auth/Signup";
@@ -8,6 +9,7 @@ import WelcomePage from "../home/Welcome";
 import Home from "../home/Home";
 import EditProfile from "../profile/EditProfile";
 import Profile from "../profile/Profile";
+import NewListing from "../listings/NewListing";
 
 const UnderDevelopment = () => {
   return (
@@ -29,7 +31,7 @@ const AppRouter = () => {
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
-          <Route path="/listings/new" />
+          <Route path="/listings/new" element={<NewListing />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
           <Route path="*" element={<UnderDevelopment />} />
