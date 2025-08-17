@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@layer utilities {
+  .form {
+    @apply w-[45vw] h-fit m-auto p-7 bg-neutral-50 flex flex-col gap-5 border border-neutral-200  rounded-2xl;
+  }
+
+  .form-header {
+    @apply mb-5 text-black text-2xl text-center font-semibold;
+  }
+
+  .input-text {
+    @apply w-full bg-neutral-100 border border-neutral-200 py-2 px-3 text-black  rounded-xl;
+  }
+
+  .input-label {
+    @apply text-left text-black font-semibold mb-2;
+  }
+
+  .password-eye {
+    @apply absolute right-1 top-1/2 transform -translate-1/2;
+  }
+}

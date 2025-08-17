@@ -2,49 +2,50 @@ import Icon from "@mdi/react";
 import { mdiSendOutline } from "@mdi/js";
 
 function NewListing() {
-  const inputStyles =
-    " [&_input]:w-full [&_input]:py-1.5 [&_input]:px-3 [&_input]:mt-2 [&_input]:bg-neutral-100 [&_input]:border [&_input]:border-neutral-300 [&_input]:rounded-lg";
-  const radioStyles = "w-fit! -translate-y-0.5";
-
   return (
-    <div className="w-[60%] py-5 px-7 m-auto bg-neutral-50 border border-neutral-300 rounded-2xl">
-      <h1 className="text-2xl text-center font-semibold mb-5">
-        Post a New Listing
-      </h1>
-      <form
-        className={"[&_h2]:font-semibold flex flex-col gap-5" + inputStyles}
-      >
+    <>
+      <form className="form">
+        <h1 className="form-header mb-0!">Post a New Listing</h1>
+
         <div>
-          <h2>Listing Title</h2>
-          <input type="text" placeholder="Music Theory Tutor" />
+          <h2 className="input-label">Listing Title</h2>
+          <input
+            type="text"
+            placeholder="Music Theory Tutor"
+            className="input-text"
+          />
         </div>
 
         <div>
-          <h2>Listing Type</h2>
+          <h2 className="input-label mb-0!">Listing Type</h2>
           <div className="w-full pt-2 flex gap-5 [&>div]:flex [&>div]:items-center [&>div]:gap-1">
             <div>
-              <input type="radio" className={radioStyles} />
+              <input type="radio" />
               <p>Service Offer</p>
             </div>
 
             <div>
-              <input type="radio" className={radioStyles} />
+              <input type="radio" />
               <p>Service Needed</p>
             </div>
           </div>
         </div>
 
         <div>
-          <h2>Description</h2>
+          <h2 className="input-label">Description</h2>
           <textarea
-            className="min-h-25 w-full py-2 px-3 mt-2 border border-neutral-300 rounded-lg"
+            className="input-text min-h-25"
             placeholder="Provide a detailed description of your need or offer"
           ></textarea>
         </div>
 
         <div>
-          <h2>Skills/Tags (comma-separated)</h2>
-          <input type="text" placeholder="Writing, Blogging, Marketing" />
+          <h2 className="input-label">Skills/Tags (comma-separated)</h2>
+          <input
+            className="input-text"
+            type="text"
+            placeholder="Writing, Blogging, Marketing"
+          />
         </div>
 
         <div>
@@ -54,7 +55,7 @@ function NewListing() {
           </button>
         </div>
       </form>
-    </div>
+    </>
   );
 }
 

@@ -58,25 +58,21 @@ const Signup = () => {
   };
 
   return (
-    <div className="h-screen text-neutral-500 text-center flex justify-center items-center">
-      <form
-        className="w-[580px] p-8 bg-neutral-50 flex flex-col gap-4 border border-neutral-200  rounded-2xl [&>*]:w-full [&_input]:w-full [&_input]:bg-neutral-100 [&_input]:border [&_input]:border-neutral-200 [&_input]:py-2 [&_input]:px-3 [&_input]:text-black [&_input]:placeholder-gray-500 [&_input]:rounded-xl"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <h1 className="text-black text-3xl font-semibold">
-          Join Our Community!
-        </h1>
-        <p>Create your account to start trading your talents.</p>
+    <div className="h-screen flex items-center">
+      <form className="form gap-3!" onSubmit={handleSubmit(onSubmit)}>
+        <h1 className="form-header">Join Our Community!</h1>
 
         <input
           {...register("name", { required: true })}
           placeholder="Your names"
+          className="input-text"
         />
 
         <input
           type="email"
           {...register("email", { required: true })}
           placeholder="Email"
+          className="input-text"
         />
 
         <div className="relative">
@@ -84,6 +80,7 @@ const Signup = () => {
             type={passwordVisibility1 ? "input" : "password"}
             {...register("password", { required: true })}
             placeholder="Password"
+            className="input-text"
           />
 
           <FontAwesomeIcon
@@ -91,7 +88,7 @@ const Signup = () => {
             onClick={() => {
               setPasswordVisibility1(!passwordVisibility1);
             }}
-            className="absolute right-1 top-1/2 transform -translate-1/2"
+            className="password-eye"
           />
         </div>
 
@@ -100,6 +97,7 @@ const Signup = () => {
             type={passwordVisibility2 ? "input" : "password"}
             {...register("password2", { required: true })}
             placeholder="Confirm Password"
+            className="input-text"
           />
 
           <FontAwesomeIcon
@@ -107,7 +105,7 @@ const Signup = () => {
             onClick={() => {
               setPasswordVisibility2(!passwordVisibility2);
             }}
-            className="absolute right-1 top-1/2 transform -translate-1/2"
+            className="password-eye"
           />
         </div>
 
