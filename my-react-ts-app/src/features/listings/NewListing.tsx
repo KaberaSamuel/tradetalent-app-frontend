@@ -1,39 +1,108 @@
+import { useForm } from "react-hook-form";
 import Icon from "@mdi/react";
 import { mdiSendOutline } from "@mdi/js";
 
+interface NewListingTypes {
+  title: string;
+  type: string;
+  work_mode: string;
+  location: string;
+  description: string;
+  skills: string;
+}
+
 function NewListing() {
+  const { register, handleSubmit } = useForm<NewListingTypes>();
+  const onSubmit = async (data: NewListingTypes) => {
+    console.log(data);
+  };
+
   return (
     <>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="form-header mb-0!">Post a New Listing</h1>
 
         <div>
           <h2 className="input-label">Listing Title</h2>
           <input
+            {...register("title", { required: true })}
             type="text"
             placeholder="Music Theory Tutor"
             className="input-text"
           />
         </div>
 
-        <div>
-          <h2 className="input-label mb-0!">Listing Type</h2>
-          <div className="w-full pt-2 flex gap-5 [&>div]:flex [&>div]:items-center [&>div]:gap-1">
-            <div>
-              <input type="radio" />
-              <p>Service Offer</p>
-            </div>
+        <div className="flex gap-10 [&_p]:text-sm [&_p]:font-medium">
+          <div>
+            <h2 className="input-label mb-0!">Listing Type</h2>
+            <div className="w-full pt-2 flex gap-3 [&>div]:flex [&>div]:items-center [&>div]:gap-1">
+              <div>
+                <input
+                  type="radio"
+                  value="offer"
+                  {...register("type", { required: true })}
+                />
+                <p>Service Offer</p>
+              </div>
 
-            <div>
-              <input type="radio" />
-              <p>Service Needed</p>
+              <div>
+                <input
+                  type="radio"
+                  value="need"
+                  {...register("type", { required: true })}
+                />
+                <p>Service Needed</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h2 className="input-label mb-0!">Work Mode</h2>
+            <div className="w-full pt-2 flex gap-3 [&>div]:flex [&>div]:items-center [&>div]:gap-1">
+              <div>
+                <input
+                  type="radio"
+                  value="onsite"
+                  {...register("work_mode", { required: true })}
+                />
+                <p>Onsite</p>
+              </div>
+
+              <div>
+                <input
+                  type="radio"
+                  value="remote"
+                  {...register("work_mode", { required: true })}
+                />
+                <p>Remote</p>
+              </div>
+
+              <div>
+                <input
+                  type="radio"
+                  value="hybrid"
+                  {...register("work_mode", { required: true })}
+                />
+                <p>Hybrid</p>
+              </div>
             </div>
           </div>
         </div>
 
         <div>
+          <h2 className="input-label">Location</h2>
+          <input
+            {...register("location", { required: true })}
+            type="text"
+            className="input-text"
+            placeholder="Newyork, USA"
+          />
+        </div>
+
+        <div>
           <h2 className="input-label">Description</h2>
           <textarea
+            {...register("description", { required: true })}
             className="input-text min-h-25"
             placeholder="Provide a detailed description of your need or offer"
           ></textarea>
@@ -42,6 +111,7 @@ function NewListing() {
         <div>
           <h2 className="input-label">Skills/Tags (comma-separated)</h2>
           <input
+            {...register("skills", { required: true })}
             className="input-text"
             type="text"
             placeholder="Writing, Blogging, Marketing"
