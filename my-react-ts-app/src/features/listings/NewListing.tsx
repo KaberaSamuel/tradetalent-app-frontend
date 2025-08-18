@@ -24,7 +24,7 @@ function NewListing() {
     } catch (error) {
       console.log(error);
       dispatch(
-        updateMessage("Failed to create listing. Refresh and try again")
+        updateMessage("Failed to create listing. Refresh zand try again")
       );
     }
   };

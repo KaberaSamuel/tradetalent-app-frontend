@@ -7,6 +7,7 @@ import {
   mdiMessageOutline,
   mdiAccountOutline,
   mdiPlusCircleOutline,
+  mdiCogOutline,
 } from "@mdi/js";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
@@ -75,12 +76,12 @@ const NavBar = () => {
         </Link>
 
         <Link
-          to="/new"
+          to="/settings"
           onClick={() => setActiveTab("/new")}
           className={activeTab.startsWith("/new") ? "active" : ""}
         >
-          <Icon path={mdiPlusCircleOutline} size={1} />
-          <p>Post a Skill/Need</p>
+          <Icon path={mdiCogOutline} size={1} />
+          <p>Settings</p>
         </Link>
       </div>
 
