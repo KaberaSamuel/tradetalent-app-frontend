@@ -6,7 +6,7 @@ import { mdiAlertCircleOutline } from "@mdi/js";
 
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
 import { authSelector, updateUser } from "../auth/authSlice";
-import { updateMessage } from "../popups/messageSlicePopUp";
+import { updateMessage } from "../popups/messageSlice";
 
 import { editUser } from "../auth/api";
 import ProfileImageUpload from "./ImageUpload";

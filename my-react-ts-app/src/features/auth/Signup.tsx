@@ -8,7 +8,7 @@ import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import { registerUser } from "./api";
-import { updateMessage } from "../popups/messageSlicePopUp";
+import { updateMessage } from "../popups/messageSlice";
 
 export interface SignupFormTypes {
   name: string;

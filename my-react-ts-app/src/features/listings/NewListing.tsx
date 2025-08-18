@@ -1,20 +1,32 @@
 import { useForm } from "react-hook-form";
 import Icon from "@mdi/react";
 import { mdiSendOutline } from "@mdi/js";
+import { useNavigate } from "react-router-dom";
 
-interface NewListingTypes {
-  title: string;
-  type: string;
-  work_mode: string;
-  location: string;
-  description: string;
-  skills: string;
-}
+import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
+import { authSelector } from "../auth/authSlice";
+import { updateMessage } from "../popups/messageSlice";
+import type { ListingTypes } from "../../App.types";
+
+import { postListing } from "./api";
 
 function NewListing() {
-  const { register, handleSubmit } = useForm<NewListingTypes>();
-  const onSubmit = async (data: NewListingTypes) => {
-    console.log(data);
+  const dispatch = useAppDispatch();
+  const auth = useAppSelector(authSelector);
+  const navigate = useNavigate();
+
+  const { register, handleSubmit } = useForm<ListingTypes>();
+
+  const onSubmit = async (data: ListingTypes) => {
+    try {
+      await postListing(auth.token.access, data);
+      navigate("/listings");
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        updateMessage("Failed to create listing. Refresh and try again")
+      );
+    }
   };
 
   return (

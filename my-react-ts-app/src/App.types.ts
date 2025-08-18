@@ -10,6 +10,15 @@ export interface UserTypes {
   profile_image?: null | string;
 }
 
+export interface ListingTypes {
+  title: string;
+  type: string;
+  work_mode: string;
+  location: string;
+  description: string;
+  skills: string;
+}
+
 export interface TokenTypes {
   refresh: string;
   access: string;
