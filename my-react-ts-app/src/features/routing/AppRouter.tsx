@@ -10,6 +10,7 @@ import Home from "../home/Home";
 import EditProfile from "../profile/EditProfile";
 import Profile from "../profile/Profile";
 import NewListing from "../listings/NewListing";
+import PublicPage from "../home/PublicPage";
 
 const UnderDevelopment = () => {
   return (
@@ -23,9 +24,11 @@ const AppRouter = () => {
   return (
     <Routes>
       <Route element={<PublicRoute />}>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/public" element={<WelcomePage />} />
+        <Route path="/public" element={<PublicPage />}>
+          <Route index element={<WelcomePage />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+        </Route>
       </Route>
 
       <Route element={<PrivateRoute />}>

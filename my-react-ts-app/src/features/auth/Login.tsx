@@ -48,7 +48,7 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen flex items-center">
+    <div className="mt-25">
       <form onSubmit={handleSubmit(onSubmit)} className="form gap-3!">
         <h1 className="form-header">Login In to Service Exchange</h1>
 
@@ -92,7 +92,8 @@ const Login = () => {
         </div>
 
         <div className="text-teal-500 font-semibold flex justify-center items-center gap-2">
-          <span>Don't have an account ?</span> <Link to="/signup">Sign Up</Link>
+          <span>Don't have an account ?</span>{" "}
+          <Link to="/public/signup">Sign Up</Link>
         </div>
       </form>
     </div>
