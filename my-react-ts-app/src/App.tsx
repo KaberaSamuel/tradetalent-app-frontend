@@ -10,7 +10,7 @@ const App = () => {
       <div className="w-[100%]">
         <TopBar />
 
-        <div className="p-7">
+        <div className="p-7 pb-30">
           <Outlet />
         </div>
       </div>

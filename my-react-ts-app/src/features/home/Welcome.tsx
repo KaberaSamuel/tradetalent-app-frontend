@@ -14,10 +14,10 @@ const WelcomePage = () => {
         </p>
 
         <div className="mt-1 flex gap-5 *:py-2.5 *:px-7 *:rounded-2xl *:font-semibold">
-          <Link to="/signup" className="bg-teal-500 text-white">
+          <Link to="signup" className="bg-teal-500 text-white">
             Sign Up
           </Link>
-          <Link to="/login" className="bg-teal-100 text-teal-500">
+          <Link to="login" className="bg-teal-100 text-teal-500">
             Log In
           </Link>
         </div>

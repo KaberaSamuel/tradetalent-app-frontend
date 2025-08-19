@@ -5,6 +5,6 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    allowedHosts: ["holy-engaging-goldfish.ngrok-free.app"],
+    allowedHosts: ["192.168.1.68"],
   },
 });
