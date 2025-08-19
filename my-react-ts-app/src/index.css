@@ -2,7 +2,7 @@
 
 @layer utilities {
   .form {
-    @apply w-[45vw] h-fit m-auto p-7 bg-neutral-50 flex flex-col gap-5 border border-neutral-200  rounded-2xl;
+    @apply w-[90vw] md:w-[60vw] lg:w-[45vw] h-fit m-auto px-4 py-7 md:p-7 bg-neutral-50 flex flex-col gap-5 border border-neutral-200 rounded-lg  xl:rounded-2xl;
   }
 
   .form-header {
