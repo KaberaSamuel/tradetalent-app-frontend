@@ -30,7 +30,7 @@ const DesktopMenu = () => {
   };
 
   return (
-    <div className="relative w-[25vw] min-w-[280px] h-full min-h-screen p-4 border-r-1 border-neutral-300 [&_.active]:text-black [&_.active]:bg-neutral-200">
+    <div className="relative w-[25vw] min-w-[250px] h-full min-h-screen p-4 border-r-1 border-neutral-300 [&_.active]:text-black [&_.active]:bg-neutral-200">
       <div className="mb-10">
         <Link to="/" className="text-xl font-semibold">
           ServiceExchange

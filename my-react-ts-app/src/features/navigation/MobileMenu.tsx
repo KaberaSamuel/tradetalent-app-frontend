@@ -16,7 +16,7 @@ const MobileMenu = () => {
   return (
     <div
       className={
-        "fixed py-3 px-5 bg-white bottom-0 w-full flex justify-between text-sm text-neutral-700 font-semibold border-t-2 border-neutral-300" +
+        "fixed z-10 py-3 px-6 sm:px-15 bg-white bottom-0 w-full flex justify-between text-sm text-neutral-700 font-semibold border-t-2 border-neutral-300" +
         childrenStyles
       }
     >

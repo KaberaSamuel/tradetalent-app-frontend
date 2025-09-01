@@ -20,7 +20,7 @@ const Welcome = () => {
         Explore new opportunities or manage your existing skills and needs.
       </p>
 
-      <div className="w-[100%] flex gap-5 [&>*]:w-[100%] [&>*]:p-2.5 [&>*]:font-semibold [&>*]:flex [&>*]:justify-center [&>*]:items-center [&>*]:gap-2 [&>*]:rounded-xl">
+      <div className="w-[100%] flex flex-col sm:flex-row gap-3 sm:gap-5 [&>*]:w-[100%] [&>*]:p-2.5 [&>*]:font-semibold [&>*]:flex [&>*]:justify-center [&>*]:items-center [&>*]:gap-2 [&>*]:rounded-xl">
         <Link to="/listings/new" className="bg-teal-500 text-white">
           <Icon path={mdiPlus} size={1} />
           <p>Post New Listing</p>

@@ -8,8 +8,8 @@ const TopBar = () => {
   const auth = useAppSelector(authSelector);
 
   return (
-    <div className="w-full h-fit py-3 px-4 flex justify-between border-b-1 border-neutral-300">
-      <form className="relative">
+    <div className="w-full h-fit py-3 px-4 flex gap-4 justify-between border-b-1 border-neutral-300">
+      <form className="relative grow max-w-150">
         <Icon
           path={mdiMagnify}
           size={1}
@@ -18,7 +18,7 @@ const TopBar = () => {
         <input
           type="text"
           placeholder="Search skills, needs or users"
-          className="w-120 py-1.5 px-10 bg-neutral-100 border border-neutral-300 rounded-lg"
+          className="w-full py-1.5 px-10 bg-neutral-100 border border-neutral-300 rounded-lg"
         />
       </form>
 

@@ -6,8 +6,7 @@ import {
 } from "@mdi/js";
 
 const ActivityOverview = () => {
-  // tailwind styles
-  const cardsContainerStyles = "grid grid-cols-2 gap-6 ";
+  const cardsContainerStyles = "grid grid-cols-1 lg:grid-cols-2 gap-6 ";
   const cardStyles =
     "[&_.card]:h-50  [&_.card]:p-5 [&_.card]:bg-neutral-50 [&_.card]:flex [&_.card]:justify-between [&_.card]:border [&_.card]:border-neutral-300 [&_.card]:rounded-2xl ";
   const leftStyles =
