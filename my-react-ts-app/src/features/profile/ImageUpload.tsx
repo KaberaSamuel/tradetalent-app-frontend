@@ -2,8 +2,8 @@ import React, { type ReactElement } from "react";
 import { useState, useRef } from "react";
 import Icon from "@mdi/react";
 import { mdiTrayArrowUp } from "@mdi/js";
-import { useAppSelector } from "../../hooks/reduxHooks";
-import { authSelector } from "../auth/authSlice";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { authSelector } from "@/features/auth/authSlice";
 
 interface ProfileImageProps {
   updateFile: (file: File) => void;

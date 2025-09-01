@@ -1,12 +1,12 @@
-import { useAppSelector } from "../../hooks/reduxHooks";
-import { authSelector } from "../auth/authSlice";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { authSelector } from "@/features/auth/authSlice";
 import { Link } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiPencilOutline, mdiMapMarkerOutline } from "@mdi/js";
 
-import ReviewsSummary from "../reviews/ReviewsSummary";
-import ProfileImage from "./ProfileImage";
-import ProfileCards from "./ProfileCards";
+import ReviewsSummary from "@/features/reviews/ReviewsSummary";
+import ProfileImage from "@/features/profile/ProfileImage";
+import ProfileCards from "@/features/profile/ProfileCards";
 
 const Profile = () => {
   const auth = useAppSelector(authSelector);

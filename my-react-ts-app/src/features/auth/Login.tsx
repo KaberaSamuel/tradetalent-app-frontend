@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-import { useAppDispatch } from "../../hooks/reduxHooks";
-import { updateTokens, updateUser } from "./authSlice";
-import { updateMessage } from "../popups/messageSlice";
-import { loginUser } from "./api";
+import { useAppDispatch } from "@/hooks/reduxHooks";
+import { updateTokens, updateUser } from "@/features/auth/authSlice";
+import { updateMessage } from "@/features/popups/messageSlice";
+import { loginUser } from "@/features/auth/api";
 
 export interface LoginFormTypes {
   email: string;

@@ -1,8 +1,9 @@
 import axios from "axios";
-import type { LoginFormTypes } from "./Login";
-import type { SignupFormTypes } from "./Signup";
-import type { EditFormTypes } from "../profile/EditProfile";
-import type { UserTypes } from "../../App.types";
+import { API_URL } from "@/constants";
+import type { LoginFormTypes } from "@/features/auth/Login";
+import type { SignupFormTypes } from "@/features/auth/Signup";
+import type { EditFormTypes } from "@/features/profile/EditProfile";
+import type { UserTypes } from "@/App.types";
 
 interface FetchUserResult {
   data: {
@@ -15,7 +16,7 @@ interface FetchUserResult {
 }
 
 const apiClient = axios.create({
-  baseURL: "http://127.0.0.1:8000/users",
+  baseURL: `${API_URL}/users`,
 });
 
 export const fetchUser = async (

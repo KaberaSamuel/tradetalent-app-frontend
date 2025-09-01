@@ -1,10 +1,10 @@
-import { useAppSelector } from "../../hooks/reduxHooks";
-import { authSelector } from "../auth/authSlice";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { authSelector } from "@/features/auth/authSlice";
 import { Link } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiPlus, mdiMagnify } from "@mdi/js";
 
-import ActivityOverview from "./ActivityOverview";
+import ActivityOverview from "@/features/home/ActivityOverview";
 
 const Welcome = () => {
   const auth = useAppSelector(authSelector);

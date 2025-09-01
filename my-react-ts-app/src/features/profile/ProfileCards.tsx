@@ -1,6 +1,6 @@
-import { useAppSelector } from "../../hooks/reduxHooks";
-import { authSelector } from "../auth/authSlice";
-import LatestReview from "../reviews/LatestReview";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { authSelector } from "@/features/auth/authSlice";
+import LatestReview from "@/features/reviews/LatestReview";
 
 const ServicesItems = ({ items }: { items: string[] }) => {
   const validatedArray = items.filter((item) => item != "");

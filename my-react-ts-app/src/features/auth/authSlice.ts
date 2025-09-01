@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { RootState } from "../../store";
-import type { UserTypes } from "../../App.types";
+import type { RootState } from "@/store";
+import type { UserTypes } from "@/App.types";
 
 interface InitialStateTypes {
   token: {

@@ -1,10 +1,14 @@
 import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import MessagePopup from "../popups/MessagePopUp";
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { authSelector, updateTokens, updateUser } from "../auth/authSlice";
-import { fetchUser } from "../auth/api";
+import MessagePopup from "@/features/popups/MessagePopUp";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import {
+  authSelector,
+  updateTokens,
+  updateUser,
+} from "@/features/auth/authSlice";
+import { fetchUser } from "@/features/auth/api";
 
 const PrivateRoute = () => {
   const auth = useAppSelector(authSelector);
@@ -59,7 +63,7 @@ const PrivateRoute = () => {
     if (isLoading) {
       return (
         <div className="h-screen flex justify-center items-center">
-          <div className="text-xl">Loading...</div>
+          <div className="text-xl">Loading@/features.</div>
         </div>
       );
     }

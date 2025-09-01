@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
-import { useAppDispatch } from "../../hooks/reduxHooks";
+import { useAppDispatch } from "@/hooks/reduxHooks";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-import { registerUser } from "./api";
-import { updateMessage } from "../popups/messageSlice";
+import { registerUser } from "@/features/auth/api";
+import { updateMessage } from "@/features/popups/messageSlice";
 
 export interface SignupFormTypes {
   name: string;

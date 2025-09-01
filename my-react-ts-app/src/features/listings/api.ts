@@ -1,8 +1,9 @@
 import axios from "axios";
-import type { ListingTypes } from "../../App.types";
+import type { ListingTypes } from "@/App.types";
+import { API_URL } from "@/constants";
 
 const apiClient = axios.create({
-  baseURL: "http://127.0.0.1:8000/listings",
+  baseURL: `${API_URL}/listings`,
 });
 
 export const postListing = async (accessToken: string, data: ListingTypes) => {

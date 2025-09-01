@@ -3,12 +3,11 @@ import Icon from "@mdi/react";
 import { mdiSendOutline } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 
-import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
-import { authSelector } from "../auth/authSlice";
-import { updateMessage } from "../popups/messageSlice";
-import type { ListingTypes } from "../../App.types";
-
+import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
+import { authSelector } from "@/features/auth/authSlice";
+import { updateMessage } from "@/features/popups/messageSlice";
 import { postListing } from "./api";
+import type { ListingTypes } from "@/App.types";
 
 function NewListing() {
   const dispatch = useAppDispatch();

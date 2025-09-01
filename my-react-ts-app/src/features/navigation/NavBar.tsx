@@ -1,6 +1,6 @@
-import useMediaQuery from "../../hooks/useMediaQuery";
-import MobileMenu from "./MobileMenu";
-import DesktopMenu from "./DesktopMenu";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import MobileMenu from "@/features/navigation/MobileMenu";
+import DesktopMenu from "@/features/navigation/DesktopMenu";
 
 const NavBar = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");

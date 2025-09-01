@@ -1,6 +1,6 @@
 import Icon from "@mdi/react";
-import { mockReviews } from "../mockData/reviews";
-import type { UserTypes, ReviewTypes } from "../../App.types";
+import { mockReviews } from "@/features/mockData/reviews";
+import type { UserTypes, ReviewTypes } from "@/App.types";
 import { mdiStarOutline } from "@mdi/js";
 
 const ReviewsSummary = ({ user }: { user: UserTypes }) => {

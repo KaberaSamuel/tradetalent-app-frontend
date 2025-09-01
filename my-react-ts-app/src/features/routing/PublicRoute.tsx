@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
-import MessagePopup from "../popups/MessagePopUp";
-import { useAppSelector } from "../../hooks/reduxHooks";
-import { authSelector } from "../auth/authSlice";
+import MessagePopup from "@/features/popups/MessagePopUp";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { authSelector } from "@/features/auth/authSlice";
 
 const PublicRoute = () => {
   const auth = useAppSelector(authSelector);

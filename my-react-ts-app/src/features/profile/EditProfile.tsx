@@ -4,12 +4,12 @@ import { useForm } from "react-hook-form";
 import Icon from "@mdi/react";
 import { mdiAlertCircleOutline } from "@mdi/js";
 
-import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
-import { authSelector, updateUser } from "../auth/authSlice";
-import { updateMessage } from "../popups/messageSlice";
+import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
+import { authSelector, updateUser } from "@/features/auth/authSlice";
+import { updateMessage } from "@/features/popups/messageSlice";
 
-import { editUser } from "../auth/api";
-import ProfileImageUpload from "./ImageUpload";
+import { editUser } from "@/features/auth/api";
+import ProfileImageUpload from "@/features/profile/ImageUpload";
 
 export interface EditFormTypes {
   name: string;

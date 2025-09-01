@@ -1,8 +1,8 @@
 import Icon from "@mdi/react";
 import { mdiAlertCircleOutline } from "@mdi/js";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
-import { messageSelector, clearMessage } from "./messageSlice";
+import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
+import { messageSelector, clearMessage } from "@/features/popups/messageSlice";
 import { useEffect } from "react";
 
 const MessageIcon = ({ isSmall }: { isSmall: boolean }) => {

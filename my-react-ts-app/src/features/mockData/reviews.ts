@@ -1,4 +1,4 @@
-import type { ReviewTypes } from "../../App.types";
+import type { ReviewTypes } from "@/App.types";
 
 export const mockReviews: ReviewTypes[] = [
   // Reviews for Anya Sharma
