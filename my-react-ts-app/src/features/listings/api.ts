@@ -15,3 +15,15 @@ export const postListing = async (accessToken: string, data: ListingTypes) => {
 
   return response;
 };
+
+export const fetchListings = async (
+  accessToken: string
+): Promise<ListingTypes[]> => {
+  const response = await apiClient.get("/", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return response.data;
+};
