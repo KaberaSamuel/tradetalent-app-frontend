@@ -10,6 +10,7 @@ import Home from "@/features/home/Home";
 import EditProfile from "@/features/profile/EditProfile";
 import Profile from "@/features/profile/Profile";
 import NewListing from "@/features/listings/NewListing";
+import BrowseListings from "@/features/listings/BrowseListings";
 import PublicPage from "@/features/home/PublicPage";
 
 const UnderDevelopment = () => {
@@ -34,6 +35,7 @@ const AppRouter = () => {
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
+          <Route path="/listings" element={<BrowseListings />} />
           <Route path="/listings/new" element={<NewListing />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />

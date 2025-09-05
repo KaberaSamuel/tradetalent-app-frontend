@@ -63,7 +63,7 @@ const PrivateRoute = () => {
     if (isLoading) {
       return (
         <div className="h-screen flex justify-center items-center">
-          <div className="text-xl">Loading@/features.</div>
+          <div className="text-xl">Loading</div>
         </div>
       );
     }

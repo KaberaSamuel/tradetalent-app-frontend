@@ -23,7 +23,7 @@ function NewListing() {
     } catch (error) {
       console.log(error);
       dispatch(
-        updateMessage("Failed to create listing. Refresh zand try again")
+        updateMessage("Failed to create listing. Refresh and try again")
       );
     }
   };
@@ -101,12 +101,12 @@ function NewListing() {
         </div>
 
         <div>
-          <h2 className="input-label">Location</h2>
+          <h2 className="input-label">Location </h2>
           <input
             {...register("location", { required: true })}
             type="text"
             className="input-text"
-            placeholder="Newyork, USA"
+            placeholder="Newyork, USA (or Global for all locations)"
           />
         </div>
 
