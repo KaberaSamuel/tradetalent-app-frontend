@@ -17,11 +17,12 @@ export default function BrowseListings() {
   }
 
   if (data) {
+    console.log(data);
     return (
       <div className="flex flex-col gap-5">
         <div className="text-2xl font-semibold">Browse Listings</div>
         <FilterBar />
-        <ListingCard listing={data[0]} />
+        <ListingCard listing={data[4]} />
       </div>
     );
   }
