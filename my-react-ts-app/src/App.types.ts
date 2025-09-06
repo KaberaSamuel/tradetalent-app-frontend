@@ -17,6 +17,9 @@ export interface ListingTypes {
   location: string;
   description: string;
   skills: string;
+  user: UserTypes;
+  date: string;
+  delta_time: string;
 }
 
 export interface TokenTypes {

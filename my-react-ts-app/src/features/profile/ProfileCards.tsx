@@ -1,27 +1,7 @@
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { authSelector } from "@/features/auth/authSlice";
 import LatestReview from "@/features/reviews/LatestReview";
-
-const ServicesItems = ({ items }: { items: string[] }) => {
-  const validatedArray = items.filter((item) => item != "");
-
-  if (validatedArray.length > 0) {
-    return (
-      <div className="text-sm flex flex-wrap gap-3 mt-5">
-        {validatedArray.map((item) => (
-          <p
-            key={item}
-            className="w-fit py-2 px-4 bg-teal-100 text-teal-500 rounded-xl"
-          >
-            {item}
-          </p>
-        ))}
-      </div>
-    );
-  }
-
-  return <div>No posted services yet</div>;
-};
+import TagItems from "@/components/TagItems";
 
 const ProfileCards = () => {
   const auth = useAppSelector(authSelector);
@@ -40,14 +20,14 @@ const ProfileCards = () => {
         <p>{auth.user.about || "No description yet"}</p>
       </div>
 
-      <div>
+      <div className="flex flex-col gap-2">
         <p className="title">Services Needed</p>
-        <ServicesItems items={servicesNeeded} />
+        <TagItems items={servicesNeeded} fallback={"Nothing here yet!"} />
       </div>
 
-      <div>
+      <div className="flex flex-col gap-2">
         <p className="title">Services Offered</p>
-        <ServicesItems items={servicesOffered} />
+        <TagItems items={servicesOffered} fallback={"Nothing here yet!"} />
       </div>
 
       <div className="relative">
