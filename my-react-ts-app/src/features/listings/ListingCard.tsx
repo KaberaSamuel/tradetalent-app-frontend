@@ -11,7 +11,7 @@ export default function ListingCard({ listing }: Props) {
   const coveredskills = listing.skills.split(",");
   const lastNameInitial = " " + listing.user.name_initials?.slice(1) || "";
   return (
-    <div className="w-100 p-4 bg-neutral-100 flex flex-col gap-2 border-2 border-neutral-200 rounded-xl">
+    <div className="h-full p-4 bg-neutral-100 flex flex-col gap-2 border-2 border-neutral-200 rounded-xl">
       {/* title */}
       <div className="capitalize">
         <p className="font-semibold leading-tight">
@@ -33,7 +33,7 @@ export default function ListingCard({ listing }: Props) {
 
       {/* footer */}
       <div className="mt-1 flex gap-5">
-        <p className="w-fit py-2 px-4 bg-teal-500 text-white font-semibold rounded-xl">
+        <p className="w-fit py-2 px-4 bg-teal-500 text-white text-sm font-semibold rounded-xl">
           View Details
         </p>
 

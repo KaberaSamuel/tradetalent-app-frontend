@@ -11,6 +11,7 @@ export interface UserTypes {
 }
 
 export interface ListingTypes {
+  id: number;
   title: string;
   type: string;
   work_mode: string;

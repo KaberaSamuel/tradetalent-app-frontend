@@ -13,7 +13,7 @@ const TagItems = ({
         {validatedArray.map((item) => (
           <p
             key={item}
-            className="w-fit py-1.5 px-3 bg-teal-100 text-teal-500 rounded-xl"
+            className="w-fit py-1.5 px-3 bg-teal-100 text-teal-500 capitalize rounded-xl"
           >
             {item}
           </p>
