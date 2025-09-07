@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Icon from "@mdi/react";
-import { mdiAlertCircleOutline } from "@mdi/js";
 
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { authSelector, updateUser } from "@/features/auth/authSlice";
@@ -10,6 +8,7 @@ import { updateMessage } from "@/features/popups/messageSlice";
 
 import { editUser } from "@/features/auth/api";
 import ProfileImageUpload from "@/features/profile/ImageUpload";
+import FieldValidationError from "@/components/FormValidationError";
 
 export interface EditFormTypes {
   name: string;
@@ -20,15 +19,6 @@ export interface EditFormTypes {
   services_needed: string;
   uploaded_image: File | null;
 }
-
-const FieldValidationError = ({ message }: { message: string }) => {
-  return (
-    <div className="text-red-600 flex items-center gap-1 mt-2">
-      <Icon path={mdiAlertCircleOutline} size={0.8} />
-      <p>{message}</p>
-    </div>
-  );
-};
 
 function EditProfile() {
   const auth = useAppSelector(authSelector);
@@ -64,7 +54,6 @@ function EditProfile() {
       };
 
       const response = await editUser(auth.token.access, updatedUserData);
-
       dispatch(updateUser(response.data.user));
 
       navigate("/profile");

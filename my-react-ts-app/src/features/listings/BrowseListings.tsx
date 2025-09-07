@@ -5,9 +5,16 @@ import { fetchListings } from "@/features/listings/api";
 import FilterBar from "@/features/listings/FilterBar";
 import ListingCard from "@/features/listings/ListingCard";
 import { useState } from "react";
-import type { ListingTypes } from "@/App.types";
+import type { ListingTypes, UserTypes } from "@/App.types";
 
-function getFilteredListings(listings: ListingTypes[], activeFilter: string) {
+function getFilteredListings(
+  listings: ListingTypes[],
+  activeFilter: string,
+  user: UserTypes
+) {
+  // filter out user listings
+  listings = listings.filter((listing) => listing.user.email != user.email);
+
   if (activeFilter === "onsite") {
     return listings.filter((listing) => listing.work_mode === "onsite");
   }
@@ -37,6 +44,7 @@ export default function BrowseListings() {
   const { data, isLoading } = useQuery({
     queryKey: ["listings"],
     queryFn: () => fetchListings(auth.token.access),
+    retry: 2,
   });
 
   if (isLoading) {
@@ -44,7 +52,11 @@ export default function BrowseListings() {
   }
 
   if (data) {
-    let listings: ListingTypes[] = getFilteredListings(data, activeFilter);
+    let listings: ListingTypes[] = getFilteredListings(
+      data,
+      activeFilter,
+      auth.user
+    );
 
     const listingsItems = listings.map((listing) => (
       <li key={listing.id}>

@@ -8,13 +8,18 @@ import { authSelector } from "@/features/auth/authSlice";
 import { updateMessage } from "@/features/popups/messageSlice";
 import { postListing } from "./api";
 import type { ListingTypes } from "@/App.types";
+import FieldValidationError from "@/components/FormValidationError";
 
 function NewListing() {
   const dispatch = useAppDispatch();
   const auth = useAppSelector(authSelector);
   const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm<ListingTypes>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ListingTypes>();
 
   const onSubmit = async (data: ListingTypes) => {
     try {
@@ -113,10 +118,26 @@ function NewListing() {
         <div>
           <h2 className="input-label">Description</h2>
           <textarea
-            {...register("description", { required: true })}
+            {...register("description", {
+              required: true,
+              minLength: {
+                value: 70,
+                message: "This input needs atleast 70 characters",
+              },
+              maxLength: {
+                value: 200,
+                message: "Input has reached maximum limit of 200 characters",
+              },
+            })}
             className="input-text min-h-25"
             placeholder="Provide a detailed description of your need or offer"
           ></textarea>
+
+          {errors.description && (
+            <FieldValidationError
+              message={errors.description.message || "This field is required"}
+            />
+          )}
         </div>
 
         <div>
