@@ -10,6 +10,7 @@ import Home from "@/features/home/Home";
 import EditProfile from "@/features/profile/EditProfile";
 import Profile from "@/features/profile/Profile";
 import NewListing from "@/features/listings/NewListing";
+import MyListings from "@/features/listings/MyListings";
 import BrowseListings from "@/features/listings/BrowseListings";
 import PublicPage from "@/features/home/PublicPage";
 
@@ -36,6 +37,7 @@ const AppRouter = () => {
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="/listings" element={<BrowseListings />} />
+          <Route path="/my-listings" element={<MyListings />} />
           <Route path="/listings/new" element={<NewListing />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />

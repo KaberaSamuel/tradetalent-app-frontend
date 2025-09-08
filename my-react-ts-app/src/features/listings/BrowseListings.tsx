@@ -1,20 +1,18 @@
+import { useState } from "react";
+import Icon from "@mdi/react";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import { mdiAccountOutline } from "@mdi/js";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { authSelector } from "@/features/auth/authSlice";
 import { fetchListings } from "@/features/listings/api";
 import FilterBar from "@/features/listings/FilterBar";
 import ListingCard from "@/features/listings/ListingCard";
-import { useState } from "react";
-import type { ListingTypes, UserTypes } from "@/App.types";
+import type { ListingTypes } from "@/App.types";
 
-function getFilteredListings(
-  listings: ListingTypes[],
-  activeFilter: string,
-  user: UserTypes
-) {
-  // filter out user listings
-  listings = listings.filter((listing) => listing.user.email != user.email);
+export const listingsGridStyles = "grid xl:grid-cols-2 gap-5 items-stretch";
 
+function getFilteredListings(listings: ListingTypes[], activeFilter: string) {
   if (activeFilter === "onsite") {
     return listings.filter((listing) => listing.work_mode === "onsite");
   }
@@ -42,9 +40,8 @@ export default function BrowseListings() {
   const auth = useAppSelector(authSelector);
   const [activeFilter, setActiveFilter] = useState("all");
   const { data, isLoading } = useQuery({
-    queryKey: ["listings"],
+    queryKey: ["browse-listings"],
     queryFn: () => fetchListings(auth.token.access),
-    retry: 2,
   });
 
   if (isLoading) {
@@ -52,11 +49,7 @@ export default function BrowseListings() {
   }
 
   if (data) {
-    let listings: ListingTypes[] = getFilteredListings(
-      data,
-      activeFilter,
-      auth.user
-    );
+    let listings: ListingTypes[] = getFilteredListings(data, activeFilter);
 
     const listingsItems = listings.map((listing) => (
       <li key={listing.id}>
@@ -71,13 +64,21 @@ export default function BrowseListings() {
 
     return (
       <div className="flex flex-col gap-5">
-        <div className="text-2xl font-semibold">Browse Listings</div>
+        <div className="flex gap-2 justify-between">
+          <p className="text-2xl font-semibold">Browse Listings</p>
+          <Link
+            to="/my-listings"
+            className="py-2 px-4 bg-neutral-200 text-gray-500 text-sm font-semibold flex gap-1 items-center rounded-lg"
+          >
+            <Icon path={mdiAccountOutline} size={0.9} />
+            <p>My Listings</p>
+          </Link>
+        </div>
+
         <FilterBar activeFilter={activeFilter} updateFilter={updateFilter} />
 
         {listings.length ? (
-          <ul className="grid xl:grid-cols-2 gap-5 items-stretch">
-            {listingsItems}
-          </ul>
+          <ul className={listingsGridStyles}>{listingsItems}</ul>
         ) : (
           <div className="h-[45vh] flex justify-center items-center">
             <p>No listings here yet!</p>

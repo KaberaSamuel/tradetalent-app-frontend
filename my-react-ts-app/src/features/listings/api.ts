@@ -27,3 +27,16 @@ export const fetchListings = async (
 
   return response.data;
 };
+
+// fetch active listings posted by the user
+export const fetchActiveListings = async (
+  accessToken: string
+): Promise<ListingTypes[]> => {
+  const response = await apiClient.get("/user/", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return response.data;
+};
