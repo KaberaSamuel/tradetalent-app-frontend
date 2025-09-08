@@ -36,7 +36,7 @@ const DesktopHero = ({ user }: { user: UserTypes }) => {
           className="min-w-fit py-2 px-3 font-semibold flex items-center gap-2 border border-neutral-300 rounded-lg"
         >
           <Icon path={mdiPencilOutline} size={1} />
-          <p>Edit Hero</p>
+          <p>Edit Profile</p>
         </Link>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import Icon from "@mdi/react";
 import { mdiSendOutline } from "@mdi/js";
-import { useNavigate } from "react-router-dom";
 
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
 import { authSelector } from "@/features/auth/authSlice";
@@ -13,18 +12,18 @@ import FieldValidationError from "@/components/FormValidationError";
 function NewListing() {
   const dispatch = useAppDispatch();
   const auth = useAppSelector(authSelector);
-  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<ListingTypes>();
 
   const onSubmit = async (data: ListingTypes) => {
     try {
       await postListing(auth.token.access, data);
-      navigate("/listings");
+      window.location.href = "/my-listings";
     } catch (error) {
       console.log(error);
       dispatch(
@@ -135,7 +134,11 @@ function NewListing() {
 
           {errors.description && (
             <FieldValidationError
-              message={errors.description.message || "This field is required"}
+              message={
+                getValues("description").length +
+                  " Characters. " +
+                  errors.description.message! || "This field is required"
+              }
             />
           )}
         </div>
@@ -151,7 +154,10 @@ function NewListing() {
         </div>
 
         <div>
-          <button className="w-fit py-2.5 px-6 mt-5 bg-teal-500 text-white justify-self-center flex items-center gap-2 rounded-xl">
+          <button
+            type="submit"
+            className="w-fit py-2.5 px-6 mt-5 bg-teal-500 text-white justify-self-center flex items-center gap-2 rounded-xl"
+          >
             <Icon path={mdiSendOutline} size={0.8} rotate={-45} />
             <h2>Post Listing</h2>
           </button>
