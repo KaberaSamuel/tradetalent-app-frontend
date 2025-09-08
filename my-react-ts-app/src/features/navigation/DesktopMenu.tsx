@@ -26,6 +26,9 @@ const DesktopMenu = () => {
     } finally {
       dispatch(clear());
       localStorage.clear();
+
+      // navigate to public with a full reload
+      window.location.href = "/public";
     }
   };
 

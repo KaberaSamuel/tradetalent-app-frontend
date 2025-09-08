@@ -37,10 +37,10 @@ const Signup = () => {
       delete data.password2;
 
       const response = await registerUser(data);
-      if (response.status == 201) {
-        navigate("/login");
+      if (response.status === 201) {
+        navigate("/public/login");
       } else {
-        dispatch(updateMessage("Failed to register, try again"));
+        dispatch(updateMessage("Server error, try again"));
       }
     } catch (error: any) {
       console.log(error);
