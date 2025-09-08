@@ -7,7 +7,7 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 import { fetchActiveListings } from "./api";
 import { listingsGridStyles } from "./BrowseListings";
 import ListingCard from "./ListingCard";
-import Spinner from "@/components/Loader";
+import { Spinner } from "@/components/Loaders";
 
 export default function MyListings() {
   const auth = useAppSelector(authSelector);

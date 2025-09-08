@@ -1,7 +1,7 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
-export default function Spinner() {
+export function Spinner({ isButton }: { isButton?: boolean }) {
   return (
     <Box
       sx={{
@@ -12,7 +12,11 @@ export default function Spinner() {
         alignItems: "center",
       }}
     >
-      <CircularProgress sx={{ color: "#00bba7" }} />
+      {isButton ? (
+        <CircularProgress size={20} sx={{ color: "#fff" }} />
+      ) : (
+        <CircularProgress sx={{ color: "#00bba7" }} />
+      )}
     </Box>
   );
 }

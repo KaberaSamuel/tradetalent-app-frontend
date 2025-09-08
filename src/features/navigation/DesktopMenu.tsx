@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Icon from "@mdi/react";
 import {
   mdiViewDashboardOutline,
@@ -17,6 +17,7 @@ const DesktopMenu = () => {
   const [activeTab, setActiveTab] = useState(window.location.pathname);
   const dispatch = useAppDispatch();
   const auth = useAppSelector(authSelector);
+  const navigate = useNavigate();
 
   const logout = async () => {
     try {
@@ -28,7 +29,7 @@ const DesktopMenu = () => {
       localStorage.clear();
 
       // navigate to public with a full reload
-      window.location.href = "/public";
+      navigate("/public");
     }
   };
 

@@ -9,6 +9,7 @@ import { useAppDispatch } from "@/hooks/reduxHooks";
 import { updateTokens, updateUser } from "@/features/auth/authSlice";
 import { updateMessage } from "@/features/popups/messageSlice";
 import { loginUser } from "@/features/auth/api";
+import { Spinner } from "@/components/Loaders";
 
 export interface LoginFormTypes {
   email: string;
@@ -18,6 +19,7 @@ export interface LoginFormTypes {
 
 const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [pending, setPending] = useState(false);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ const Login = () => {
 
   const onSubmit = async (data: LoginFormTypes): Promise<void> => {
     try {
+      setPending(true);
       const response = await loginUser(data);
       const { user, tokens } = response.data;
 
@@ -45,6 +48,8 @@ const Login = () => {
           error.response?.data?.error || "Internal error. Refresh and try again"
         )
       );
+    } finally {
+      setPending(false);
     }
   };
 
@@ -80,9 +85,11 @@ const Login = () => {
             />
           </div>
         </div>
-        <button className="p-2 bg-teal-500 text-white font-semibold rounded-2xl">
-          Log In
+
+        <button className="h-10 bg-teal-500 text-white font-semibold flex items-center justify-center rounded-2xl">
+          {pending ? <Spinner isButton={true} /> : <p>Login</p>}
         </button>
+
         <button className="p-2 bg-white text-black rounded-2xl font-semibold flex justify-center items-center gap-1 border border-neutral-200">
           <FontAwesomeIcon icon={faChrome} />
           <span>Log In with Google</span>

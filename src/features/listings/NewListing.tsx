@@ -7,11 +7,14 @@ import { authSelector } from "@/features/auth/authSlice";
 import { updateMessage } from "@/features/popups/messageSlice";
 import { postListing } from "./api";
 import type { ListingTypes } from "@/App.types";
+import { Spinner } from "@/components/Loaders";
 import FieldValidationError from "@/components/FormValidationError";
+import { useState } from "react";
 
 function NewListing() {
   const dispatch = useAppDispatch();
   const auth = useAppSelector(authSelector);
+  const [pending, setPending] = useState(false);
 
   const {
     register,
@@ -22,9 +25,11 @@ function NewListing() {
 
   const onSubmit = async (data: ListingTypes) => {
     try {
+      setPending(true);
       await postListing(auth.token.access, data);
       window.location.href = "/my-listings";
     } catch (error) {
+      setPending(false);
       console.log(error);
       dispatch(
         updateMessage("Failed to create listing. Refresh and try again")
@@ -156,10 +161,16 @@ function NewListing() {
         <div>
           <button
             type="submit"
-            className="w-fit py-2.5 px-6 mt-5 bg-teal-500 text-white justify-self-center flex items-center gap-2 rounded-xl"
+            className="w-45 h-10 mt-5 bg-teal-500 text-white justify-self-center flex items-center justify-center gap-2 rounded-xl"
           >
-            <Icon path={mdiSendOutline} size={0.8} rotate={-45} />
-            <h2>Post Listing</h2>
+            {pending ? (
+              <Spinner isButton={true} />
+            ) : (
+              <>
+                <Icon path={mdiSendOutline} size={0.8} rotate={-45} />
+                <h2>Post Listing</h2>
+              </>
+            )}
           </button>
         </div>
       </form>
