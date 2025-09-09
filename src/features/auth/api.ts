@@ -1,5 +1,4 @@
 import axios from "axios";
-import { API_URL } from "@/constants";
 import type { LoginFormTypes } from "@/features/auth/Login";
 import type { SignupFormTypes } from "@/features/auth/Signup";
 import type { EditFormTypes } from "@/features/profile/EditProfile";
@@ -15,6 +14,7 @@ interface FetchUserResult {
   headers: any;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
 const apiClient = axios.create({
   baseURL: `${API_URL}/users`,
 });

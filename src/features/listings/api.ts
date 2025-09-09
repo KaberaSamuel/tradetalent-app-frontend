@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { ListingTypes } from "@/App.types";
-import { API_URL } from "@/constants";
 
+const API_URL = import.meta.env.VITE_API_URL;
 const apiClient = axios.create({
   baseURL: `${API_URL}/listings`,
 });
