@@ -8,6 +8,7 @@ import { authSelector } from "@/features/auth/authSlice";
 import { fetchListings } from "@/features/listings/api";
 import FilterBar from "@/features/listings/FilterBar";
 import ListingCard from "@/features/listings/ListingCard";
+import Spinner from "@/components/Loader";
 import type { ListingTypes } from "@/App.types";
 
 export const listingsGridStyles = "grid xl:grid-cols-2 gap-5 items-stretch";
@@ -45,7 +46,11 @@ export default function BrowseListings() {
   });
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-full h-full translate-y-5">
+        <Spinner />
+      </div>
+    );
   }
 
   if (data) {

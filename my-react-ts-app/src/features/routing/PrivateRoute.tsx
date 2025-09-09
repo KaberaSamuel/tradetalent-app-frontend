@@ -9,6 +9,7 @@ import {
   updateUser,
 } from "@/features/auth/authSlice";
 import { fetchUser } from "@/features/auth/api";
+import Spinner from "@/components/Loader";
 
 const PrivateRoute = () => {
   const auth = useAppSelector(authSelector);
@@ -62,8 +63,8 @@ const PrivateRoute = () => {
   if (accessToken && refreshToken) {
     if (isLoading) {
       return (
-        <div className="h-screen flex justify-center items-center">
-          <div className="text-xl">Loading</div>
+        <div className="h-screen">
+          <Spinner />
         </div>
       );
     }

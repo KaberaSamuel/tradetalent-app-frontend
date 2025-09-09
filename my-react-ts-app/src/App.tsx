@@ -7,10 +7,10 @@ const App = () => {
     <div className="flex">
       <NavBar />
 
-      <div className="w-[100%]">
+      <div className="w-[100%] flex flex-col">
         <TopBar />
 
-        <div className="p-7 pb-30">
+        <div className="p-7 pb-30 grow">
           <Outlet />
         </div>
       </div>

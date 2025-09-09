@@ -7,6 +7,7 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 import { fetchActiveListings } from "./api";
 import { listingsGridStyles } from "./BrowseListings";
 import ListingCard from "./ListingCard";
+import Spinner from "@/components/Loader";
 
 export default function MyListings() {
   const auth = useAppSelector(authSelector);
@@ -16,7 +17,11 @@ export default function MyListings() {
   });
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-full h-full translate-y-5">
+        <Spinner />
+      </div>
+    );
   }
 
   if (data) {
