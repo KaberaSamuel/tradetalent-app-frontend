@@ -25,7 +25,7 @@ const PrivateRoute = () => {
   );
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["get user data"],
+    queryKey: ["user-data"],
     queryFn: () => fetchUser(accessToken!, refreshToken!),
     enabled: shouldFetchUser,
     retry: false,

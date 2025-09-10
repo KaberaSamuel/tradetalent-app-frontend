@@ -13,13 +13,13 @@ export interface UserTypes {
 export interface ListingTypes {
   id: number;
   title: string;
+  slug: string;
   type: string;
   work_mode: string;
   location: string;
   description: string;
   skills: string;
   user: UserTypes;
-  date: string;
   delta_time: string;
 }
 

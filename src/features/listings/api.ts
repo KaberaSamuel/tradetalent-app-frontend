@@ -28,6 +28,19 @@ export const fetchListings = async (
   return response.data;
 };
 
+export const fetchListingDetail = async (
+  accessToken: string,
+  slug: string
+): Promise<ListingTypes> => {
+  const response = await apiClient.get(`/${slug}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return response.data;
+};
+
 // fetch active listings posted by the user
 export const fetchActiveListings = async (
   accessToken: string
