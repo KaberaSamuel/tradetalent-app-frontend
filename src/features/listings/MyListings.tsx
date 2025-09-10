@@ -6,8 +6,8 @@ import { authSelector } from "../auth/authSlice";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { fetchActiveListings } from "./api";
 import { listingsGridStyles } from "./BrowseListings";
-import ListingCard from "./ListingCard";
 import { Spinner } from "@/components/Loaders";
+import ListingCard from "./ListingCard";
 
 export default function MyListings() {
   const auth = useAppSelector(authSelector);
@@ -28,7 +28,7 @@ export default function MyListings() {
     const listingsItems = data.map((listing) => (
       <li key={listing.id}>
         {" "}
-        <ListingCard listing={listing} />
+        <ListingCard listing={listing} isOwner={true} />
       </li>
     ));
 
