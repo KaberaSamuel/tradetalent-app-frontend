@@ -52,7 +52,8 @@ function NewListing() {
           />
         </div>
 
-        <div className="flex gap-10 [&_p]:text-sm [&_p]:font-medium">
+        {/* listing type & work mode */}
+        <div className="flex flex-col md:flex-row gap-5 md:gap-10 [&_p]:text-sm [&_p]:font-medium">
           <div>
             <h2 className="input-label mb-0!">Listing Type</h2>
             <div className="w-full pt-2 flex gap-3 [&>div]:flex [&>div]:items-center [&>div]:gap-1">
@@ -109,6 +110,7 @@ function NewListing() {
           </div>
         </div>
 
+        {/* location */}
         <div>
           <h2 className="input-label">Location </h2>
           <input
@@ -119,6 +121,7 @@ function NewListing() {
           />
         </div>
 
+        {/* description */}
         <div>
           <h2 className="input-label">Description</h2>
           <textarea
@@ -148,6 +151,7 @@ function NewListing() {
           )}
         </div>
 
+        {/* skills */}
         <div>
           <h2 className="input-label">Skills/Tags (comma-separated)</h2>
           <input
@@ -158,6 +162,7 @@ function NewListing() {
           />
         </div>
 
+        {/* submit button */}
         <div>
           <button
             type="submit"

@@ -9,7 +9,11 @@ import ReviewsSummary from "@/features/reviews/ReviewsSummary";
 import ProfileImage from "@/features/profile/ProfileImage";
 import type { UserTypes } from "@/App.types";
 
-const DesktopHero = ({ user }: { user: UserTypes }) => {
+interface Props {
+  user: UserTypes;
+}
+
+const DesktopHero = ({ user }: Props) => {
   return (
     <div className="pb-5 flex items-center gap-7 border-b-1 border-neutral-300">
       <ProfileImage isSmall={false} user={user} />
@@ -43,26 +47,28 @@ const DesktopHero = ({ user }: { user: UserTypes }) => {
   );
 };
 
-const MobileHero = ({ user }: { user: UserTypes }) => {
+const MobileHero = ({ user }: Props) => {
   return (
-    <div className="pb-5 flex items-center gap-7 border-b-1 border-neutral-300">
+    <div className="pb-5 flex items-center gap-4 sm:gap-7 border-b-1 border-neutral-300">
       <div className="flex flex-col gap-3 items-center">
         <ProfileImage isSmall={false} user={user} />
         <Link to="edit">
-          <p className="underline text-gray-500">Edit Profile</p>
+          <p className="text-sm md:text-base underline text-gray-500">
+            Edit Profile
+          </p>
         </Link>
       </div>
 
-      <div className="md:text-lg flex flex-col gap-3">
+      <div className="text-sm md:text-lg flex flex-col gap-3">
         <div className="flex items-center gap-3">
-          <p className="text-2xl md:text-3xl">{user.name}</p>
-          <p className="w-fit py-1 px-3 bg-neutral-200 text-neutral-500 text-sm translate-y-1 rounded-full">
+          <p className="text-base md:text-2xl">{user.name}</p>
+          <p className="w-fit py-1 px-3 bg-neutral-200 text-neutral-500 text-xs translate-y-1 rounded-full">
             You
           </p>
         </div>
 
         <div className="text-neutral-500 flex items-center gap-1">
-          <Icon path={mdiMapMarkerOutline} size={1} />
+          <Icon path={mdiMapMarkerOutline} size={0.8} />
           <p>{user.location || "No location yet"}</p>
         </div>
 

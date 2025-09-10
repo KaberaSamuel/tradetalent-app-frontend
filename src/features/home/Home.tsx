@@ -11,12 +11,12 @@ const Welcome = () => {
   const username = auth.user.first_name?.toLowerCase();
 
   return (
-    <div className="bg-teal-100 text-teal-500 py-5 px-6 rounded-xl">
+    <div className="p-4 sm:py-5 sm:px-6 bg-teal-100 text-teal-500 rounded-xl">
       <h1 className="capitalize text-xl font-semibold mb-4">
         Welcome back, {username}!
       </h1>
 
-      <p className="text-lg mb-5">
+      <p className="sm:text-lg mb-5">
         Explore new opportunities or manage your existing skills and needs.
       </p>
 

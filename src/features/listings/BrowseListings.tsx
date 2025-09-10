@@ -10,6 +10,7 @@ import FilterBar from "@/features/listings/FilterBar";
 import ListingCard from "@/features/listings/ListingCard";
 import { Spinner } from "@/components/Loaders";
 import type { ListingTypes } from "@/App.types";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 export const listingsGridStyles = "grid xl:grid-cols-2 gap-5 items-stretch";
 
@@ -38,6 +39,7 @@ function getFilteredListings(listings: ListingTypes[], activeFilter: string) {
 }
 
 export default function BrowseListings() {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const auth = useAppSelector(authSelector);
   const [activeFilter, setActiveFilter] = useState("all");
   const { data, isLoading } = useQuery({
@@ -69,14 +71,14 @@ export default function BrowseListings() {
 
     return (
       <div className="flex flex-col gap-5">
-        <div className="flex gap-2 justify-between">
-          <p className="text-2xl font-semibold">Browse Listings</p>
+        <div className="flex sm:gap-2 justify-between">
+          <p className="text-lg sm:text-2xl font-semibold">Browse Listings</p>
           <Link
             to="/my-listings"
-            className="py-2 px-4 bg-neutral-200 text-gray-500 text-sm font-semibold flex gap-1 items-center rounded-lg"
+            className="py-1.5 px-2 sm:px-4 bg-neutral-200 text-gray-500 font-semibold flex gap-1 items-center rounded-lg"
           >
-            <Icon path={mdiAccountOutline} size={0.9} />
-            <p>My Listings</p>
+            <Icon path={mdiAccountOutline} size={isMobile ? 0.8 : 0.9} />
+            <p className="text-sm sm:text-base">My Listings</p>
           </Link>
         </div>
 

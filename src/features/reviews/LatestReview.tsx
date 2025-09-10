@@ -9,19 +9,17 @@ function getTimePassed(dateString: string): string {
   const MS_PER_DAY = 1000 * 60 * 60 * 24;
   const MS_PER_WEEK = MS_PER_DAY * 7;
   const MS_PER_MONTH = MS_PER_DAY * (365.25 / 12);
-  const MS_PER_YEAR = MS_PER_DAY * 365.25; // 365.25 to account for leap years
+  const MS_PER_YEAR = MS_PER_DAY * 365.25;
 
   const inputDate = new Date(dateString);
   const now = new Date();
 
   const timeDifferenceMs = now.getTime() - inputDate.getTime();
 
-  // return empty string for invalid dates
   if (isNaN(timeDifferenceMs) || timeDifferenceMs < 0) {
     return "";
   }
 
-  // Calculate the differences in days, weeks, months, and years.
   const daysDifference = Math.floor(timeDifferenceMs / MS_PER_DAY);
   const weeksDifference = Math.floor(timeDifferenceMs / MS_PER_WEEK);
   const monthsDifference = Math.floor(timeDifferenceMs / MS_PER_MONTH);
@@ -60,16 +58,18 @@ const LatestReview = () => {
   const formattedDate = getTimePassed(latestReview.date);
 
   return (
-    <div className="py-2">
+    <div className="py-2 flex flex-col">
       <div className="mb-4 flex items-center gap-3">
         <ProfileImage isSmall={true} user={latestReview.user} />
         <p className="font-semibold">{latestReview.user.name}</p>
         <p className="text-neutral-600 text-[1rem]">{formattedDate}</p>
       </div>
-      <p>"{latestReview.message}"</p>
+
+      <p className="mb-5">"{latestReview.message}"</p>
+
       <Link
         to="#"
-        className="absolute bottom-5 right-5 w-fit py-2 px-4 bg-white text-sm font-semibold border border-neutral-300 rounded-2xl"
+        className="w-fit self-end py-2 px-4 bg-white text-sm font-semibold border border-neutral-300 rounded-2xl"
       >
         Show all {reviews.length} reviews
       </Link>

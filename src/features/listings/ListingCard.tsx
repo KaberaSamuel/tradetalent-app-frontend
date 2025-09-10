@@ -20,37 +20,30 @@ export default function ListingCard({ listing, isOwner }: Props) {
 
   let poster;
   let footer;
-  const viewDetails = (
-    <Link
-      to="#"
-      className="w-fit py-2 px-4 bg-teal-500 text-white text-sm font-semibold flex gap-2 items-center rounded-xl"
-    >
-      <Icon path={mdiEyeOutline} size={0.8} />
-      <p>View Details</p>
-    </Link>
-  );
 
   if (isOwner) {
+    const linkStyles =
+      "py-1.5 px-3 text-xs sm:text-sm flex gap-2 items-center whitespace-nowrap border border-neutral-200 rounded-xl ";
+
     poster = (
-      <p className="text-sm text-gray-500">Posted {listing.delta_time}</p>
+      <p className="text-xs sm:text-sm text-gray-500">
+        Posted {listing.delta_time}
+      </p>
     );
 
     footer = (
-      <div className="mt-2 flex gap-5 items-center">
-        {viewDetails}
+      <div className="mt-2 flex flex-wrap gap-2 sm:gap-5 items-center">
+        <Link to="#" className={linkStyles + "bg-teal-500 text-white"}>
+          <Icon path={mdiEyeOutline} size={0.8} />
+          <p>View Details</p>
+        </Link>
 
-        <Link
-          to="#"
-          className="py-1.5 px-4 bg-white  flex gap-2 items-center border border-neutral-200 rounded-xl"
-        >
+        <Link to="#" className={linkStyles + "bg-white"}>
           <Icon path={mdiSquareEditOutline} size={0.8} />
           <p>Edit</p>
         </Link>
 
-        <Link
-          to="#"
-          className="py-1.5 px-4 bg-red-500 text-white  flex gap-2 items-center rounded-xl"
-        >
+        <Link to="#" className={linkStyles + " bg-red-500 text-white"}>
           <Icon path={mdiSquareEditOutline} size={0.8} />
           <p>Delete</p>
         </Link>
@@ -58,7 +51,7 @@ export default function ListingCard({ listing, isOwner }: Props) {
     );
   } else {
     poster = (
-      <p className="text-sm text-gray-500">
+      <p className="text-xs sm:text-sm text-gray-500">
         Posted by {listing.user.first_name + lastNameInitial + ", "}
         {listing.delta_time}
       </p>
@@ -66,8 +59,6 @@ export default function ListingCard({ listing, isOwner }: Props) {
 
     footer = (
       <div className="mt-2 text-gray-500 capitalize flex gap-5 items-center">
-        {viewDetails}
-
         <div className="flex gap-1 items-center">
           {listing.work_mode === "remote" ? (
             <Icon path={mdiWeb} size={0.8} />
@@ -82,10 +73,10 @@ export default function ListingCard({ listing, isOwner }: Props) {
   }
 
   return (
-    <div className="h-full p-4 bg-neutral-100 flex flex-col gap-2 border-2 border-neutral-200 rounded-xl">
+    <div className="h-full p-4 bg-neutral-100 text-sm sm:text-base flex flex-col gap-2 border-2 border-neutral-200 rounded-xl">
       {/* title */}
       <div className="capitalize">
-        <p className="font-semibold leading-tight">
+        <p className="text-base font-semibold leading-tight">
           {listing.type + ": " + listing.title}
         </p>
       </div>

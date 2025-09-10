@@ -8,11 +8,19 @@ const ProfileCards = () => {
   const servicesNeeded = auth.user.services_needed.split(",");
   const servicesOffered = auth.user.services_offered.split(",");
 
+  const titleStyles =
+    " text-base sm:[&_.title]:text-xl [&_.title]:font-semibold [&_.title]:mb-4";
   const cardStyles =
-    "[&>*]:min-h-60 [&>*]:py-4 [&>*]:px-5 [&>*]:bg-neutral-50 [&>*]:border [&>*]:border-neutral-200 [&>*]:rounded-2xl [&_.title]:text-xl [&_.title]:font-semibold [&_.title]:mb-4";
+    "[&>*]:min-h-45 md[&>*]:min-h-60 [&>*]:p-3 sm:[&>*]:py-4 sm:[&>*]:px-5 [&>*]:bg-neutral-50 [&>*]:border [&>*]:border-neutral-200 [&>*]:rounded-xl " +
+    titleStyles;
 
   return (
-    <div className={"grid grid-cols-1 xl:grid-cols-2 gap-7 " + cardStyles}>
+    <div
+      className={
+        "text-sm sm:text-base grid grid-cols-1 xl:grid-cols-2 gap-7 " +
+        cardStyles
+      }
+    >
       <div>
         <p className="title">
           About {auth.user.first_name || "No location yet"}

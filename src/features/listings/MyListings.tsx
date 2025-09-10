@@ -8,9 +8,11 @@ import { fetchActiveListings } from "./api";
 import { listingsGridStyles } from "./BrowseListings";
 import { Spinner } from "@/components/Loaders";
 import ListingCard from "./ListingCard";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 export default function MyListings() {
   const auth = useAppSelector(authSelector);
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const { data, isLoading } = useQuery({
     queryKey: ["my-listings"],
     queryFn: () => fetchActiveListings(auth.token.access),
@@ -34,14 +36,14 @@ export default function MyListings() {
 
     return (
       <div className="flex flex-col gap-5">
-        <div className="flex gap-2 justify-between">
-          <p className="text-2xl font-semibold">My Active Listings</p>
+        <div className="flex sm:gap-2 justify-between">
+          <p className="text-lg sm:text-2xl font-semibold">My Listings</p>
           <Link
             to="/listings"
-            className="py-2 px-4 bg-neutral-200 text-gray-500 font-semibold flex gap-1 items-center rounded-lg"
+            className="py-1.5 px-2 sm:px-4 bg-neutral-200 text-gray-500 font-semibold flex gap-1 items-center rounded-lg"
           >
-            <Icon path={mdiAccountOutline} size={0.9} />
-            <p>Browse Listings</p>
+            <Icon path={mdiAccountOutline} size={isMobile ? 0.8 : 0.9} />
+            <p className="text-sm sm:text-base">Browse Listings</p>
           </Link>
         </div>
 

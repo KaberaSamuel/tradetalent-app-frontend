@@ -13,7 +13,7 @@ const ProfileImage = ({
 
   return (
     <div>
-      {user?.profile_image ? (
+      {user.profile_image ? (
         <img
           src={user.profile_image}
           alt="profile picture"

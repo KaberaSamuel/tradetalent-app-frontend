@@ -4,6 +4,7 @@ import Icon from "@mdi/react";
 import { mdiTrayArrowUp } from "@mdi/js";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { authSelector } from "@/features/auth/authSlice";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 interface ProfileImageProps {
   updateFile: (file: File) => void;
@@ -15,6 +16,7 @@ interface HandleImageUploadType {
 
 const ProfileImageUpload = ({ updateFile }: ProfileImageProps) => {
   const auth = useAppSelector(authSelector);
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [fileUrl, setFileUrl] = useState<string | null>(
     auth.user.profile_image || null
@@ -60,7 +62,7 @@ const ProfileImageUpload = ({ updateFile }: ProfileImageProps) => {
 
   return (
     <form>
-      <div className="flex gap-7 items-center">
+      <div className="flex gap-5 sm:gap-7 items-center">
         {picture}
 
         <button
@@ -68,8 +70,8 @@ const ProfileImageUpload = ({ updateFile }: ProfileImageProps) => {
           type="button"
           className="py-2 px-3 flex gap-2 items-center border border-neutral-300 rounded-xl"
         >
-          <Icon path={mdiTrayArrowUp} size={0.9} />
-          <span>Upload New Photo</span>
+          <Icon path={mdiTrayArrowUp} size={isMobile ? 0.7 : 0.9} />
+          <span className="text-xs sm:text-sm">Upload New Photo</span>
         </button>
         <input
           type="file"

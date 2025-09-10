@@ -25,6 +25,9 @@ function EditProfile() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  const inputStyles =
+    " [&_input,&_textarea]:py-2 [&_input,&_textarea]:px-3 [&_input,&_textarea]:mt-3 [&_input,&_textarea]:bg-neutral-100 [&_input,&_textarea]:border [&_input,&_textarea]:border-neutral-300 [&_input,&_textarea]:rounded-lg";
+
   const [file, setFile] = useState<File | null>(null);
   const defaultData = { ...auth.user };
 
@@ -77,7 +80,10 @@ function EditProfile() {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="mt-3 flex flex-col gap-8 [&_p]:font-semibold [&_input,&_textarea]:w-[100%] [&_input,&_textarea]:py-2 [&_input,&_textarea]:px-3 [&_input,&_textarea]:mt-3 [&_input,&_textarea]:bg-neutral-100 [&_input,&_textarea]:border [&_input,&_textarea]:border-neutral-300 [&_input,&_textarea]:rounded-lg"
+        className={
+          "mt-3 text-sm sm:text-base flex flex-col gap-8 [&_p]:font-semibold [&_input,&_textarea]:w-[100%] " +
+          inputStyles
+        }
       >
         <div>
           <p>Name</p>

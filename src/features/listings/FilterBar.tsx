@@ -5,8 +5,11 @@ interface Props {
 
 export default function FilterBar({ activeFilter, updateFilter }: Props) {
   const activeFilterStyle = "text-teal-500 bg-teal-100!";
+  const itemStyle =
+    " [&>*]:bg-neutral-200 [&>*]:py-1 sm:[&>*]:py-2 [&>*]:px-3 sm:[&>*]:px-5 [&>*]:rounded-2xl [&>*]:text-xs sm:[&>*]:text-sm [&>*]:whitespace-nowrap";
+
   return (
-    <div className="flex gap-3 flex-wrap [&>*]:bg-neutral-200 [&>*]:py-2 [&>*]:px-5 [&>*]:rounded-2xl [&>*]:text-sm [&>*]:whitespace-nowrap">
+    <div className={"flex gap-2 sm:gap-3 flex-wrap" + itemStyle}>
       <p
         className={activeFilter === "all" ? activeFilterStyle : ""}
         onClick={() => {

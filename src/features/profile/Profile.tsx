@@ -7,7 +7,7 @@ const Profile = () => {
       <Hero />
 
       <div>
-        <p className="text-neutral-500">
+        <p className="text-xs sm:text-sm text-neutral-500">
           Update your info, services, and more. Click "Edit profile" to start
         </p>
       </div>
