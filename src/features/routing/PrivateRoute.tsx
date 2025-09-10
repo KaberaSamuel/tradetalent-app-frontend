@@ -63,7 +63,7 @@ const PrivateRoute = () => {
   if (accessToken && refreshToken) {
     if (isLoading) {
       return (
-        <div className="h-screen">
+        <div className="h-screen -translate-y-5">
           <Spinner />
         </div>
       );

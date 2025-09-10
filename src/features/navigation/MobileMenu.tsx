@@ -6,7 +6,7 @@ import {
   mdiFormatListCheckbox,
   mdiMessageOutline,
   mdiAccountOutline,
-  mdiCogOutline,
+  mdiPlus,
 } from "@mdi/js";
 
 const MobileMenu = () => {
@@ -39,6 +39,15 @@ const MobileMenu = () => {
       </Link>
 
       <Link
+        to="/listings/new"
+        onClick={() => setActiveTab("/messages")}
+        className={activeTab.startsWith("/messages") ? "active" : ""}
+      >
+        <Icon path={mdiPlus} size={1} />
+        <p>Create</p>
+      </Link>
+
+      <Link
         to="/messages"
         onClick={() => setActiveTab("/messages")}
         className={activeTab.startsWith("/messages") ? "active" : ""}
@@ -54,15 +63,6 @@ const MobileMenu = () => {
       >
         <Icon path={mdiAccountOutline} size={1} />
         <p>Profile</p>
-      </Link>
-
-      <Link
-        to="/settings"
-        onClick={() => setActiveTab("/new")}
-        className={activeTab.startsWith("/new") ? "active" : ""}
-      >
-        <Icon path={mdiCogOutline} size={1} />
-        <p>Settings</p>
       </Link>
     </div>
   );

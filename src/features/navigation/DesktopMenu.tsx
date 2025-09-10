@@ -6,7 +6,7 @@ import {
   mdiFormatListCheckbox,
   mdiMessageOutline,
   mdiAccountOutline,
-  mdiCogOutline,
+  mdiPlusCircleOutline,
 } from "@mdi/js";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
@@ -61,6 +61,15 @@ const DesktopMenu = () => {
         </Link>
 
         <Link
+          to="/listings/new"
+          onClick={() => setActiveTab("/post")}
+          className={activeTab.startsWith("/listings/new") ? "active" : ""}
+        >
+          <Icon path={mdiPlusCircleOutline} size={1} />
+          <p>Post Need/Offer</p>
+        </Link>
+
+        <Link
           to="/messages"
           onClick={() => setActiveTab("/messages")}
           className={activeTab.startsWith("/messages") ? "active" : ""}
@@ -76,15 +85,6 @@ const DesktopMenu = () => {
         >
           <Icon path={mdiAccountOutline} size={1} />
           <p>Profile</p>
-        </Link>
-
-        <Link
-          to="/settings"
-          onClick={() => setActiveTab("/new")}
-          className={activeTab.startsWith("/new") ? "active" : ""}
-        >
-          <Icon path={mdiCogOutline} size={1} />
-          <p>Settings</p>
         </Link>
       </div>
 

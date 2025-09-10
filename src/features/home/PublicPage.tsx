@@ -1,7 +1,7 @@
 import { Outlet, Link } from "react-router-dom";
 
 import Icon from "@mdi/react";
-import { mdiPencilRuler, mdiDotsHorizontal, mdiBellOutline } from "@mdi/js";
+import { mdiPencilRuler, mdiDotsHorizontal } from "@mdi/js";
 
 const PublicPage = () => {
   return (

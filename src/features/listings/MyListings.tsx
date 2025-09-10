@@ -1,6 +1,6 @@
 import Icon from "@mdi/react";
 import { Link } from "react-router-dom";
-import { mdiAccountOutline } from "@mdi/js";
+import { mdiSearchWeb } from "@mdi/js";
 import { useQuery } from "@tanstack/react-query";
 import { authSelector } from "../auth/authSlice";
 import { useAppSelector } from "@/hooks/reduxHooks";
@@ -20,7 +20,7 @@ export default function MyListings() {
 
   if (isLoading) {
     return (
-      <div className="w-full h-full translate-y-5">
+      <div className="w-full h-full -translate-y-10">
         <Spinner />
       </div>
     );
@@ -42,7 +42,7 @@ export default function MyListings() {
             to="/listings"
             className="py-1.5 px-2 sm:px-4 bg-neutral-200 text-gray-500 font-semibold flex gap-1 items-center rounded-lg"
           >
-            <Icon path={mdiAccountOutline} size={isMobile ? 0.8 : 0.9} />
+            <Icon path={mdiSearchWeb} size={isMobile ? 0.8 : 0.9} />
             <p className="text-sm sm:text-base">Browse Listings</p>
           </Link>
         </div>

@@ -4,6 +4,7 @@ import {
   mdiMapMarkerOutline,
   mdiWeb,
   mdiSquareEditOutline,
+  mdiTrashCanOutline,
 } from "@mdi/js";
 import { Link } from "react-router-dom";
 import type { ListingTypes } from "@/App.types";
@@ -44,7 +45,7 @@ export default function ListingCard({ listing, isOwner }: Props) {
         </Link>
 
         <Link to="#" className={linkStyles + " bg-red-500 text-white"}>
-          <Icon path={mdiSquareEditOutline} size={0.8} />
+          <Icon path={mdiTrashCanOutline} size={0.8} />
           <p>Delete</p>
         </Link>
       </div>

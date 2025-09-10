@@ -49,7 +49,7 @@ export default function BrowseListings() {
 
   if (isLoading) {
     return (
-      <div className="w-full h-full translate-y-5">
+      <div className="w-full h-full -translate-y-10">
         <Spinner />
       </div>
     );
