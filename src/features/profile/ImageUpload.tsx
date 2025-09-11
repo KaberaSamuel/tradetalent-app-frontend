@@ -5,6 +5,7 @@ import { mdiTrayArrowUp } from "@mdi/js";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { authSelector } from "@/features/auth/authSlice";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import ProfileImage from "@/features/profile/ProfileImage";
 
 interface ProfileImageProps {
   updateFile: (file: File) => void;
@@ -45,13 +46,7 @@ const ProfileImageUpload = ({ updateFile }: ProfileImageProps) => {
       <img src={fileUrl} alt="Profile" className="w-25 h-25 rounded-full" />
     );
   } else if (auth.user.profile_image) {
-    picture = (
-      <img
-        src={auth.user.profile_image}
-        alt="Profile"
-        className="w-25 h-25 rounded-full"
-      />
-    );
+    picture = <ProfileImage size={25} user={auth.user} isSmall={false} />;
   } else {
     picture = (
       <div className="w-25 h-25 bg-neutral-200 text-neutral-500 rounded-full flex justify-center items-center text-3xl">

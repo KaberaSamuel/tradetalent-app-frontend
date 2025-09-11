@@ -16,7 +16,7 @@ interface Props {
 const DesktopHero = ({ user }: Props) => {
   return (
     <div className="pb-5 flex items-center gap-7 border-b-1 border-neutral-300">
-      <ProfileImage isSmall={false} user={user} />
+      <ProfileImage size={25} isSmall={false} user={user} />
 
       <div className="w-full flex items-center justify-between">
         <div className="text-lg flex flex-col gap-2 sm:gap-4">
@@ -51,9 +51,9 @@ const MobileHero = ({ user }: Props) => {
   return (
     <div className="pb-5 flex items-center gap-4 sm:gap-7 border-b-1 border-neutral-300">
       <div className="flex flex-col gap-3 items-center">
-        <ProfileImage isSmall={false} user={user} />
+        <ProfileImage size={20} isSmall={false} user={user} />
         <Link to="edit">
-          <p className="text-sm md:text-base underline text-gray-500">
+          <p className="text-xs md:text-base underline text-gray-500">
             Edit Profile
           </p>
         </Link>

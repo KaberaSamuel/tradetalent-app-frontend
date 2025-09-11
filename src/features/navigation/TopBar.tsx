@@ -27,7 +27,7 @@ const TopBar = () => {
           <Icon path={mdiBellOutline} size={1} />
         </div>
 
-        <ProfileImage isSmall={true} user={auth.user} />
+        <ProfileImage size={10} isSmall={true} user={auth.user} />
       </div>
     </div>
   );

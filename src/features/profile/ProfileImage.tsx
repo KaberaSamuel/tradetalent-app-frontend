@@ -1,15 +1,20 @@
 import type { UserTypes } from "@/App.types";
 
-const ProfileImage = ({
-  isSmall,
-  user,
-}: {
+interface Props {
   isSmall: boolean;
   user: UserTypes;
-}) => {
-  const styles = isSmall
-    ? "size-10 min-w-10 rounded-full"
-    : "size-25 min-w-25 rounded-full text-3xl";
+  size: number;
+}
+
+const ProfileImage = ({ isSmall, size, user }: Props) => {
+  const styles = `rounded-full`;
+  const inlineStyles = {
+    width: `${size * 4}px`,
+    height: `${size * 4}px`,
+    minWidth: `${size * 4}px`,
+  };
+
+  const name_initials_styles = isSmall ? styles : styles + " text-3xl";
 
   return (
     <div>
@@ -18,16 +23,10 @@ const ProfileImage = ({
           src={user.profile_image}
           alt="profile picture"
           className={styles}
+          style={inlineStyles}
         />
       ) : (
-        <div
-          className={
-            styles +
-            " bg-neutral-200 text-neutral-500 rounded-full flex justify-center items-center"
-          }
-        >
-          {user?.name_initials}
-        </div>
+        <div className={name_initials_styles}>{user?.name_initials}</div>
       )}
     </div>
   );
