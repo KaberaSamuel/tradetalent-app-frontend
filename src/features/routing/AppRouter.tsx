@@ -11,9 +11,9 @@ import EditProfile from "@/features/profile/EditProfile";
 import Profile from "@/features/profile/Profile";
 import MyListings from "@/features/listings/MyListings";
 import BrowseListings from "@/features/listings/BrowseListings";
-import ListingDetail from "../listings/ListingDetail";
+import ListingDetail from "@/features/listings/ListingDetail";
 import NewListing from "@/features/listings/NewListing";
-import EditListing from "../listings/EditListing";
+import EditListing from "@/features/listings/EditListing";
 import PublicPage from "@/features/home/PublicPage";
 
 const UnderDevelopment = () => {
