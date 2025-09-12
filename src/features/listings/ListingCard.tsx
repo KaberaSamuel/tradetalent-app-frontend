@@ -45,7 +45,10 @@ export default function ListingCard({ listing, isOwner }: Props) {
       <div className="mt-2 flex flex-wrap gap-2 sm:gap-5 items-center">
         {viewDetails}
 
-        <Link to="#" className={linkStyles + "bg-white"}>
+        <Link
+          to={"/listings/" + listing.slug + "/edit"}
+          className={linkStyles + "bg-white"}
+        >
           <Icon path={mdiSquareEditOutline} size={0.8} />
           <p>Edit</p>
         </Link>

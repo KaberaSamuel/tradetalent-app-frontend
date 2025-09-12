@@ -6,7 +6,7 @@
   }
 
   .form-header {
-    @apply mb-5 text-black text-2xl text-center font-semibold;
+    @apply mb-5 text-black text-xl sm:text-2xl text-center font-semibold;
   }
 
   .input-text {

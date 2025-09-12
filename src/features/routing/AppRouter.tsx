@@ -11,13 +11,14 @@ import EditProfile from "@/features/profile/EditProfile";
 import Profile from "@/features/profile/Profile";
 import MyListings from "@/features/listings/MyListings";
 import BrowseListings from "@/features/listings/BrowseListings";
-import NewListing from "@/features/listings/NewListing";
 import ListingDetail from "../listings/ListingDetail";
+import NewListing from "@/features/listings/NewListing";
+import EditListing from "../listings/EditListing";
 import PublicPage from "@/features/home/PublicPage";
 
 const UnderDevelopment = () => {
   return (
-    <div className="text-xl">
+    <div className="sm:text-xl">
       <p>This page is still in development</p>
     </div>
   );
@@ -41,6 +42,10 @@ const AppRouter = () => {
           <Route path="/listings" element={<BrowseListings />} />
           <Route path="/listings/new" element={<NewListing />} />
           <Route path="/listings/:listing_slug" element={<ListingDetail />} />
+          <Route
+            path="/listings/:listing_slug/edit"
+            element={<EditListing />}
+          />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
           <Route path="*" element={<UnderDevelopment />} />

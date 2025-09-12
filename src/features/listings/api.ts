@@ -6,16 +6,6 @@ const apiClient = axios.create({
   baseURL: `${API_URL}/listings`,
 });
 
-export const postListing = async (accessToken: string, data: ListingTypes) => {
-  const response = await apiClient.post("/", data, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-
-  return response;
-};
-
 export const fetchListings = async (
   accessToken: string
 ): Promise<ListingTypes[]> => {
@@ -52,4 +42,28 @@ export const fetchActiveListings = async (
   });
 
   return response.data;
+};
+
+export const postListing = async (accessToken: string, data: ListingTypes) => {
+  const response = await apiClient.post("/", data, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return response;
+};
+
+export const updateListing = async (
+  slug: string,
+  accessToken: string,
+  data: ListingTypes
+) => {
+  const response = await apiClient.put(`/${slug}/`, data, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return response;
 };
