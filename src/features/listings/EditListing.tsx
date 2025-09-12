@@ -1,7 +1,7 @@
 import Icon from "@mdi/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { mdiSendOutline } from "@mdi/js";
 import { useQuery } from "@tanstack/react-query";
 import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
@@ -196,7 +196,7 @@ function EditListing() {
             ) : (
               <>
                 <Icon path={mdiSendOutline} size={0.8} rotate={-45} />
-                <h2>Post Listing</h2>
+                <h2>Update Listing</h2>
               </>
             )}
           </button>
