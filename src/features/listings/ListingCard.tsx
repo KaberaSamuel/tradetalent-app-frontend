@@ -13,9 +13,14 @@ import TagItems from "@/components/TagItems";
 interface Props {
   listing: ListingTypes;
   isOwner?: boolean;
+  updateDeleteStatus?: (isDelete: boolean) => void;
 }
 
-export default function ListingCard({ listing, isOwner }: Props) {
+export default function ListingCard({
+  listing,
+  isOwner,
+  updateDeleteStatus,
+}: Props) {
   const coveredskills = listing.skills.split(",");
   const lastNameInitial = " " + listing.user.name_initials?.slice(1) || "";
 
@@ -53,10 +58,15 @@ export default function ListingCard({ listing, isOwner }: Props) {
           <p>Edit</p>
         </Link>
 
-        <Link to="#" className={linkStyles + " bg-red-500 text-white"}>
+        <div
+          onClick={() => {
+            updateDeleteStatus?.(true);
+          }}
+          className={linkStyles + " bg-red-500 text-white"}
+        >
           <Icon path={mdiTrashCanOutline} size={0.8} />
           <p>Delete</p>
-        </Link>
+        </div>
       </div>
     );
   } else {

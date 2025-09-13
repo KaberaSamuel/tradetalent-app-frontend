@@ -1,4 +1,4 @@
-import Icon from "@mdi/react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { mdiSearchWeb } from "@mdi/js";
 import { useQuery } from "@tanstack/react-query";
@@ -7,16 +7,23 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 import { fetchActiveListings } from "./api";
 import { listingsGridStyles } from "./BrowseListings";
 import { Spinner } from "@/components/Loaders";
+import Icon from "@mdi/react";
 import ListingCard from "./ListingCard";
+import DeleteListing from "../modals/DeleteListing";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
 export default function MyListings() {
+  const [isDelete, setIsDelete] = useState(false);
   const auth = useAppSelector(authSelector);
   const isMobile = useMediaQuery("(max-width: 768px)");
   const { data, isLoading } = useQuery({
     queryKey: ["my-listings"],
     queryFn: () => fetchActiveListings(auth.token.access),
   });
+
+  const updateDeleteStatus = (isDelete: boolean) => {
+    setIsDelete(isDelete);
+  };
 
   if (isLoading) {
     return (
@@ -30,7 +37,11 @@ export default function MyListings() {
     const listingsItems = data.map((listing) => (
       <li key={listing.id}>
         {" "}
-        <ListingCard listing={listing} isOwner={true} />
+        <ListingCard
+          listing={listing}
+          isOwner={true}
+          updateDeleteStatus={updateDeleteStatus}
+        />
       </li>
     ));
 
@@ -46,7 +57,6 @@ export default function MyListings() {
             <p className="text-sm sm:text-base">Browse Listings</p>
           </Link>
         </div>
-
         {data.length ? (
           <ul className={listingsGridStyles}>{listingsItems}</ul>
         ) : (
@@ -54,6 +64,7 @@ export default function MyListings() {
             <p>You haven't posted any listing yet!</p>
           </div>
         )}
+        ;{isDelete && <DeleteListing updateDeleteStatus={updateDeleteStatus} />}
       </div>
     );
   }

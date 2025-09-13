@@ -6,6 +6,7 @@ import {
   mdiMapMarkerOutline,
   mdiMessageOutline,
   mdiPencilOutline,
+  mdiDeleteOutline,
 } from "@mdi/js";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -29,6 +30,8 @@ export default function ListingDetail() {
   });
 
   const iconSize = 0.8;
+  const buttonStyles =
+    "w-fit py-2 px-4 text-sm sm:text-base text-white flex gap-2 items-center rounded-xl";
 
   const goBack = () => {
     navigate(-1);
@@ -48,21 +51,23 @@ export default function ListingDetail() {
     const headerStyles = "sm:text-lg font-semibold mb-4";
 
     const footerButton = isOwner ? (
-      <div>
+      <div className="flex gap-3">
         <Link
           to={"/listings/" + listing.slug + "/edit"}
-          className="w-fit py-2 px-4 bg-teal-500 text-sm sm:text-base text-white flex gap-2 items-center rounded-xl"
+          className={buttonStyles + " bg-teal-500"}
         >
           <Icon path={mdiPencilOutline} size={iconSize} />
           <p>Edit Listing</p>
         </Link>
+
+        <button className={buttonStyles + " bg-red-500"}>
+          <Icon path={mdiDeleteOutline} size={iconSize} />
+          <p>Delete Permanently</p>
+        </button>
       </div>
     ) : (
       <div>
-        <Link
-          to="#"
-          className="w-fit py-2 px-4 bg-teal-500 text-sm sm:text-base text-white flex gap-2 items-center rounded-xl"
-        >
+        <Link to="#" className={buttonStyles + " bg-teal-500"}>
           <Icon path={mdiMessageOutline} size={iconSize} />
           <p>Message {listing.user.first_name}</p>
         </Link>
