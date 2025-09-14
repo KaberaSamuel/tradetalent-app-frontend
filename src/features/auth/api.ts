@@ -4,7 +4,7 @@ import type { SignupFormTypes } from "@/features/auth/Signup";
 import type { EditFormTypes } from "@/features/profile/EditProfile";
 import type { UserTypes } from "@/App.types";
 
-interface FetchUserResult {
+interface FetchUserTypes {
   data: {
     user: UserTypes;
   };
@@ -22,7 +22,7 @@ const apiClient = axios.create({
 export const fetchUser = async (
   accessToken: string,
   refreshToken: string
-): Promise<FetchUserResult> => {
+): Promise<FetchUserTypes> => {
   try {
     const response = await apiClient.get("/home/", {
       headers: {
@@ -35,7 +35,6 @@ export const fetchUser = async (
       status: response.status,
       statusText: response.statusText,
       headers: response.headers,
-      // No newAccessToken since we didn't refresh
     };
   } catch (error) {
     // fetch user again with refresh token

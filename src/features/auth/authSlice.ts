@@ -19,6 +19,7 @@ const initialUser = {
   name_initials: "",
   services_offered: "",
   services_needed: "",
+  my_listings_count: 0,
   profile_image: null,
 };
 

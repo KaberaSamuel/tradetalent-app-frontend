@@ -8,6 +8,7 @@ import {
   updateTokens,
   updateUser,
 } from "@/features/auth/authSlice";
+import { updateMyListings } from "../home/ActivitiesSlice";
 import { fetchUser } from "@/features/auth/api";
 import { Spinner } from "@/components/Loader";
 
@@ -41,6 +42,7 @@ const PrivateRoute = () => {
 
       dispatch(updateTokens(newTokens));
       dispatch(updateUser(data.data.user));
+      dispatch(updateMyListings(data.data.user.my_listings_count));
 
       // Update localStorage if new token was provided
       if (data.newAccessToken) {

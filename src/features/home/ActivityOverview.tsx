@@ -4,6 +4,9 @@ import {
   mdiMessageOutline,
   mdiEyeOutline,
 } from "@mdi/js";
+import { Link } from "react-router-dom";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { activitiesSelector } from "@/features/home/ActivitiesSlice";
 
 const ActivityOverview = () => {
   const cardsContainerStyles = "grid grid-cols-1 lg:grid-cols-2 gap-6 ";
@@ -15,6 +18,8 @@ const ActivityOverview = () => {
     "[&_.right]:text-teal-500 [&_.right]:flex [&_.right]:flex-col [&_.right]:justify-between [&_.right]:items-end ";
   const numberStyles =
     "[&_.number]:text-3xl [&_.number]:transform [&_.number]:-translate-y-2";
+
+  const activies = useAppSelector(activitiesSelector);
 
   return (
     <div>
@@ -34,12 +39,12 @@ const ActivityOverview = () => {
         <div className="card">
           <div className="left">
             <p>Active Listings</p>
-            <p className="number">4</p>
+            <p className="number">{activies.my_listings}</p>
           </div>
 
           <div className="right">
             <Icon path={mdiFormatListCheckbox} size={1} />
-            <p>View My Listings</p>
+            <Link to="/my-listings">View My Listings</Link>
           </div>
         </div>
 
@@ -47,12 +52,12 @@ const ActivityOverview = () => {
         <div className="card">
           <div className="left">
             <p>New Messages</p>
-            <p className="number">2</p>
+            <p className="number">{activies.messages}</p>
           </div>
 
           <div className="right">
             <Icon path={mdiMessageOutline} size={1} />
-            <p>Go to Messages</p>
+            <Link to="/messages">Go to Messages</Link>
           </div>
         </div>
 
@@ -60,12 +65,12 @@ const ActivityOverview = () => {
         <div className="card">
           <div className="left">
             <p>Profile Views</p>
-            <p className="number">18</p>
+            <p className="number">{activies.profile_views}</p>
           </div>
 
           <div className="right">
             <Icon path={mdiEyeOutline} size={1} />
-            <p>View Profile</p>
+            <Link to="/profile">View Profile</Link>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ export interface UserTypes {
   services_offered: string;
   services_needed: string;
   profile_image?: null | string;
+  my_listings_count: number;
 }
 
 export interface ListingTypes {

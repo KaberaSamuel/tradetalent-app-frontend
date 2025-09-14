@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
@@ -22,7 +22,6 @@ const Login = () => {
   const [pending, setPending] = useState(false);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<LoginFormTypes>();
 
   const onSubmit = async (data: LoginFormTypes): Promise<void> => {
@@ -40,7 +39,7 @@ const Login = () => {
       localStorage.setItem("refresh", tokens.refresh);
 
       // Redirect to home page with a refresh
-      navigate("/");
+      window.location.href = "/";
     } catch (error: any) {
       console.log(error);
       dispatch(
