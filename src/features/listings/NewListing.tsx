@@ -7,7 +7,7 @@ import { authSelector } from "@/features/auth/authSlice";
 import { updateMessage } from "@/features/popups/messageSlice";
 import { postListing } from "./api";
 import type { ListingTypes } from "@/App.types";
-import { Spinner } from "@/components/Loaders";
+import { Spinner } from "@/components/Loader";
 import FieldValidationError from "@/components/FormValidationError";
 import { useState } from "react";
 

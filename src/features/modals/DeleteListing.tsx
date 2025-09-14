@@ -1,9 +1,14 @@
 import Icon from "@mdi/react";
 import { mdiTrashCanOutline, mdiClose, mdiDeleteOutline } from "@mdi/js";
 import { motion } from "framer-motion";
+import { deleteListing } from "@/features/listings/api";
 import type { ListingTypes } from "@/App.types";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import ModalOveraly from "@/features/modals/ModalOveraly";
+import { Spinner } from "@/components/Loader";
+import { useState } from "react";
+import { authSelector } from "../auth/authSlice";
+import { useAppSelector } from "@/hooks/reduxHooks";
 
 interface Props {
   updateDeleteStatus: (isDelete: boolean) => void;
@@ -14,11 +19,25 @@ function DeleteListing({ updateDeleteStatus, listing }: Props) {
   const iconSize = 1;
   const buttonIconSize = iconSize - 0.2;
   const buttonStyles =
-    "py-2 px-3 text-sm font-semibold flex gap-1 items-center border border-neutral-300 rounded-xl";
+    "py-2 px-3 text-sm font-semibold flex gap-1 justify-center items-center border border-neutral-300 rounded-xl";
   const modalStyles =
     "w-[90%] sm:w-150 fixed z-10 p-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-50 flex flex-col gap-3";
 
   const isMobile = useMediaQuery("(max-width: 600px)");
+  const auth = useAppSelector(authSelector);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const submitDeleteRequest = async () => {
+    try {
+      setIsLoading(true);
+      await deleteListing(listing.slug, auth.token.access);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+      window.location.href = "/my-listings";
+    }
+  };
 
   return (
     <motion.div
@@ -76,9 +95,18 @@ function DeleteListing({ updateDeleteStatus, listing }: Props) {
             <p>Cancel</p>
           </button>
 
-          <button className={buttonStyles + " bg-red-500 text-white"}>
-            <Icon path={mdiDeleteOutline} size={buttonIconSize} />
-            <p>Delete {!isMobile && "permanently"}</p>
+          <button className={buttonStyles + " min-w-30 bg-red-500 text-white"}>
+            {isLoading ? (
+              <Spinner isButton={true} />
+            ) : (
+              <div
+                onClick={submitDeleteRequest}
+                className="flex gap-1 sm:gap-2"
+              >
+                <Icon path={mdiDeleteOutline} size={buttonIconSize} />
+                <p>Delete {!isMobile && "permanently"}</p>
+              </div>
+            )}
           </button>
         </div>
       </motion.div>

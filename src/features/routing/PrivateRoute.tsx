@@ -9,7 +9,7 @@ import {
   updateUser,
 } from "@/features/auth/authSlice";
 import { fetchUser } from "@/features/auth/api";
-import { Spinner } from "@/components/Loaders";
+import { Spinner } from "@/components/Loader";
 
 const PrivateRoute = () => {
   const auth = useAppSelector(authSelector);

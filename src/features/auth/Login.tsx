@@ -9,7 +9,7 @@ import { useAppDispatch } from "@/hooks/reduxHooks";
 import { updateTokens, updateUser } from "@/features/auth/authSlice";
 import { updateMessage } from "@/features/popups/messageSlice";
 import { loginUser } from "@/features/auth/api";
-import { Spinner } from "@/components/Loaders";
+import { Spinner } from "@/components/Loader";
 
 export interface LoginFormTypes {
   email: string;

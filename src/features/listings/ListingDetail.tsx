@@ -15,7 +15,7 @@ import { fetchListingDetail } from "./api";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { authSelector } from "@/features/auth/authSlice";
-import { Spinner } from "@/components/Loaders";
+import { Spinner } from "@/components/Loader";
 import TagItems from "@/components/TagItems";
 import ProfileImage from "@/features/profile/ProfileImage";
 import DeleteListing from "@/features/modals/DeleteListing";

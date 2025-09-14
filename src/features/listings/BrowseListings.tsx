@@ -8,7 +8,7 @@ import { authSelector } from "@/features/auth/authSlice";
 import { fetchListings } from "@/features/listings/api";
 import FilterBar from "@/features/listings/FilterBar";
 import ListingCard from "@/features/listings/ListingCard";
-import { Spinner } from "@/components/Loaders";
+import { Spinner } from "@/components/Loader";
 import type { ListingTypes } from "@/App.types";
 import useMediaQuery from "@/hooks/useMediaQuery";
 

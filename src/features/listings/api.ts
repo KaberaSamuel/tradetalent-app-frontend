@@ -67,3 +67,13 @@ export const updateListing = async (
 
   return response;
 };
+
+export const deleteListing = async (slug: string, accessToken: string) => {
+  const response = await apiClient.delete(`/${slug}/`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return response;
+};

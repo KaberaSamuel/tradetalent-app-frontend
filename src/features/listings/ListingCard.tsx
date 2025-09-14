@@ -99,7 +99,7 @@ export default function ListingCard({ listing, isOwner }: Props) {
   }
 
   return (
-    <div className="h-full p-4 bg-neutral-100 text-sm sm:text-base flex flex-col gap-2 border-2 border-neutral-200 rounded-xl">
+    <div className="h-full p-4 bg-neutral-100 text-sm sm:text-base flex flex-col gap-1 sm:gap-2 border-2 border-neutral-200 rounded-xl">
       {/* title */}
       <div className="capitalize">
         <p className="text-base font-semibold leading-tight">
@@ -111,7 +111,7 @@ export default function ListingCard({ listing, isOwner }: Props) {
       {poster}
 
       {/* description */}
-      <p className="my-2">{listing.description}</p>
+      <p className="my-1 sm:my-2">{listing.description}</p>
 
       {/* covered skills */}
       <TagItems items={coveredskills} fallback="No skills specified yet!" />

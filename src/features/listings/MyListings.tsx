@@ -6,7 +6,7 @@ import { authSelector } from "../auth/authSlice";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { fetchActiveListings } from "./api";
 import { listingsGridStyles } from "./BrowseListings";
-import { Spinner } from "@/components/Loaders";
+import { Spinner } from "@/components/Loader";
 import Icon from "@mdi/react";
 import ListingCard from "./ListingCard";
 import useMediaQuery from "@/hooks/useMediaQuery";

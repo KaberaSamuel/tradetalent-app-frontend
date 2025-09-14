@@ -10,7 +10,7 @@ const TopBar = () => {
   const isMobile = useMediaQuery("(max-width: 600px)");
 
   return (
-    <div className="w-full h-fit p-2 sm:py-3 sm:px-4 flex gap-2 sm:gap-4 justify-between border-b-1 border-neutral-300">
+    <div className="w-full h-fit p-2 pt-3 sm:py-3 sm:px-4 flex gap-2 sm:gap-4 justify-between border-b-1 border-neutral-300">
       <form className="relative grow max-w-150">
         <Icon
           path={mdiMagnify}
