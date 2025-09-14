@@ -9,21 +9,15 @@ import { listingsGridStyles } from "./BrowseListings";
 import { Spinner } from "@/components/Loaders";
 import Icon from "@mdi/react";
 import ListingCard from "./ListingCard";
-import DeleteListing from "../modals/DeleteListing";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
 export default function MyListings() {
-  const [isDelete, setIsDelete] = useState(false);
   const auth = useAppSelector(authSelector);
   const isMobile = useMediaQuery("(max-width: 768px)");
   const { data, isLoading } = useQuery({
     queryKey: ["my-listings"],
     queryFn: () => fetchActiveListings(auth.token.access),
   });
-
-  const updateDeleteStatus = (isDelete: boolean) => {
-    setIsDelete(isDelete);
-  };
 
   if (isLoading) {
     return (
@@ -37,11 +31,7 @@ export default function MyListings() {
     const listingsItems = data.map((listing) => (
       <li key={listing.id}>
         {" "}
-        <ListingCard
-          listing={listing}
-          isOwner={true}
-          updateDeleteStatus={updateDeleteStatus}
-        />
+        <ListingCard listing={listing} isOwner={true} />
       </li>
     ));
 
@@ -64,7 +54,6 @@ export default function MyListings() {
             <p>You haven't posted any listing yet!</p>
           </div>
         )}
-        ;{isDelete && <DeleteListing updateDeleteStatus={updateDeleteStatus} />}
       </div>
     );
   }

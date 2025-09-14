@@ -1,4 +1,4 @@
-import Icon from "@mdi/react";
+import { useState } from "react";
 import {
   mdiArrowLeft,
   mdiTagOutline,
@@ -10,6 +10,7 @@ import {
 } from "@mdi/js";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { AnimatePresence } from "framer-motion";
 import { fetchListingDetail } from "./api";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import useMediaQuery from "@/hooks/useMediaQuery";
@@ -17,12 +18,19 @@ import { authSelector } from "@/features/auth/authSlice";
 import { Spinner } from "@/components/Loaders";
 import TagItems from "@/components/TagItems";
 import ProfileImage from "@/features/profile/ProfileImage";
+import DeleteListing from "@/features/modals/DeleteListing";
+import Icon from "@mdi/react";
 
 export default function ListingDetail() {
+  const [isDelete, setIsDelete] = useState(false);
   const { listing_slug } = useParams();
   const auth = useAppSelector(authSelector);
   const navigate = useNavigate();
   const isMobile = useMediaQuery("(max-width: 600px)");
+
+  const updateDeleteStatus = (isDelete: boolean) => {
+    setIsDelete(isDelete);
+  };
 
   const { data: listing, isLoading } = useQuery({
     queryKey: [listing_slug],
@@ -60,9 +68,14 @@ export default function ListingDetail() {
           <p>Edit Listing</p>
         </Link>
 
-        <button className={buttonStyles + " bg-red-500"}>
+        <button
+          onClick={() => {
+            updateDeleteStatus(true);
+          }}
+          className={buttonStyles + " bg-red-500"}
+        >
           <Icon path={mdiDeleteOutline} size={iconSize} />
-          <p>Delete Permanently</p>
+          <p>Delete Listing</p>
         </button>
       </div>
     ) : (
@@ -153,6 +166,16 @@ export default function ListingDetail() {
 
         {/* footer */}
         {footerButton}
+
+        {/* delete modal */}
+        <AnimatePresence>
+          {isDelete && (
+            <DeleteListing
+              updateDeleteStatus={updateDeleteStatus}
+              listing={listing}
+            />
+          )}
+        </AnimatePresence>
       </div>
     );
   }

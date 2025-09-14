@@ -1,4 +1,4 @@
-import Icon from "@mdi/react";
+import { useState } from "react";
 import {
   mdiEyeOutline,
   mdiMapMarkerOutline,
@@ -9,6 +9,9 @@ import {
 import { Link } from "react-router-dom";
 import type { ListingTypes } from "@/App.types";
 import TagItems from "@/components/TagItems";
+import Icon from "@mdi/react";
+import DeleteListing from "../modals/DeleteListing";
+import { AnimatePresence } from "framer-motion";
 
 interface Props {
   listing: ListingTypes;
@@ -16,11 +19,12 @@ interface Props {
   updateDeleteStatus?: (isDelete: boolean) => void;
 }
 
-export default function ListingCard({
-  listing,
-  isOwner,
-  updateDeleteStatus,
-}: Props) {
+export default function ListingCard({ listing, isOwner }: Props) {
+  const [isDelete, setIsDelete] = useState(false);
+  const updateDeleteStatus = (isDelete: boolean) => {
+    setIsDelete(isDelete);
+  };
+
   const coveredskills = listing.skills.split(",");
   const lastNameInitial = " " + listing.user.name_initials?.slice(1) || "";
 
@@ -114,6 +118,15 @@ export default function ListingCard({
 
       {/* footer */}
       {footer}
+
+      <AnimatePresence>
+        {isDelete && (
+          <DeleteListing
+            updateDeleteStatus={updateDeleteStatus}
+            listing={listing}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
