@@ -47,7 +47,7 @@ export default function ListingDetail() {
 
   if (isLoading) {
     return (
-      <div className="w-full h-full -translate-y-10 flex flex-col gap">
+      <div className="w-full h-full -translate-y-5 flex flex-col gap">
         <Spinner />
       </div>
     );

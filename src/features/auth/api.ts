@@ -62,6 +62,19 @@ export const fetchUser = async (
   }
 };
 
+export const fetchUserBySlug = async (
+  accessToken: string,
+  slug: string
+): Promise<UserTypes> => {
+  const response = await apiClient.get(`/${slug}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return response.data;
+};
+
 export const editUser = async (accessToken: string, data: EditFormTypes) => {
   let form_data = new FormData();
 

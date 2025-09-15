@@ -1,8 +1,10 @@
-import { useAppSelector } from "@/hooks/reduxHooks";
-import { authSelector } from "@/features/auth/authSlice";
 import { Link } from "react-router-dom";
 import Icon from "@mdi/react";
-import { mdiPencilOutline, mdiMapMarkerOutline } from "@mdi/js";
+import {
+  mdiPencilOutline,
+  mdiMapMarkerOutline,
+  mdiMessageOutline,
+} from "@mdi/js";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
 import ReviewsSummary from "@/features/reviews/ReviewsSummary";
@@ -11,9 +13,13 @@ import type { UserTypes } from "@/App.types";
 
 interface Props {
   user: UserTypes;
+  isLoggedIn: boolean;
 }
 
-const DesktopHero = ({ user }: Props) => {
+const DesktopHero = ({ user, isLoggedIn }: Props) => {
+  const buttonStyles =
+    "min-w-fit py-2 px-3 font-semibold flex items-center gap-2 rounded-lg";
+
   return (
     <div className="pb-5 flex items-center gap-7 border-b-1 border-neutral-300">
       <ProfileImage size={25} isSmall={false} user={user} />
@@ -22,9 +28,11 @@ const DesktopHero = ({ user }: Props) => {
         <div className="text-lg flex flex-col gap-2 sm:gap-4">
           <div className="lg:flex lg:items-center lg:gap-3">
             <p className="text-3xl">{user.name}</p>
-            <p className="w-fit py-1 px-3 bg-neutral-200 text-neutral-500 text-sm translate-y-1 rounded-full">
-              You
-            </p>
+            {isLoggedIn && (
+              <p className="w-fit py-1 px-3 bg-neutral-200 text-neutral-500 text-sm translate-y-1 rounded-full">
+                You
+              </p>
+            )}
           </div>
 
           <div className="text-neutral-500 flex items-center gap-1">
@@ -35,36 +43,43 @@ const DesktopHero = ({ user }: Props) => {
           <ReviewsSummary user={user} />
         </div>
 
-        <Link
-          to="edit"
-          className="min-w-fit py-2 px-3 font-semibold flex items-center gap-2 border border-neutral-300 rounded-lg"
-        >
-          <Icon path={mdiPencilOutline} size={1} />
-          <p>Edit Profile</p>
-        </Link>
+        {isLoggedIn ? (
+          <Link
+            to="edit"
+            className={buttonStyles + " border border-neutral-300"}
+          >
+            <Icon path={mdiPencilOutline} size={1} />
+            <p>Edit Profile</p>
+          </Link>
+        ) : (
+          <Link
+            to="/messages"
+            className={buttonStyles + " bg-teal-500 text-white"}
+          >
+            <Icon path={mdiMessageOutline} size={1} />
+            <p>Message {user.first_name}</p>
+          </Link>
+        )}
       </div>
     </div>
   );
 };
 
-const MobileHero = ({ user }: Props) => {
+const MobileHero = ({ user, isLoggedIn }: Props) => {
   return (
     <div className="pb-5 flex items-center gap-4 sm:gap-7 border-b-1 border-neutral-300">
       <div className="flex flex-col gap-3 items-center">
         <ProfileImage size={20} isSmall={false} user={user} />
-        <Link to="edit">
-          <p className="text-xs md:text-base underline text-gray-500">
-            Edit Profile
-          </p>
-        </Link>
       </div>
 
       <div className="text-sm md:text-lg flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <p className="text-base md:text-2xl">{user.name}</p>
-          <p className="w-fit py-1 px-3 bg-neutral-200 text-neutral-500 text-xs translate-y-1 rounded-full">
-            You
-          </p>
+          {isLoggedIn && (
+            <p className="w-fit py-1 px-3 bg-neutral-200 text-neutral-500 text-xs translate-y-1 rounded-full">
+              You
+            </p>
+          )}
         </div>
 
         <div className="text-neutral-500 flex items-center gap-1">
@@ -78,13 +93,12 @@ const MobileHero = ({ user }: Props) => {
   );
 };
 
-const Hero = () => {
+const Hero = ({ user, isLoggedIn }: Props) => {
   const isMobile = useMediaQuery("(max-width: 600px)");
-  const auth = useAppSelector(authSelector);
 
-  if (isMobile) return <MobileHero user={auth.user} />;
+  if (isMobile) return <MobileHero user={user} isLoggedIn={isLoggedIn} />;
 
-  return <DesktopHero user={auth.user} />;
+  return <DesktopHero user={user} isLoggedIn={isLoggedIn} />;
 };
 
 export default Hero;

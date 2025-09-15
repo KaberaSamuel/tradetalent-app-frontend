@@ -41,6 +41,7 @@ const MessagePopup = () => {
         <motion.div
           style={{
             position: "fixed",
+            zIndex: 20,
             top: "20px",
             right: "25px",
             maxWidth: "400px",

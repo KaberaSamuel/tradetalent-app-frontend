@@ -20,4 +20,8 @@
   .password-eye {
     @apply absolute right-1 top-1/2 transform -translate-1/2;
   }
+
+  .unset-styles {
+    all: unset;
+  }
 }

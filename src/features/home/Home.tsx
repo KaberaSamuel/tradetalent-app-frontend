@@ -25,7 +25,7 @@ const Welcome = () => {
           <Icon path={mdiPlus} size={1} />
           <p className="text-sm sm:text-base">Post New Listing</p>
         </Link>
-        <Link to="#" className="bg-neutral-200 text-neutral-500">
+        <Link to="/listings/" className="bg-neutral-200 text-neutral-500">
           <Icon path={mdiMagnify} size={1} />
           <p className="text-sm sm:text-base">Browse Listings</p>
         </Link>
