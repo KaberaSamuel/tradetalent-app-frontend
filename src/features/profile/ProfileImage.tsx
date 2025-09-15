@@ -4,17 +4,18 @@ interface Props {
   isSmall: boolean;
   user: UserTypes;
   size: number;
+  text?: string;
 }
 
-const ProfileImage = ({ isSmall, size, user }: Props) => {
-  const styles = `rounded-full`;
+const ProfileImage = ({ isSmall, size, user, text = " text-3xl" }: Props) => {
+  const styles = `rounded-full bg-neutral-200 text-gray-500 flex justify-center items-center`;
   const inlineStyles = {
     width: `${size * 4}px`,
     height: `${size * 4}px`,
     minWidth: `${size * 4}px`,
   };
 
-  const name_initials_styles = isSmall ? styles : styles + " text-3xl";
+  const name_initials_styles = isSmall ? styles : styles + text;
 
   return (
     <div>
@@ -26,7 +27,9 @@ const ProfileImage = ({ isSmall, size, user }: Props) => {
           style={inlineStyles}
         />
       ) : (
-        <div className={name_initials_styles}>{user?.name_initials}</div>
+        <div className={name_initials_styles} style={inlineStyles}>
+          {user?.name_initials}
+        </div>
       )}
     </div>
   );

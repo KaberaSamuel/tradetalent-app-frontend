@@ -1,7 +1,10 @@
 import ProfileCards from "@/features/profile/ProfileCards";
 import Hero from "@/features/profile/Hero";
+import { useParams } from "react-router-dom";
 
 const Profile = () => {
+  const { user_slug } = useParams();
+
   return (
     <div className="flex flex-col gap-5">
       <Hero />

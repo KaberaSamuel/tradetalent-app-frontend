@@ -147,19 +147,23 @@ export default function ListingDetail() {
               size={isMobile ? 15 : 17}
               isSmall={false}
               user={listing.user}
+              text=" text-2xl"
             />
             <div className="text-sm sm:text-base">
               <p className="font-semibold">{listing.user.name}</p>
               <p className="text-gray-500">{listing.user.location}</p>
-              <Link to="#" className="text-teal-500">
-                {isOwner ? (
-                  <p className="w-fit py-1 px-3  bg-teal-500 text-xs text-white rounded-xl mt-1">
-                    You
-                  </p>
-                ) : (
-                  <p>View Profile</p>
-                )}
-              </Link>
+              {isOwner ? (
+                <p className="w-fit py-1 px-3  bg-teal-500 text-xs text-white rounded-xl mt-1">
+                  You
+                </p>
+              ) : (
+                <Link
+                  to={"/users/" + listing.user.slug}
+                  className="text-teal-500"
+                >
+                  View Profile
+                </Link>
+              )}
             </div>
           </div>
         </div>

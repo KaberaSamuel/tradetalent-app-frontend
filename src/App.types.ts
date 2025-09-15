@@ -1,5 +1,6 @@
 export interface UserTypes {
   name: string;
+  slug: string;
   first_name?: string;
   name_initials?: string;
   email: string;

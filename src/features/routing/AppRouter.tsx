@@ -42,6 +42,7 @@ const AppRouter = () => {
           <Route path="/listings" element={<BrowseListings />} />
           <Route path="/listings/new" element={<NewListing />} />
           <Route path="/listings/:listing_slug" element={<ListingDetail />} />
+          <Route path="/users/:user_slug" element={<Profile />} />
           <Route
             path="/listings/:listing_slug/edit"
             element={<EditListing />}
