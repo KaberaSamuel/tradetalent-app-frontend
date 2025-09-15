@@ -6,7 +6,7 @@ import { useAppDispatch } from "@/hooks/reduxHooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-
+import { Spinner } from "@/components/Loader";
 import { registerUser } from "@/features/auth/api";
 import { updateMessage } from "@/features/popups/messageSlice";
 
@@ -18,6 +18,7 @@ export interface SignupFormTypes {
 }
 
 const Signup = () => {
+  const [pending, setpending] = useState(false);
   const [passwordVisibility1, setPasswordVisibility1] = useState(false);
   const [passwordVisibility2, setPasswordVisibility2] = useState(false);
 
@@ -27,6 +28,7 @@ const Signup = () => {
 
   const onSubmit = async (data: SignupFormTypes): Promise<void> => {
     try {
+      setpending(true);
       const { password, password2 } = data;
       if (password !== password2) {
         dispatch(updateMessage("Passwords don't match"));
@@ -54,6 +56,8 @@ const Signup = () => {
       } else {
         dispatch(updateMessage("Internal Server Error. Refresh and try again"));
       }
+    } finally {
+      setpending(false);
     }
   };
 
@@ -113,7 +117,7 @@ const Signup = () => {
           type="submit"
           className="p-2.5 bg-teal-500 text-white font-semibold rounded-2xl"
         >
-          Sign Up
+          {pending ? <Spinner isButton={true} /> : <p>Signup</p>}
         </button>
         <button className="p-2.5 bg-white text-black rounded-2xl font-semibold flex justify-center items-center gap-1 border border-neutral-200">
           <FontAwesomeIcon icon={faChrome} />
