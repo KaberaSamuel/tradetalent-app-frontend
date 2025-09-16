@@ -1,17 +1,19 @@
-import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-import { authSelector, clear } from "../auth/authSlice";
-import { mdiLogout, mdiTrashCanOutline, mdiInformationOutline } from "@mdi/js";
-import Icon from "@mdi/react";
-import ModalOveraly from "./ModalOveraly";
-import ProfileImage from "../profile/ProfileImage";
-import { useNavigate } from "react-router-dom";
 import { logoutUser } from "@/features/auth/api";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { mdiInformationOutline, mdiLogout, mdiTrashCanOutline } from "@mdi/js";
+import Icon from "@mdi/react";
+import type React from "react";
+import { useNavigate } from "react-router-dom";
+import { authSelector, clear } from "../auth/authSlice";
+import ProfileImage from "../profile/ProfileImage";
+import ModalOveraly from "./ModalOveraly";
 
 interface Props {
-  updateVisibility: (isVisible: boolean) => void;
+  updateVisibility: (choice: boolean) => void;
+  updateDeleteStatus: (choice: boolean) => void;
 }
 
-function ProfileModal({ updateVisibility }: Props) {
+function ProfileModal({ updateVisibility, updateDeleteStatus }: Props) {
   const navigate = useNavigate();
   const auth = useAppSelector(authSelector);
   const dispatch = useAppDispatch();
@@ -65,7 +67,14 @@ function ProfileModal({ updateVisibility }: Props) {
           <p>Logout</p>
         </div>
 
-        <div className={itemStyle}>
+        <div
+          className={itemStyle}
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation();
+            updateVisibility(false);
+            updateDeleteStatus(true);
+          }}
+        >
           <Icon path={mdiTrashCanOutline} size={iconSize} />
           <p>Delete Account</p>
         </div>

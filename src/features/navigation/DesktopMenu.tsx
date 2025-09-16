@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import Icon from "@mdi/react";
 import {
-  mdiViewDashboardOutline,
+  mdiAccountOutline,
   mdiFormatListCheckbox,
   mdiMessageOutline,
-  mdiAccountOutline,
   mdiPlusCircleOutline,
+  mdiViewDashboardOutline,
 } from "@mdi/js";
+import Icon from "@mdi/react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const DesktopMenu = () => {
   const [activeTab, setActiveTab] = useState(window.location.pathname);

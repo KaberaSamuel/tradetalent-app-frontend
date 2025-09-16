@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import { mdiMagnify, mdiBellOutline } from "@mdi/js";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import useMediaQuery from "@/hooks/useMediaQuery";
 import { authSelector } from "@/features/auth/authSlice";
 import ProfileImage from "@/features/profile/ProfileImage";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import { mdiBellOutline, mdiMagnify } from "@mdi/js";
 import Icon from "@mdi/react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import DeleteUser from "../modals/DeleteUser";
 import ProfileModal from "../modals/ProfileModal";
 
 const TopBar = () => {
@@ -14,6 +15,7 @@ const TopBar = () => {
   const isMobile = useMediaQuery("(max-width: 600px)");
   const [query, setQuery] = useState("");
   const [profileModalVisibility, setProfileModalVisibility] = useState(false);
+  const [deleteModalVisibility, setDeleteModalVisibility] = useState(false);
 
   const updateQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
@@ -21,6 +23,10 @@ const TopBar = () => {
 
   const updateProfileModalVisibility = (choice: boolean) => {
     setProfileModalVisibility(choice);
+  };
+
+  const updateDeleteModalVisibility = (choice: boolean) => {
+    setDeleteModalVisibility(choice);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,7 +63,17 @@ const TopBar = () => {
           <ProfileImage size={10} isSmall={true} user={auth.user} />
 
           {profileModalVisibility && (
-            <ProfileModal updateVisibility={updateProfileModalVisibility} />
+            <ProfileModal
+              updateVisibility={updateProfileModalVisibility}
+              updateDeleteStatus={updateDeleteModalVisibility}
+            />
+          )}
+
+          {deleteModalVisibility && (
+            <DeleteUser
+              user={auth.user}
+              updateDeleteStatus={updateDeleteModalVisibility}
+            />
           )}
         </div>
       </div>

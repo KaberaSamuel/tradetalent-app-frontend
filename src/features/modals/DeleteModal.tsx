@@ -1,12 +1,14 @@
-import Icon from "@mdi/react";
-import { mdiTrashCanOutline, mdiClose, mdiDeleteOutline } from "@mdi/js";
-import { motion } from "framer-motion";
-import useMediaQuery from "@/hooks/useMediaQuery";
-import ModalOveraly from "@/features/modals/ModalOveraly";
 import { Spinner } from "@/components/Loader";
+import ModalOveraly from "@/features/modals/ModalOveraly";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import { mdiClose, mdiDeleteOutline, mdiTrashCanOutline } from "@mdi/js";
+import Icon from "@mdi/react";
+import { motion } from "framer-motion";
+import type React from "react";
 import type { ReactNode } from "react";
 
 interface Props {
+  item: string;
   pending: boolean;
   updateDeleteStatus: (isDelete: boolean) => void;
   deleteFunction: () => void;
@@ -14,6 +16,7 @@ interface Props {
 }
 
 function DeleteModal({
+  item,
   pending,
   updateDeleteStatus,
   deleteFunction,
@@ -55,7 +58,7 @@ function DeleteModal({
             size={iconSize}
             className="text-red-500"
           />
-          <p className="text-lg font-semibold">Delete Listing ?</p>
+          <p className="text-lg font-semibold">Delete {item} ?</p>
         </div>
 
         {/* body */}
@@ -64,7 +67,8 @@ function DeleteModal({
         {/* footer */}
         <div className="mt-3 flex gap-3 sm:gap-5 sm:justify-end">
           <button
-            onClick={() => {
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation();
               updateDeleteStatus(false);
             }}
             className={buttonStyles + " bg-white text-black"}
@@ -77,7 +81,13 @@ function DeleteModal({
             {pending ? (
               <Spinner isButton={true} />
             ) : (
-              <div onClick={deleteFunction} className="flex gap-1 sm:gap-2">
+              <div
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  deleteFunction();
+                }}
+                className="flex gap-1 sm:gap-2"
+              >
                 <Icon path={mdiDeleteOutline} size={buttonIconSize} />
                 <p>Delete {!isMobile && "permanently"}</p>
               </div>

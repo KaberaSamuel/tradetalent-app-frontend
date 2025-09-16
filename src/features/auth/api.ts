@@ -1,8 +1,8 @@
-import axios from "axios";
+import type { UserTypes } from "@/App.types";
 import type { LoginFormTypes } from "@/features/auth/Login";
 import type { SignupFormTypes } from "@/features/auth/Signup";
 import type { EditFormTypes } from "@/features/profile/EditProfile";
-import type { UserTypes } from "@/App.types";
+import axios from "axios";
 
 interface FetchUserTypes {
   data: {
@@ -117,5 +117,15 @@ export const logoutUser = async (accessToken: string, refreshToken: string) => {
       },
     }
   );
+  return response;
+};
+
+export const deleteUser = async (slug: string, accessToken: string) => {
+  const response = await apiClient.delete(`/${slug}/`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
   return response;
 };

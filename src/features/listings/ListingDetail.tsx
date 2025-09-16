@@ -1,25 +1,25 @@
-import { useState } from "react";
+import { Spinner } from "@/components/Loader";
+import TagItems from "@/components/TagItems";
+import { authSelector } from "@/features/auth/authSlice";
+import DeleteListing from "@/features/modals/DeleteListing";
+import ProfileImage from "@/features/profile/ProfileImage";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import {
   mdiArrowLeft,
-  mdiTagOutline,
   mdiCalendarRangeOutline,
+  mdiDeleteOutline,
   mdiMapMarkerOutline,
   mdiMessageOutline,
   mdiPencilOutline,
-  mdiDeleteOutline,
+  mdiTagOutline,
 } from "@mdi/js";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import Icon from "@mdi/react";
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { fetchListingDetail } from "./api";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import useMediaQuery from "@/hooks/useMediaQuery";
-import { authSelector } from "@/features/auth/authSlice";
-import { Spinner } from "@/components/Loader";
-import TagItems from "@/components/TagItems";
-import ProfileImage from "@/features/profile/ProfileImage";
-import DeleteListing from "@/features/modals/DeleteListing";
-import Icon from "@mdi/react";
 
 export default function ListingDetail() {
   const [isDelete, setIsDelete] = useState(false);
@@ -150,8 +150,10 @@ export default function ListingDetail() {
               text=" text-2xl"
             />
             <div className="text-sm sm:text-base">
-              <p className="font-semibold">{listing.user.name}</p>
-              <p className="text-gray-500">{listing.user.location}</p>
+              <p className="capitalize font-semibold">{listing.user.name}</p>
+              <p className="text-gray-500">
+                {listing.user.location || "No location yet!"}
+              </p>
               {isOwner ? (
                 <p className="w-fit py-1 px-3  bg-teal-500 text-xs text-white rounded-xl mt-1">
                   You

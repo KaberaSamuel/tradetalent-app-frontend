@@ -1,55 +1,52 @@
-import type { ListingTypes } from "@/App.types";
+import type { UserTypes } from "@/App.types";
+import { deleteUser } from "@/features/auth/api";
 import { authSelector } from "@/features/auth/authSlice";
-import { deleteListing } from "@/features/listings/api";
 import DeleteModal from "@/features/modals/DeleteModal";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { useState } from "react";
+import ProfileImage from "../profile/ProfileImage";
 
 interface Props {
   updateDeleteStatus: (isDelete: boolean) => void;
-  listing: ListingTypes;
+  user: UserTypes;
 }
 
-function DeleteListing({ updateDeleteStatus, listing }: Props) {
+function DeleteUser({ updateDeleteStatus, user }: Props) {
   const auth = useAppSelector(authSelector);
   const [isLoading, setIsLoading] = useState(false);
 
   const submitDeleteRequest = async () => {
     try {
       setIsLoading(true);
-      await deleteListing(listing.slug, auth.token.access);
+      await deleteUser(user.slug, auth.token.access);
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
-      window.location.href = "/my-listings";
+      window.location.href = "/public";
     }
   };
 
   return (
     <DeleteModal
-      item="listing"
+      item="account"
       pending={isLoading}
       updateDeleteStatus={updateDeleteStatus}
       deleteFunction={submitDeleteRequest}
     >
       <p className="text-gray-500 mb-1">
-        This action permanently removes the listing and its messages. You can't
-        undo this.
+        This action permanently removes your account. You can't undo this.
       </p>
 
-      <div className="py-3 px-4 text-sm font-semibold capitalize bg-teal-100 rounded-xl">
-        <p className="text-base">
-          {listing.type}: {listing.title}
-        </p>
-
-        <div className="text-gray-500 flex flex-col sm:flex-row gap-0 sm:gap-2">
-          <p>Posted {listing.delta_time},</p>
-          <p>Tags: {listing.skills}</p>
+      <div className="py-3 px-4 bg-neutral-100 flex gap-4 items-center border border-neutral-300 rounded-xl">
+        <ProfileImage size={15} isSmall={false} user={user} text=" text-2xl" />
+        <div className="text-sm sm:text-base">
+          <p className="font-semibold">{user.name}</p>
+          <p className="text-gray-500">{user.email}</p>
         </div>
       </div>
     </DeleteModal>
   );
 }
 
-export default DeleteListing;
+export default DeleteUser;
