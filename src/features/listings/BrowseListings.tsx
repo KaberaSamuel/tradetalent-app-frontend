@@ -45,7 +45,6 @@ export default function BrowseListings() {
   const [activeFilter, setActiveFilter] = useState("all");
   const [searchParams, setSearchParams] = useSearchParams();
   const queryItem = searchParams.get("search");
-  console.log(queryItem);
 
   const fetchKey = queryItem
     ? ["search-listings", queryItem]
