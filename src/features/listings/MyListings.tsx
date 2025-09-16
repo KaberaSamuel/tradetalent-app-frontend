@@ -21,7 +21,7 @@ export default function MyListings() {
 
   if (isLoading) {
     return (
-      <div className="w-full h-full -translate-y-10">
+      <div className="w-full h-full">
         <Spinner />
       </div>
     );

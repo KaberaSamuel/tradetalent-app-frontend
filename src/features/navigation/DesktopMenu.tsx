@@ -53,7 +53,11 @@ const DesktopMenu = () => {
         <Link
           to="/listings"
           onClick={() => setActiveTab("/listings")}
-          className={activeTab == "/listings" ? "active" : ""}
+          className={
+            activeTab.startsWith("/listings") && !activeTab.includes("new")
+              ? "active"
+              : ""
+          }
         >
           <Icon path={mdiFormatListCheckbox} size={1} />
           <p>Listings</p>
@@ -61,8 +65,8 @@ const DesktopMenu = () => {
 
         <Link
           to="/listings/new"
-          onClick={() => setActiveTab("/post")}
-          className={activeTab.startsWith("/listings/new") ? "active" : ""}
+          onClick={() => setActiveTab("/listings/new")}
+          className={activeTab.includes("/new") ? "active" : ""}
         >
           <Icon path={mdiPlusCircleOutline} size={1} />
           <p>Post Need/Offer</p>

@@ -1,7 +1,6 @@
 import { useState } from "react";
-import Icon from "@mdi/react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { mdiAccountOutline } from "@mdi/js";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { authSelector } from "@/features/auth/authSlice";
@@ -11,6 +10,7 @@ import ListingCard from "@/features/listings/ListingCard";
 import { Spinner } from "@/components/Loader";
 import type { ListingTypes } from "@/App.types";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import Icon from "@mdi/react";
 
 export const listingsGridStyles = "grid xl:grid-cols-2 gap-5 items-stretch";
 
@@ -41,15 +41,27 @@ function getFilteredListings(listings: ListingTypes[], activeFilter: string) {
 export default function BrowseListings() {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const auth = useAppSelector(authSelector);
+
   const [activeFilter, setActiveFilter] = useState("all");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const queryItem = searchParams.get("search");
+  console.log(queryItem);
+
+  const fetchKey = queryItem
+    ? ["search-listings", queryItem]
+    : ["browse-listings"];
+  const fetchfn = queryItem
+    ? () => fetchListings(auth.token.access, queryItem)
+    : () => fetchListings(auth.token.access);
+
   const { data, isLoading } = useQuery({
-    queryKey: ["browse-listings"],
-    queryFn: () => fetchListings(auth.token.access),
+    queryKey: fetchKey,
+    queryFn: fetchfn,
   });
 
   if (isLoading) {
     return (
-      <div className="w-full h-full -translate-y-10">
+      <div className="w-full h-full">
         <Spinner />
       </div>
     );
@@ -88,7 +100,7 @@ export default function BrowseListings() {
           <ul className={listingsGridStyles}>{listingsItems}</ul>
         ) : (
           <div className="h-[45vh] flex justify-center items-center">
-            <p>No listings here yet!</p>
+            <p>No listings found!</p>
           </div>
         )}
       </div>

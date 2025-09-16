@@ -7,9 +7,11 @@ const apiClient = axios.create({
 });
 
 export const fetchListings = async (
-  accessToken: string
+  accessToken: string,
+  query?: string
 ): Promise<ListingTypes[]> => {
-  const response = await apiClient.get("/", {
+  const urlQuery = query ? `/?search=${query}` : "/";
+  const response = await apiClient.get(urlQuery, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -76,4 +78,15 @@ export const deleteListing = async (slug: string, accessToken: string) => {
   });
 
   return response;
+};
+
+export const searchListing = async (
+  query: string
+): Promise<ListingTypes[] | void> => {
+  try {
+    const response = await apiClient.get(`/?search=${query}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
