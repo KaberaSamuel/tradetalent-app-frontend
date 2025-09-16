@@ -15,14 +15,8 @@ import ListingDetail from "@/features/listings/ListingDetail";
 import NewListing from "@/features/listings/NewListing";
 import EditListing from "@/features/listings/EditListing";
 import PublicPage from "@/features/home/PublicPage";
-
-const UnderDevelopment = () => {
-  return (
-    <div className="sm:text-xl">
-      <p>This page is still in development</p>
-    </div>
-  );
-};
+import NotFoundPage from "@/features/routing/Notfound";
+import MessagesPage from "@/features/messages/Messages";
 
 const AppRouter = () => {
   return (
@@ -49,9 +43,11 @@ const AppRouter = () => {
           />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
-          <Route path="*" element={<UnderDevelopment />} />
+          <Route path="/messages" element={<MessagesPage />} />
         </Route>
       </Route>
+
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };
