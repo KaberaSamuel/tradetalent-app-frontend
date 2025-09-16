@@ -9,31 +9,11 @@ import {
   mdiPlusCircleOutline,
 } from "@mdi/js";
 
-import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-import { authSelector, clear } from "@/features/auth/authSlice";
-import { logoutUser } from "@/features/auth/api";
-
 const DesktopMenu = () => {
   const [activeTab, setActiveTab] = useState(window.location.pathname);
-  const dispatch = useAppDispatch();
-  const auth = useAppSelector(authSelector);
-
-  const logout = async () => {
-    try {
-      await logoutUser(auth.token.access, auth.token.refresh);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      dispatch(clear());
-      localStorage.clear();
-
-      // navigate to public with a full reload
-      window.location.href = "/public";
-    }
-  };
 
   return (
-    <div className="relative w-[25vw] min-w-[250px] h-full min-h-screen p-4 border-r-1 border-neutral-300 [&_.active]:text-black [&_.active]:bg-neutral-200">
+    <div className="sticky top-0 w-[25vw] min-w-[280px] h-screen p-4 border-r-1 border-neutral-300 [&_.active]:text-black [&_.active]:bg-neutral-200">
       <div className="mb-10">
         <Link to="/" className="text-xl font-semibold">
           ServiceExchange
@@ -90,10 +70,6 @@ const DesktopMenu = () => {
           <p>Profile</p>
         </Link>
       </div>
-
-      <button onClick={logout} className="absolute bottom-5 text-lg underline">
-        Logout
-      </button>
     </div>
   );
 };

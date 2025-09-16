@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { mdiMagnify, mdiBellOutline } from "@mdi/js";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import useMediaQuery from "@/hooks/useMediaQuery";
@@ -6,15 +6,21 @@ import { authSelector } from "@/features/auth/authSlice";
 import ProfileImage from "@/features/profile/ProfileImage";
 import Icon from "@mdi/react";
 import { useNavigate } from "react-router-dom";
+import ProfileModal from "../modals/ProfileModal";
 
 const TopBar = () => {
-  const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const auth = useAppSelector(authSelector);
   const isMobile = useMediaQuery("(max-width: 600px)");
+  const [query, setQuery] = useState("");
+  const [profileModalVisibility, setProfileModalVisibility] = useState(false);
 
   const updateQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
+  };
+
+  const updateProfileModalVisibility = (choice: boolean) => {
+    setProfileModalVisibility(choice);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,7 +29,7 @@ const TopBar = () => {
   };
 
   return (
-    <div className="w-full h-fit p-2 pt-3 sm:py-3 sm:px-4 flex gap-2 sm:gap-4 justify-between border-b-1 border-neutral-300">
+    <div className="relative w-full h-fit p-2 pt-3 sm:py-3 sm:px-4 flex gap-2 sm:gap-4 justify-between border-b-1 border-neutral-300">
       <form onSubmit={onSubmit} className="relative grow max-w-150">
         <Icon
           path={mdiMagnify}
@@ -43,7 +49,17 @@ const TopBar = () => {
           <Icon path={mdiBellOutline} size={1} />
         </div>
 
-        <ProfileImage size={10} isSmall={true} user={auth.user} />
+        <div
+          onClick={() => {
+            updateProfileModalVisibility(true);
+          }}
+        >
+          <ProfileImage size={10} isSmall={true} user={auth.user} />
+
+          {profileModalVisibility && (
+            <ProfileModal updateVisibility={updateProfileModalVisibility} />
+          )}
+        </div>
       </div>
     </div>
   );
