@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 
-import { useAppDispatch } from "@/hooks/reduxHooks";
+import { Spinner } from "@/components/Loader";
+import { loginUser } from "@/features/auth/api";
 import { updateTokens, updateUser } from "@/features/auth/authSlice";
 import { updateMessage } from "@/features/popups/messageSlice";
-import { loginUser } from "@/features/auth/api";
-import { Spinner } from "@/components/Loader";
+import { useAppDispatch } from "@/hooks/reduxHooks";
 
 export interface LoginFormTypes {
   email: string;
@@ -21,6 +21,7 @@ const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [pending, setPending] = useState(false);
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm<LoginFormTypes>();
 
@@ -38,8 +39,7 @@ const Login = () => {
       localStorage.setItem("access", tokens.access);
       localStorage.setItem("refresh", tokens.refresh);
 
-      // Redirect to home page with a refresh
-      window.location.href = "/";
+      navigate("/");
     } catch (error: any) {
       console.log(error);
       dispatch(

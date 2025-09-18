@@ -1,16 +1,16 @@
-import { useEffect } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import MessagePopup from "@/features/popups/MessagePopUp";
-import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { Spinner } from "@/components/Loader";
+import { fetchUser } from "@/features/auth/api";
 import {
   authSelector,
   updateTokens,
   updateUser,
 } from "@/features/auth/authSlice";
+import MessagePopup from "@/features/popups/MessagePopUp";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import { updateMyListings } from "../home/ActivitiesSlice";
-import { fetchUser } from "@/features/auth/api";
-import { Spinner } from "@/components/Loader";
 
 const PrivateRoute = () => {
   const auth = useAppSelector(authSelector);
@@ -31,6 +31,17 @@ const PrivateRoute = () => {
     enabled: shouldFetchUser,
     retry: false,
   });
+
+  const [waitingMessage, setWaitingMessage] = useState("");
+
+  // Effect to show waiting message on page load
+  useEffect(() => {
+    setTimeout(() => {
+      if (isLoading) {
+        setWaitingMessage("Hang on, it's taking a bit longer to load the data");
+      }
+    }, 7000);
+  }, []);
 
   // Effect to update redux store when user data is fetched
   useEffect(() => {
@@ -61,12 +72,19 @@ const PrivateRoute = () => {
     );
   }
 
-  // If not logged in, but have tokens in localStorage
+  // Fetching user data if there're tokens on the localStorage
   if (accessToken && refreshToken) {
     if (isLoading) {
       return (
-        <div className="h-screen -translate-y-5">
-          <Spinner />
+        <div className="h-screen flex flex-col justify-center items-center">
+          <div className="w-fit">
+            <Spinner />
+          </div>
+          {waitingMessage && (
+            <p className="pt-5 px-4 sm:text-lg text-teal-500">
+              {waitingMessage}
+            </p>
+          )}
         </div>
       );
     }
