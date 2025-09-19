@@ -38,7 +38,7 @@ const PrivateRoute = () => {
   useEffect(() => {
     setTimeout(() => {
       if (isLoading) {
-        setWaitingMessage("Hang on, it's taking a bit longer to load the data");
+        setWaitingMessage("Hang on, it's taking a bit longer!");
       }
     }, 7000);
   }, []);

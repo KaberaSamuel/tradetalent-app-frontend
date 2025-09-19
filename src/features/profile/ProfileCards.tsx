@@ -1,10 +1,10 @@
-import Icon from "@mdi/react";
-import { mdiPencilOutline, mdiMessageOutline } from "@mdi/js";
-import { Link } from "react-router-dom";
-import useMediaQuery from "@/hooks/useMediaQuery";
-import LatestReview from "@/features/reviews/LatestReview";
-import TagItems from "@/components/TagItems";
 import type { UserTypes } from "@/App.types";
+import TagItems from "@/components/TagItems";
+import LatestReview from "@/features/reviews/LatestReview";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import { mdiMessageOutline, mdiPencilOutline } from "@mdi/js";
+import Icon from "@mdi/react";
+import { Link } from "react-router-dom";
 
 interface Props {
   isLoggedIn: boolean;
@@ -19,34 +19,29 @@ const ProfileCards = ({ isLoggedIn, user }: Props) => {
   const titleStyles =
     " text-base sm:[&_.title]:text-xl [&_.title]:font-semibold [&_.title]:mb-4";
   const cardStyles =
-    "[&>*]:min-h-45 md[&>*]:min-h-60 [&>*]:p-3 sm:[&>*]:py-4 sm:[&>*]:px-5 [&>*]:bg-neutral-50 [&>*]:border [&>*]:border-neutral-200 [&>*]:rounded-xl " +
+    "min-h-45 md:min-h-60 p-3 sm:py-4 sm:px-5 text-sm sm:text-base bg-neutral-50 border border-neutral-200 rounded-xl " +
     titleStyles;
   const buttonStyles =
     "w-fit py-2 px-4 bg-teal-500 text-white font-semibold flex items-center gap-2 rounded-lg";
 
   return (
-    <div
-      className={
-        "text-sm sm:text-base grid grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-7 " +
-        cardStyles
-      }
-    >
-      <div>
+    <div className="text-sm sm:text-base grid grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-7 ">
+      <div className={cardStyles}>
         <p className="title">About {user.first_name || "No location yet"}</p>
         <p>{user.about || "No description yet"}</p>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className={cardStyles + " flex flex-col gap-2"}>
         <p className="title">Services Needed</p>
         <TagItems items={servicesNeeded} fallback={"Nothing here yet!"} />
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className={cardStyles + " flex flex-col gap-2"}>
         <p className="title">Services Offered</p>
         <TagItems items={servicesOffered} fallback={"Nothing here yet!"} />
       </div>
 
-      <div className="relative">
+      <div className={cardStyles}>
         <p className="title">Latest Review</p>
         <LatestReview />
       </div>

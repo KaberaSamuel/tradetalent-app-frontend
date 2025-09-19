@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import Icon from "@mdi/react";
 import {
-  mdiHomeOutline,
-  mdiFormatListCheckbox,
-  mdiMessageOutline,
   mdiAccountOutline,
+  mdiFormatListCheckbox,
+  mdiHomeOutline,
+  mdiMessageOutline,
   mdiPlus,
 } from "@mdi/js";
+import Icon from "@mdi/react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const MobileMenu = () => {
   const [activeTab, setActiveTab] = useState(window.location.pathname);
@@ -16,7 +16,7 @@ const MobileMenu = () => {
   return (
     <div
       className={
-        "fixed z-10 p-3 sm:px-15 bg-white bottom-0 w-full flex justify-between text-sm text-neutral-700 font-semibold border-t-2 border-neutral-300" +
+        "fixed z-5 p-3 sm:px-15 bg-white bottom-0 w-full flex justify-between text-sm text-neutral-700 font-semibold border-t-2 border-neutral-300" +
         childrenStyles
       }
     >

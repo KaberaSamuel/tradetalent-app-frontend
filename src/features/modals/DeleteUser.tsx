@@ -42,7 +42,7 @@ function DeleteUser({ updateDeleteStatus, user }: Props) {
         <ProfileImage size={15} isSmall={false} user={user} text=" text-2xl" />
         <div className="text-sm sm:text-base">
           <p className="font-semibold">{user.name}</p>
-          <p className="text-gray-500">{user.email}</p>
+          <p className="text-red-500 break-all">{user.email}</p>
         </div>
       </div>
     </DeleteModal>

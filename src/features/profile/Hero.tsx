@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
-import Icon from "@mdi/react";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import {
-  mdiPencilOutline,
   mdiMapMarkerOutline,
   mdiMessageOutline,
+  mdiPencilOutline,
 } from "@mdi/js";
-import useMediaQuery from "@/hooks/useMediaQuery";
+import Icon from "@mdi/react";
+import { Link } from "react-router-dom";
 
-import ReviewsSummary from "@/features/reviews/ReviewsSummary";
-import ProfileImage from "@/features/profile/ProfileImage";
 import type { UserTypes } from "@/App.types";
+import ProfileImage from "@/features/profile/ProfileImage";
+import ReviewsSummary from "@/features/reviews/ReviewsSummary";
 
 interface Props {
   user: UserTypes;
@@ -29,7 +29,7 @@ const DesktopHero = ({ user, isLoggedIn }: Props) => {
           <div className="lg:flex lg:items-center lg:gap-3">
             <p className="text-3xl">{user.name}</p>
             {isLoggedIn && (
-              <p className="w-fit py-1 px-3 bg-neutral-200 text-neutral-500 text-sm translate-y-1 rounded-full">
+              <p className="-z-10! w-fit py-1 px-3 bg-neutral-200 text-neutral-500 text-sm translate-y-1 rounded-full">
                 You
               </p>
             )}
@@ -76,7 +76,7 @@ const MobileHero = ({ user, isLoggedIn }: Props) => {
         <div className="flex items-center gap-3">
           <p className="text-base md:text-2xl">{user.name}</p>
           {isLoggedIn && (
-            <p className="w-fit py-1 px-3 bg-neutral-200 text-neutral-500 text-xs translate-y-1 rounded-full">
+            <p className="-z-10 w-fit py-1 px-3 bg-neutral-200 text-neutral-500 text-xs translate-y-1 rounded-full border-2">
               You
             </p>
           )}
