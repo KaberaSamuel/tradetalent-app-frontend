@@ -1,14 +1,17 @@
-import Icon from "@mdi/react";
+import { activitiesSelector } from "@/features/home/ActivitiesSlice";
+import { updateActiveTab } from "@/features/navigation/navigationSlice";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import {
+  mdiEyeOutline,
   mdiFormatListCheckbox,
   mdiMessageOutline,
-  mdiEyeOutline,
 } from "@mdi/js";
+import Icon from "@mdi/react";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import { activitiesSelector } from "@/features/home/ActivitiesSlice";
 
 const ActivityOverview = () => {
+  const dispatch = useAppDispatch();
+
   const cardsContainerStyles = "grid grid-cols-1 lg:grid-cols-2 gap-6 ";
   const cardStyles =
     "[&_.card]:h-50  [&_.card]:p-5 [&_.card]:bg-neutral-50 [&_.card]:flex [&_.card]:justify-between [&_.card]:border [&_.card]:border-neutral-300 [&_.card]:rounded-2xl ";
@@ -44,7 +47,14 @@ const ActivityOverview = () => {
 
           <div className="right">
             <Icon path={mdiFormatListCheckbox} size={1} />
-            <Link to="/my-listings">View My Listings</Link>
+            <Link
+              to="/my-listings"
+              onClick={() => {
+                dispatch(updateActiveTab("listings"));
+              }}
+            >
+              View My Listings
+            </Link>
           </div>
         </div>
 
@@ -57,7 +67,14 @@ const ActivityOverview = () => {
 
           <div className="right">
             <Icon path={mdiMessageOutline} size={1} />
-            <Link to="/messages">Go to Messages</Link>
+            <Link
+              to="/messages"
+              onClick={() => {
+                dispatch(updateActiveTab("messages"));
+              }}
+            >
+              Go to Messages
+            </Link>
           </div>
         </div>
 
@@ -70,7 +87,14 @@ const ActivityOverview = () => {
 
           <div className="right">
             <Icon path={mdiEyeOutline} size={1} />
-            <Link to="/profile">View Profile</Link>
+            <Link
+              to="/profile"
+              onClick={() => {
+                dispatch(updateActiveTab("profile"));
+              }}
+            >
+              View Profile
+            </Link>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
-import { Outlet, Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
+import { mdiPencilRuler } from "@mdi/js";
 import Icon from "@mdi/react";
-import { mdiPencilRuler, mdiDotsHorizontal } from "@mdi/js";
 
 const PublicPage = () => {
   return (
@@ -11,12 +11,6 @@ const PublicPage = () => {
           <Icon path={mdiPencilRuler} size={1} />
           <p className="text-xl font-semibold">Service Exchange</p>
         </Link>
-
-        <div className="text-neutral-500 flex gap-3">
-          <div className="w-8 h-8 bg-neutral-200 flex justify-center items-center rounded-full">
-            <Icon path={mdiDotsHorizontal} size={0.9} />
-          </div>
-        </div>
       </nav>
 
       <Outlet />

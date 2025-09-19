@@ -1,6 +1,6 @@
 import { logoutUser } from "@/features/auth/api";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-import { mdiInformationOutline, mdiLogout, mdiTrashCanOutline } from "@mdi/js";
+import { mdiLogout, mdiTrashCanOutline } from "@mdi/js";
 import Icon from "@mdi/react";
 import type React from "react";
 import { useNavigate } from "react-router-dom";
@@ -55,11 +55,6 @@ function ProfileModal({ updateVisibility, updateDeleteStatus }: Props) {
               </p>
             </div>
           </div>
-        </div>
-
-        <div className={itemStyle}>
-          <Icon path={mdiInformationOutline} size={iconSize} />
-          <p>About</p>
         </div>
 
         <div className={itemStyle} onClick={logout}>

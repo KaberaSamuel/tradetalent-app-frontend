@@ -1,12 +1,14 @@
-import { useAppSelector } from "@/hooks/reduxHooks";
 import { authSelector } from "@/features/auth/authSlice";
-import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { mdiMagnify, mdiPlus } from "@mdi/js";
 import Icon from "@mdi/react";
-import { mdiPlus, mdiMagnify } from "@mdi/js";
+import { Link } from "react-router-dom";
 
 import ActivityOverview from "@/features/home/ActivityOverview";
+import { updateActiveTab } from "@/features/navigation/navigationSlice";
 
 const Welcome = () => {
+  const dispatch = useAppDispatch();
   const auth = useAppSelector(authSelector);
   const username = auth.user.first_name?.toLowerCase();
 
@@ -21,11 +23,21 @@ const Welcome = () => {
       </p>
 
       <div className="w-[100%] flex flex-col sm:flex-row gap-3 sm:gap-5 [&>*]:w-[100%] [&>*]:p-2.5 [&>*]:font-semibold [&>*]:flex [&>*]:justify-center [&>*]:items-center [&>*]:gap-2 [&>*]:rounded-xl">
-        <Link to="/listings/new" className="bg-teal-500 text-white">
+        <Link
+          to="/listings/new"
+          onClick={() => {
+            dispatch(updateActiveTab("post"));
+          }}
+          className="bg-teal-500 text-white"
+        >
           <Icon path={mdiPlus} size={1} />
           <p className="text-sm sm:text-base">Post New Listing</p>
         </Link>
-        <Link to="/listings/" className="bg-neutral-200 text-neutral-500">
+        <Link
+          to="/listings/"
+          onClick={() => dispatch(updateActiveTab("listings"))}
+          className="bg-neutral-200 text-neutral-500"
+        >
           <Icon path={mdiMagnify} size={1} />
           <p className="text-sm sm:text-base">Browse Listings</p>
         </Link>
