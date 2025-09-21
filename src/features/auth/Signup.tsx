@@ -1,14 +1,15 @@
+import { useAppDispatch } from "@/hooks/reduxHooks";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, Link } from "react-router-dom";
-import { useAppDispatch } from "@/hooks/reduxHooks";
+import { Link, useNavigate } from "react-router-dom";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChrome } from "@fortawesome/free-brands-svg-icons";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Spinner } from "@/components/Loader";
 import { registerUser } from "@/features/auth/api";
 import { updateMessage } from "@/features/popups/messageSlice";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import GoogleLoginButton from "./GoogleLoginButton";
 
 export interface SignupFormTypes {
   name: string;
@@ -59,6 +60,10 @@ const Signup = () => {
     } finally {
       setpending(false);
     }
+  };
+
+  const updatePending = (choice: boolean) => {
+    setpending(choice);
   };
 
   return (
@@ -119,10 +124,8 @@ const Signup = () => {
         >
           {pending ? <Spinner isButton={true} /> : <p>Signup</p>}
         </button>
-        <button className="p-2.5 bg-white text-black rounded-2xl font-semibold flex justify-center items-center gap-1 border border-neutral-200">
-          <FontAwesomeIcon icon={faChrome} />
-          <p>Sign Up with Google</p>
-        </button>
+
+        <GoogleLoginButton pending={pending} updatePending={updatePending} />
 
         <div className="mt-2 flex justify-center items-center gap-2">
           <p>Already have an account ?</p>{" "}
