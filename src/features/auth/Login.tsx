@@ -1,15 +1,17 @@
-import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { GoogleLogin } from "@react-oauth/google";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
+import type { UserTypes } from "@/App.types";
 import { Spinner } from "@/components/Loader";
-import { loginUser } from "@/features/auth/api";
+import { loginByGoogle, loginUser } from "@/features/auth/api";
 import { updateTokens, updateUser } from "@/features/auth/authSlice";
 import { updateMessage } from "@/features/popups/messageSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
+import type { CredentialResponse } from "@react-oauth/google";
 
 export interface LoginFormTypes {
   email: string;
@@ -25,21 +27,32 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm<LoginFormTypes>();
 
+  // update state and redirect to homepage after successful login
+  const onSuccessLogin = (
+    user: UserTypes,
+    tokens: { access: string; refresh: string }
+  ) => {
+    // Update Redux store
+    dispatch(updateUser(user));
+    dispatch(updateTokens(tokens));
+
+    // Update localStorage
+    localStorage.setItem("access", tokens.access);
+    localStorage.setItem("refresh", tokens.refresh);
+
+    navigate("/");
+  };
+
+  // handle login by email/password
   const onSubmit = async (data: LoginFormTypes): Promise<void> => {
     try {
       setPending(true);
       const response = await loginUser(data);
       const { user, tokens } = response.data;
 
-      // Update Redux store
-      dispatch(updateUser(user));
-      dispatch(updateTokens(tokens));
-
-      // Update localStorage
-      localStorage.setItem("access", tokens.access);
-      localStorage.setItem("refresh", tokens.refresh);
-
-      navigate("/");
+      if (user && tokens) {
+        onSuccessLogin(user, tokens);
+      }
     } catch (error: any) {
       console.log(error);
       dispatch(
@@ -50,6 +63,33 @@ const Login = () => {
     } finally {
       setPending(false);
     }
+  };
+
+  // handle login by google
+  const handleSuccess = async (response: CredentialResponse) => {
+    try {
+      if (!response.credential) {
+        dispatch(updateMessage("Google login failed: No credential received."));
+        return;
+      }
+      const apiResponse = await loginByGoogle(response.credential);
+      const { user, tokens } = apiResponse.data;
+
+      if (user && tokens) {
+        onSuccessLogin(user, tokens);
+        return;
+      }
+
+      dispatch(updateMessage("Google login failed, try another way"));
+    } catch (error) {
+      console.log(error);
+      dispatch(updateMessage("Google login failed, try another way"));
+    }
+  };
+
+  // handle failed login by google
+  const handleError = () => {
+    dispatch(updateMessage("Google login failed, try another way"));
   };
 
   return (
@@ -89,9 +129,8 @@ const Login = () => {
           {pending ? <Spinner isButton={true} /> : <p>Login</p>}
         </button>
 
-        <button className="p-2 bg-white text-black rounded-2xl font-semibold flex justify-center items-center gap-1 border border-neutral-200">
-          <FontAwesomeIcon icon={faChrome} />
-          <span>Log In with Google</span>
+        <button type="button">
+          <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
         </button>
 
         <div className="text-teal-500 text-center font-semibold">

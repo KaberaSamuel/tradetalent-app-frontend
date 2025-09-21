@@ -107,6 +107,11 @@ export const loginUser = async (data: LoginFormTypes) => {
   return response;
 };
 
+export const loginByGoogle = async (token: string) => {
+  const response = await apiClient.post("/google/login/", { token });
+  return response;
+};
+
 export const logoutUser = async (accessToken: string, refreshToken: string) => {
   const response = await apiClient.post(
     "/logout/",

@@ -5,12 +5,12 @@ import {
   updateTokens,
   updateUser,
 } from "@/features/auth/authSlice";
+import { updateMyListings } from "@/features/home/ActivitiesSlice";
 import MessagePopup from "@/features/popups/MessagePopUp";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { updateMyListings } from "../home/ActivitiesSlice";
 
 const PrivateRoute = () => {
   const auth = useAppSelector(authSelector);
@@ -40,7 +40,7 @@ const PrivateRoute = () => {
       if (isLoading) {
         setWaitingMessage("Hang on, it's taking a bit longer!");
       }
-    }, 7000);
+    }, 8000);
   }, []);
 
   // Effect to update redux store when user data is fetched

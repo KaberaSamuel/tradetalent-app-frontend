@@ -1,22 +1,23 @@
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+
 import PrivateRoute from "@/features/routing/PrivateRoute";
 import PublicRoute from "@/features/routing/PublicRoute";
 
 import App from "@/App";
 import Login from "@/features/auth/Login";
 import Signup from "@/features/auth/Signup";
-import WelcomePage from "@/features/home/Welcome";
 import Home from "@/features/home/Home";
+import PublicPage from "@/features/home/PublicPage";
+import WelcomePage from "@/features/home/Welcome";
+import BrowseListings from "@/features/listings/BrowseListings";
+import EditListing from "@/features/listings/EditListing";
+import ListingDetail from "@/features/listings/ListingDetail";
+import MyListings from "@/features/listings/MyListings";
+import NewListing from "@/features/listings/NewListing";
+import MessagesPage from "@/features/messages/Messages";
 import EditProfile from "@/features/profile/EditProfile";
 import Profile from "@/features/profile/Profile";
-import MyListings from "@/features/listings/MyListings";
-import BrowseListings from "@/features/listings/BrowseListings";
-import ListingDetail from "@/features/listings/ListingDetail";
-import NewListing from "@/features/listings/NewListing";
-import EditListing from "@/features/listings/EditListing";
-import PublicPage from "@/features/home/PublicPage";
 import NotFoundPage from "@/features/routing/Notfound";
-import MessagesPage from "@/features/messages/Messages";
 
 const AppRouter = () => {
   return (

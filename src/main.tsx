@@ -1,12 +1,13 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter } from "react-router-dom";
 
+import AppRouter from "@/features/routing/AppRouter";
 import "@/index.css";
 import { store } from "@/store";
-import AppRouter from "@/features/routing/AppRouter";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,16 +18,20 @@ const queryClient = new QueryClient({
   },
 });
 
+const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
 const container = document.getElementById("root") as HTMLElement;
 
 ReactDOM.createRoot(container).render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <AppRouter />
-        </QueryClientProvider>
-      </BrowserRouter>
+      <GoogleOAuthProvider clientId={clientId}>
+        <BrowserRouter>
+          <QueryClientProvider client={queryClient}>
+            <AppRouter />
+          </QueryClientProvider>
+        </BrowserRouter>
+      </GoogleOAuthProvider>
     </Provider>
   </React.StrictMode>
 );
