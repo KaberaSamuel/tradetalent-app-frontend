@@ -1,7 +1,8 @@
+import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GoogleLogin } from "@react-oauth/google";
-import { useState } from "react";
+import { type CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -11,7 +12,6 @@ import { loginByGoogle, loginUser } from "@/features/auth/api";
 import { updateTokens, updateUser } from "@/features/auth/authSlice";
 import { updateMessage } from "@/features/popups/messageSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
-import type { CredentialResponse } from "@react-oauth/google";
 
 export interface LoginFormTypes {
   email: string;
@@ -22,6 +22,7 @@ export interface LoginFormTypes {
 const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [pending, setPending] = useState(false);
+  const googleLoginRef = useRef<HTMLDivElement>(null);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -65,13 +66,17 @@ const Login = () => {
     }
   };
 
-  // handle login by google
-  const handleSuccess = async (response: CredentialResponse) => {
+  // handle success login by google
+  const handleGoogleSuccess = async (response: CredentialResponse) => {
     try {
+      setPending(true);
+
       if (!response.credential) {
         dispatch(updateMessage("Google login failed: No credential received."));
         return;
       }
+
+      // Send the JWT credential to your backend
       const apiResponse = await loginByGoogle(response.credential);
       const { user, tokens } = apiResponse.data;
 
@@ -84,12 +89,24 @@ const Login = () => {
     } catch (error) {
       console.log(error);
       dispatch(updateMessage("Google login failed, try another way"));
+    } finally {
+      setPending(false);
     }
   };
 
   // handle failed login by google
-  const handleError = () => {
+  const handleGoogleError = () => {
     dispatch(updateMessage("Google login failed, try another way"));
+  };
+
+  // Trigger hidden Google Login button
+  const triggerGoogleLogin = () => {
+    const googleButton = googleLoginRef.current?.querySelector(
+      'div[role="button"]'
+    ) as HTMLElement;
+    if (googleButton) {
+      googleButton.click();
+    }
   };
 
   return (
@@ -106,12 +123,13 @@ const Login = () => {
             className="input-text"
           />
         </div>
+
         <div>
           <p className="input-label">Password</p>
           <div className="relative">
             <input
               {...register("password", { required: true })}
-              type={passwordVisibility ? "input" : "password"}
+              type={passwordVisibility ? "text" : "password"}
               placeholder="Enter your password"
               className="input-text"
             />
@@ -125,13 +143,33 @@ const Login = () => {
           </div>
         </div>
 
-        <button className="h-10 bg-teal-500 text-white font-semibold flex items-center justify-center rounded-2xl">
+        <button
+          type="submit"
+          disabled={pending}
+          className="h-10 bg-teal-500 text-white font-semibold flex items-center justify-center rounded-2xl"
+        >
           {pending ? <Spinner isButton={true} /> : <p>Login</p>}
         </button>
 
-        <button type="button">
-          <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
+        {/* Custom styled button that triggers Google Login */}
+        <button
+          type="button"
+          onClick={triggerGoogleLogin}
+          disabled={pending}
+          className="p-2 bg-white text-black rounded-2xl font-semibold flex justify-center items-center gap-1 border border-neutral-200"
+        >
+          <FontAwesomeIcon icon={faChrome} />
+          <span>Continue with Google</span>
         </button>
+
+        {/* Hidden GoogleLogin component */}
+        <div ref={googleLoginRef} className="hidden">
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            useOneTap={false}
+          />
+        </div>
 
         <div className="text-teal-500 text-center font-semibold">
           <a href="#">Forgot Password?</a>
