@@ -1,17 +1,19 @@
 import { authSelector } from "@/features/auth/authSlice";
+import DeleteUser from "@/features/modals/DeleteUser";
+import ProfileModal from "@/features/modals/ProfileModal";
 import ProfileImage from "@/features/profile/ProfileImage";
-import { useAppSelector } from "@/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { mdiBellOutline, mdiMagnify } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import DeleteUser from "../modals/DeleteUser";
-import ProfileModal from "../modals/ProfileModal";
+import { updateActiveTab } from "./navigationSlice";
 
 const TopBar = () => {
   const navigate = useNavigate();
   const auth = useAppSelector(authSelector);
+  const dispatch = useAppDispatch();
   const isMobile = useMediaQuery("(max-width: 600px)");
   const [query, setQuery] = useState("");
   const [profileModalVisibility, setProfileModalVisibility] = useState(false);
@@ -31,6 +33,7 @@ const TopBar = () => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(updateActiveTab("listings"));
     navigate(`/listings?search=${query}`);
   };
 

@@ -1,9 +1,11 @@
 import { Spinner } from "@/components/Loader";
 import TagItems from "@/components/TagItems";
 import { authSelector } from "@/features/auth/authSlice";
+import { fetchListingDetail } from "@/features/listings/api";
 import DeleteListing from "@/features/modals/DeleteListing";
+import { updateActiveTab } from "@/features/navigation/navigationSlice";
 import ProfileImage from "@/features/profile/ProfileImage";
-import { useAppSelector } from "@/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import {
   mdiArrowLeft,
@@ -19,12 +21,12 @@ import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { fetchListingDetail } from "./api";
 
 export default function ListingDetail() {
   const [isDelete, setIsDelete] = useState(false);
   const { listing_slug } = useParams();
   const auth = useAppSelector(authSelector);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isMobile = useMediaQuery("(max-width: 600px)");
 
@@ -160,6 +162,9 @@ export default function ListingDetail() {
                 </p>
               ) : (
                 <Link
+                  onClick={() => {
+                    dispatch(updateActiveTab("profile"));
+                  }}
                   to={"/users/" + listing.user.slug}
                   className="text-teal-500"
                 >

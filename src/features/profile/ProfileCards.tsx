@@ -43,7 +43,7 @@ const ProfileCards = ({ isLoggedIn, user }: Props) => {
 
       <div className={cardStyles}>
         <p className="title">Latest Review</p>
-        <LatestReview />
+        <LatestReview user={user} />
       </div>
 
       {isMobile &&

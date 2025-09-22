@@ -1,22 +1,18 @@
-import { Link } from "react-router-dom";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import { authSelector } from "@/features/auth/authSlice";
+import type { ReviewTypes, UserTypes } from "@/App.types";
 import { mockReviews } from "@/features/mockData/reviews";
 import ProfileImage from "@/features/profile/ProfileImage";
 import { formatDistanceToNow } from "date-fns";
-import type { ReviewTypes } from "@/App.types";
+import { Link } from "react-router-dom";
 
 function getTimePassed(dateString: string): string {
   const inputDate = new Date(dateString);
   return formatDistanceToNow(inputDate, { addSuffix: true });
 }
 
-const LatestReview = () => {
-  const auth = useAppSelector(authSelector);
-
+const LatestReview = ({ user }: { user: UserTypes }) => {
   // user reviews
   const reviews = mockReviews.filter(
-    (latestReview) => latestReview.revieweeEmail === auth.user.email
+    (latestReview) => latestReview.revieweeEmail === user.email
   );
 
   if (reviews.length == 0) {

@@ -1,15 +1,15 @@
-import { useForm } from "react-hook-form";
-import Icon from "@mdi/react";
 import { mdiSendOutline } from "@mdi/js";
+import Icon from "@mdi/react";
+import { useForm } from "react-hook-form";
 
-import { useAppSelector, useAppDispatch } from "@/hooks/reduxHooks";
+import type { ListingTypes } from "@/App.types";
+import FieldValidationError from "@/components/FormValidationError";
+import { Spinner } from "@/components/Loader";
 import { authSelector } from "@/features/auth/authSlice";
 import { updateMessage } from "@/features/popups/messageSlice";
-import { postListing } from "./api";
-import type { ListingTypes } from "@/App.types";
-import { Spinner } from "@/components/Loader";
-import FieldValidationError from "@/components/FormValidationError";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { useState } from "react";
+import { postListing } from "./api";
 
 function NewListing() {
   const dispatch = useAppDispatch();
@@ -165,6 +165,7 @@ function NewListing() {
         {/* submit button */}
         <div>
           <button
+            disabled={pending}
             type="submit"
             className="w-45 h-10 mt-5 bg-teal-500 text-white justify-self-center flex items-center justify-center gap-2 rounded-xl"
           >

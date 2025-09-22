@@ -17,6 +17,7 @@ interface Props {
 }
 
 const DesktopHero = ({ user, isLoggedIn }: Props) => {
+  const iconSize = 0.9;
   const buttonStyles =
     "min-w-fit py-2 px-3 font-semibold flex items-center gap-2 rounded-lg";
 
@@ -25,9 +26,9 @@ const DesktopHero = ({ user, isLoggedIn }: Props) => {
       <ProfileImage size={25} isSmall={false} user={user} />
 
       <div className="w-full flex items-center justify-between">
-        <div className="text-lg flex flex-col gap-2 sm:gap-4">
+        <div className="flex flex-col gap-2 sm:gap-4">
           <div className="lg:flex lg:items-center lg:gap-3">
-            <p className="text-3xl">{user.name}</p>
+            <p className="text-2xl">{user.name}</p>
             {isLoggedIn && (
               <p className="-z-10! w-fit py-1 px-3 bg-neutral-200 text-neutral-500 text-sm translate-y-1 rounded-full">
                 You
@@ -48,16 +49,16 @@ const DesktopHero = ({ user, isLoggedIn }: Props) => {
             to="edit"
             className={buttonStyles + " border border-neutral-300"}
           >
-            <Icon path={mdiPencilOutline} size={1} />
-            <p>Edit Profile</p>
+            <Icon path={mdiPencilOutline} size={iconSize} />
+            <p className="text-sm">Edit Profile</p>
           </Link>
         ) : (
           <Link
             to="/messages"
             className={buttonStyles + " bg-teal-500 text-white"}
           >
-            <Icon path={mdiMessageOutline} size={1} />
-            <p>Message {user.first_name}</p>
+            <Icon path={mdiMessageOutline} size={iconSize} />
+            <p className="text-sm">Message {user.first_name}</p>
           </Link>
         )}
       </div>
@@ -72,11 +73,11 @@ const MobileHero = ({ user, isLoggedIn }: Props) => {
         <ProfileImage size={20} isSmall={false} user={user} />
       </div>
 
-      <div className="text-sm md:text-lg flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <p className="text-base md:text-2xl">{user.name}</p>
           {isLoggedIn && (
-            <p className="-z-10 w-fit py-1 px-3 bg-neutral-200 text-neutral-500 text-xs translate-y-1 rounded-full border-2">
+            <p className="-z-10 w-fit py-1 px-3 bg-neutral-200 text-neutral-500 text-xs translate-y-1 rounded-full">
               You
             </p>
           )}
