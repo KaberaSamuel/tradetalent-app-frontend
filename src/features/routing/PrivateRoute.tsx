@@ -6,13 +6,15 @@ import {
   updateUser,
 } from "@/features/auth/authSlice";
 import { updateMyListings } from "@/features/home/ActivitiesSlice";
+import { updateActiveTab } from "@/features/navigation/navigationSlice";
 import MessagePopup from "@/features/popups/MessagePopUp";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const PrivateRoute = () => {
+  const location = useLocation();
   const auth = useAppSelector(authSelector);
   const dispatch = useAppDispatch();
 
@@ -41,7 +43,7 @@ const PrivateRoute = () => {
         setWaitingMessage("Hang on, it's taking a bit longer!");
       }
     }, 8000);
-  }, []);
+  }, [isLoading]);
 
   // Effect to update redux store when user data is fetched
   useEffect(() => {
@@ -55,12 +57,28 @@ const PrivateRoute = () => {
       dispatch(updateUser(data.data.user));
       dispatch(updateMyListings(data.data.user.my_listings_count));
 
+      // updating activetab
+      const path = location.pathname;
+      if (path == "/listings") {
+        dispatch(updateActiveTab("listings"));
+      } else if (path == "/my-listings") {
+        dispatch(updateActiveTab("my-listings"));
+      } else if (path.includes("new")) {
+        dispatch(updateActiveTab("post"));
+      } else if (path.includes("messages")) {
+        dispatch(updateActiveTab("messages"));
+      } else if (path.includes("profile")) {
+        dispatch(updateActiveTab("profile"));
+      } else {
+        dispatch(updateActiveTab("home"));
+      }
+
       // Update localStorage if new token was provided
       if (data.newAccessToken) {
         localStorage.setItem("access", data.newAccessToken);
       }
     }
-  }, [data, accessToken, refreshToken, dispatch]);
+  }, [data, accessToken, refreshToken, dispatch, location]);
 
   // If already logged in
   if (auth.token.access) {

@@ -1,5 +1,6 @@
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { isAxiosError } from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,7 +11,7 @@ import { updateTokens, updateUser } from "@/features/auth/authSlice";
 import { updateMessage } from "@/features/popups/messageSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 
-import GoogleLoginButton from "./GoogleLoginButton";
+import GoogleLoginButton from "@/features/auth/GoogleLoginButton";
 
 export interface LoginFormTypes {
   email: string;
@@ -41,13 +42,21 @@ const Login = () => {
       localStorage.setItem("refresh", tokens.refresh);
 
       navigate("/");
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
-      dispatch(
-        updateMessage(
-          error.response?.data?.error || "Internal error. Refresh and try again"
-        )
-      );
+
+      if (isAxiosError(error)) {
+        dispatch(
+          updateMessage(
+            error?.response?.data?.error ||
+              "Internal error. Refresh and try again"
+          )
+        );
+
+        return;
+      }
+
+      dispatch(updateMessage("Internal server error. Try again"));
     } finally {
       setPending(false);
     }

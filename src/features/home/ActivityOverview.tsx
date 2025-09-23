@@ -1,4 +1,4 @@
-import { activitiesSelector } from "@/features/home/ActivitiesSlice";
+import { authSelector } from "@/features/auth/authSlice";
 import { updateActiveTab } from "@/features/navigation/navigationSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import {
@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 
 const ActivityOverview = () => {
   const dispatch = useAppDispatch();
+  const auth = useAppSelector(authSelector);
 
   const cardsContainerStyles = "grid grid-cols-1 lg:grid-cols-2 gap-6 ";
   const cardStyles =
@@ -21,8 +22,6 @@ const ActivityOverview = () => {
     "[&_.right]:text-teal-500 [&_.right]:flex [&_.right]:flex-col [&_.right]:justify-between [&_.right]:items-end ";
   const numberStyles =
     "[&_.number]:text-3xl [&_.number]:transform [&_.number]:-translate-y-2";
-
-  const activies = useAppSelector(activitiesSelector);
 
   return (
     <div>
@@ -42,7 +41,7 @@ const ActivityOverview = () => {
         <div className="card">
           <div className="left">
             <p>Active Listings</p>
-            <p className="number">{activies.my_listings}</p>
+            <p className="number">{auth.user.my_listings_count}</p>
           </div>
 
           <div className="right">
@@ -62,7 +61,7 @@ const ActivityOverview = () => {
         <div className="card">
           <div className="left">
             <p>New Messages</p>
-            <p className="number">{activies.messages}</p>
+            <p className="number">0</p>
           </div>
 
           <div className="right">
@@ -82,7 +81,7 @@ const ActivityOverview = () => {
         <div className="card">
           <div className="left">
             <p>Profile Views</p>
-            <p className="number">{activies.profile_views}</p>
+            <p className="number">0</p>
           </div>
 
           <div className="right">
