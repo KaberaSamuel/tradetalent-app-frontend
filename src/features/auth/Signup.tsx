@@ -1,4 +1,5 @@
 import { useAppDispatch } from "@/hooks/reduxHooks";
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -45,15 +46,16 @@ const Signup = () => {
       } else {
         dispatch(updateMessage("Server error, try again"));
       }
-    } catch (error: any) {
-      console.log(error);
-      if (error.response?.status === 400) {
-        const errorData = error.response.data;
-        dispatch(
-          updateMessage(
-            errorData.username || errorData.email || "Validation error"
-          )
-        );
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 400) {
+          const errorData = error.response.data;
+          dispatch(
+            updateMessage(
+              errorData.username || errorData.email || "Validation error"
+            )
+          );
+        }
       } else {
         dispatch(updateMessage("Internal Server Error. Refresh and try again"));
       }

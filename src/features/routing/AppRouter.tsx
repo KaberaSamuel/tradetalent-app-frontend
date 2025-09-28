@@ -5,6 +5,7 @@ import PublicRoute from "@/features/routing/PublicRoute";
 
 import App from "@/App";
 import Login from "@/features/auth/Login";
+import ResetPasswordPage from "@/features/auth/ResetPassword";
 import Signup from "@/features/auth/Signup";
 import Home from "@/features/home/Home";
 import PublicPage from "@/features/home/PublicPage";
@@ -23,10 +24,11 @@ const AppRouter = () => {
   return (
     <Routes>
       <Route element={<PublicRoute />}>
-        <Route path="/public" element={<PublicPage />}>
+        <Route path="/public/" element={<PublicPage />}>
           <Route index element={<WelcomePage />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="reset-password/:token" element={<ResetPasswordPage />} />
         </Route>
       </Route>
 

@@ -11,7 +11,7 @@ interface FetchUserTypes {
   newAccessToken?: string;
   status: number;
   statusText: string;
-  headers: any;
+  headers: unknown;
 }
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -36,29 +36,27 @@ export const fetchUser = async (
       statusText: response.statusText,
       headers: response.headers,
     };
-  } catch (error) {
+  } catch (error: unknown) {
+    console.log(error);
+
     // fetch user again with refresh token
-    try {
-      const tokenResponse = await apiClient.post("/token/refresh/", {
-        refresh: refreshToken,
-      });
+    const tokenResponse = await apiClient.post("/token/refresh/", {
+      refresh: refreshToken,
+    });
 
-      const userResponse = await apiClient.get("/home/", {
-        headers: {
-          Authorization: `Bearer ${tokenResponse.data.access}`,
-        },
-      });
+    const userResponse = await apiClient.get("/home/", {
+      headers: {
+        Authorization: `Bearer ${tokenResponse.data.access}`,
+      },
+    });
 
-      return {
-        data: userResponse.data,
-        status: userResponse.status,
-        statusText: userResponse.statusText,
-        headers: userResponse.headers,
-        newAccessToken: tokenResponse.data.access, // Include the new token
-      };
-    } catch (error) {
-      throw error;
-    }
+    return {
+      data: userResponse.data,
+      status: userResponse.status,
+      statusText: userResponse.statusText,
+      headers: userResponse.headers,
+      newAccessToken: tokenResponse.data.access,
+    };
   }
 };
 
@@ -76,7 +74,7 @@ export const fetchUserBySlug = async (
 };
 
 export const editUser = async (accessToken: string, data: EditFormTypes) => {
-  let form_data = new FormData();
+  const form_data = new FormData();
 
   if (data.uploaded_image) {
     form_data.append("profile_image", data.uploaded_image);
