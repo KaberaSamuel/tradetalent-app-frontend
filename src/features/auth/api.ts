@@ -132,3 +132,11 @@ export const deleteUser = async (slug: string, accessToken: string) => {
 
   return response;
 };
+
+export const requestPasswordResetLink = async (email: string) => {
+  const response = await apiClient.post(`/request-password-reset/`, {
+    email,
+  });
+
+  return response;
+};

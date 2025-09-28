@@ -109,7 +109,7 @@ const Login = () => {
         <GoogleLoginButton pending={pending} updatePending={updatePending} />
 
         <div className="text-teal-500 text-center font-semibold">
-          <a href="#">Forgot Password?</a>
+          <a href="/public/forgot-password">Forgot Password?</a>
         </div>
 
         <div className="text-teal-500 font-semibold flex justify-center items-center gap-2">
