@@ -28,11 +28,9 @@ const ForgotPasswordPage = () => {
     } catch (error: unknown) {
       console.log(error);
 
-      if (axios.isAxiosError(error)) {
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
         // when email is invalid
-        if (error.response?.status === 404) {
-          dispatch(updateMessage("No user with that email"));
-        }
+        dispatch(updateMessage("No user with that email"));
       } else {
         dispatch(updateMessage("Internal Server Error. Refresh and try again"));
       }
