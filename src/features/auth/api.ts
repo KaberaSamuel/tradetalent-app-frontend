@@ -140,3 +140,12 @@ export const requestPasswordResetLink = async (email: string) => {
 
   return response;
 };
+
+export const resetPassword = async (password: string, token: string) => {
+  const response = await apiClient.post(`/password-reset/`, {
+    password,
+    token,
+  });
+
+  return response;
+};
