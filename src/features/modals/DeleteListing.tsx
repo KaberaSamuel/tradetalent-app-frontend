@@ -38,8 +38,8 @@ function DeleteListing({ updateDeleteStatus, listing }: Props) {
         undo this.
       </p>
 
-      <div className="py-3 px-4 text-sm font-semibold capitalize bg-teal-100 rounded-xl">
-        <p className="text-base">
+      <div className="py-3 px-4 text-sm capitalize bg-teal-100 rounded-xl">
+        <p className="leading-tight text-base font-semibold mb-2">
           {listing.type}: {listing.title}
         </p>
 

@@ -10,7 +10,7 @@ const App = () => {
       <div className="w-[100%] min-h-screen flex flex-col">
         <TopBar />
 
-        <div className="px-4 pt-6 pb-30 sm:px-7 grow overflow-x-hidden">
+        <div className="p-3 pb-30 sm:px-7 grow overflow-x-hidden">
           <Outlet />
         </div>
       </div>
@@ -19,4 +19,3 @@ const App = () => {
 };
 
 export default App;
-``;

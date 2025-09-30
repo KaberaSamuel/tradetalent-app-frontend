@@ -18,7 +18,7 @@ export interface formTypes {
 
 const ResetPasswordPage = () => {
   const [pending, setpending] = useState(false);
-  const [isDone, setIsDone] = useState(true);
+  const [isDone, setIsDone] = useState(false);
   const { token } = useParams();
   const [passwordVisibility1, setPasswordVisibility1] = useState(false);
   const [passwordVisibility2, setPasswordVisibility2] = useState(false);
@@ -45,10 +45,7 @@ const ResetPasswordPage = () => {
       console.log(error);
 
       if (axios.isAxiosError(error)) {
-        // when password is invalid
-        if (error.response?.status === 404) {
-          dispatch(updateMessage("No user with that password"));
-        }
+        dispatch(updateMessage("Invalid or Expired Token"));
       } else {
         dispatch(updateMessage("Internal Server Error. Refresh and try again"));
       }
@@ -109,29 +106,27 @@ const ResetPasswordPage = () => {
         </div>
 
         {/* message after successful password reset */}
-        {isDone && (
+        {isDone ? (
           <div className="flex flex-col gap-3 items-center">
-            <p className="font-semibold text-teal-500 text-lg">
+            <p className="font-semibold text-teal-500">
               Password reset successfully!
             </p>
 
             <Link
               to="/public/login"
-              className="py-1.5 px-4 bg-teal-500 text-white rounded-xl"
+              className="py-2 px-4 bg-teal-500 text-white rounded-xl"
             >
               Go Login Page
             </Link>
           </div>
-        )}
-
-        {!isDone && (
-          <button
+        ) : <button
             type="submit"
             className="p-2.5 bg-teal-500 text-white font-semibold rounded-2xl"
           >
             {pending ? <Spinner isButton={true} /> : <p>Reset Password</p>}
-          </button>
-        )}
+          </button>}
+
+  
       </form>
     </div>
   );

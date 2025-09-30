@@ -38,7 +38,7 @@ const TopBar = () => {
   };
 
   return (
-    <div className="sticky top-0 w-full h-fit p-2 pt-3 sm:py-3 sm:px-4 bg-white flex gap-2 sm:gap-4 justify-between border-b-1 border-neutral-300">
+    <div className="sticky z-10 top-0 w-full h-fit p-2 pt-3 sm:py-3 sm:px-4 bg-white flex gap-2 sm:gap-4 justify-between border-b-1 border-neutral-300">
       <form onSubmit={onSubmit} className="relative grow max-w-150">
         <Icon
           path={mdiMagnify}
