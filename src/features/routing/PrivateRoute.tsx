@@ -110,7 +110,7 @@ const PrivateRoute = () => {
     if (isError) {
       // Clear localStorage as stored tokens are invalid
       localStorage.clear();
-      return <Navigate to="/login" replace />;
+      return <Navigate to="/public" replace />;
     }
 
     if (data) {
