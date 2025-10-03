@@ -26,10 +26,14 @@ const conversationSlice = createSlice({
     updateActiveConversation: (_, action: PayloadAction<ConversationTypes>) => {
       return action.payload;
     },
+    clearActiveConversation: () => {
+      return initialState;
+    },
   },
 });
 
-export const { updateActiveConversation } = conversationSlice.actions;
+export const { updateActiveConversation, clearActiveConversation } =
+  conversationSlice.actions;
 export const activeConversationSelector = (
   state: RootState
 ): ConversationTypes => state.conversationReducer;

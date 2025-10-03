@@ -6,6 +6,7 @@ import {
   mdiPlus,
 } from "@mdi/js";
 import Icon from "@mdi/react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -13,6 +14,8 @@ const MobileMenu = () => {
   const [activeTab, setActiveTab] = useState(window.location.pathname);
   const childrenStyles =
     " [&>*]:rounded-xl [&>*]:flex [&>*]:flex-col [&>*]:items-center [&>*]:text-xs";
+  const queryClient = useQueryClient();
+
   return (
     <div
       className={
@@ -49,7 +52,12 @@ const MobileMenu = () => {
 
       <Link
         to="/chats"
-        onClick={() => setActiveTab("/chats")}
+        onClick={() => {
+          setActiveTab("/chats");
+          queryClient.resetQueries({
+            queryKey: ["fetch-conversations"],
+          });
+        }}
         className={activeTab.startsWith("/chats") ? "active" : ""}
       >
         <Icon path={mdiMessageOutline} size={1} />

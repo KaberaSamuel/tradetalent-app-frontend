@@ -11,11 +11,13 @@ import {
   mdiViewDashboardOutline,
 } from "@mdi/js";
 import Icon from "@mdi/react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
 const DesktopMenu = () => {
   const dispatch = useAppDispatch();
   const activeTab = useAppSelector(navigationSelector);
+  const queryClient = useQueryClient();
 
   return (
     <div className="sticky top-0 w-[25vw] min-w-[280px] h-screen p-4 border-r-1 border-neutral-300 [&_.active]:text-black [&_.active]:bg-neutral-200">
@@ -55,7 +57,14 @@ const DesktopMenu = () => {
 
         <Link
           to="/chats"
-          onClick={() => dispatch(updateActiveTab("chats"))}
+          onClick={() => {
+            dispatch(updateActiveTab("chats"));
+
+            // trigger a refetch for new chats
+            queryClient.resetQueries({
+              queryKey: ["fetch-conversations"],
+            });
+          }}
           className={activeTab == "chats" ? "active" : ""}
         >
           <Icon path={mdiMessageOutline} size={1} />

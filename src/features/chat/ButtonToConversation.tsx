@@ -1,4 +1,5 @@
 import type { ConversationTypes, UserTypes } from "@/App.types";
+import { Spinner } from "@/components/Loader";
 import { authSelector } from "@/features/auth/authSlice";
 import { createConversationApi } from "@/features/chat/api";
 import { updateActiveConversation } from "@/features/chat/chatSlice";
@@ -8,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { mdiMessageOutline } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -20,6 +22,7 @@ export default function ButtonToConversation({ otherUser, iconSize }: Props) {
   const navigate = useNavigate();
   const auth = useAppSelector(authSelector);
   const dispatch = useAppDispatch();
+  const [pending, setPending] = useState(false);
 
   function createConversationName(slug: string) {
     const slugsAlph = [auth.user.slug, slug].sort();
@@ -28,11 +31,14 @@ export default function ButtonToConversation({ otherUser, iconSize }: Props) {
 
   // create conversation model in the db before navigating its route
   async function createConversation() {
+    setPending(true);
+
     const conversationName = createConversationName(otherUser.slug);
     const response = await createConversationApi(
       auth.token.access,
       conversationName
     );
+
     if (response.status === 201) {
       // Reset fetch conversations query to trigger a refetch that will include the newly created conversation
       queryClient.resetQueries({
@@ -46,18 +52,27 @@ export default function ButtonToConversation({ otherUser, iconSize }: Props) {
     } else {
       dispatch(updatePopupMessage("Failed to open the chat"));
     }
+
+    setPending(false);
   }
 
   return (
     <>
       <button
-        className={
-          "w-fit py-2 px-4 text-sm sm:text-base text-white flex gap-2 items-center rounded-xl bg-teal-500"
-        }
+        disabled={pending}
+        className={`w-fit py-2 ${
+          pending ? "px-20" : "px-4"
+        } text-sm sm:text-base text-white flex gap-2 items-center rounded-xl bg-teal-500`}
         onClick={createConversation}
       >
-        <Icon path={mdiMessageOutline} size={iconSize} />
-        <p>Message {otherUser.first_name}</p>
+        {pending ? (
+          <Spinner isButton={true} />
+        ) : (
+          <>
+            <Icon path={mdiMessageOutline} size={iconSize} />
+            <p>Message {otherUser.first_name}</p>
+          </>
+        )}
       </button>
     </>
   );
