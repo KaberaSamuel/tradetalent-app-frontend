@@ -8,6 +8,7 @@ import ForgotPasswordPage from "@/features/auth/ForgotPassword";
 import Login from "@/features/auth/Login";
 import ResetPasswordPage from "@/features/auth/ResetPassword";
 import Signup from "@/features/auth/Signup";
+import ChatPage from "@/features/chat/Chat";
 import Home from "@/features/home/Home";
 import PublicPage from "@/features/home/PublicPage";
 import WelcomePage from "@/features/home/Welcome";
@@ -16,7 +17,6 @@ import EditListing from "@/features/listings/EditListing";
 import ListingDetail from "@/features/listings/ListingDetail";
 import MyListings from "@/features/listings/MyListings";
 import NewListing from "@/features/listings/NewListing";
-import MessagesPage from "@/features/messages/Messages";
 import EditProfile from "@/features/profile/EditProfile";
 import Profile from "@/features/profile/Profile";
 import NotFoundPage from "@/features/routing/Notfound";
@@ -48,7 +48,7 @@ const AppRouter = () => {
           />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
-          <Route path="/messages" element={<MessagesPage />} />
+          <Route path="/messages" element={<ChatPage />} />
         </Route>
       </Route>
 
