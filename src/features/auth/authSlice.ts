@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { RootState } from "@/store";
 import type { UserTypes } from "@/App.types";
+import type { RootState } from "@/store";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface InitialStateTypes {
   token: {
@@ -12,6 +12,7 @@ interface InitialStateTypes {
 
 const initialUser = {
   name: "",
+  slug: "",
   first_name: "",
   email: "",
   location: "",

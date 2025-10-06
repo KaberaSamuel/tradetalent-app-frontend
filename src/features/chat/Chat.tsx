@@ -1,77 +1,92 @@
 import { authSelector } from "@/features/auth/authSlice";
 import { useAppSelector } from "@/hooks/reduxHooks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import useWebSocket, { ReadyState } from "react-use-websocket";
 
-interface Message {
-  username: string;
+interface MessageProps {
+  name: string;
   message: string;
-  timestamp: string;
 }
 
-function ChatPage() {
-  const [socket, setSocket] = useState<WebSocket | null>(null);
-  const [message, setMessage] = useState<string>("");
-  const [messages, setMessages] = useState<Message[]>([]);
-  const auth = useAppSelector(authSelector)
+export default function App() {
+  const [welcomeMessage, setWelcomeMessage] = useState("");
+  const [messageHistory, setMessageHistory] = useState<MessageProps[]>([]);
+  const [message, setMessage] = useState("");
+  const auth = useAppSelector(authSelector);
 
-  useEffect(() => {
-    // Connect to the WebSocket server with the username as a query parameter
-    const newSocket = new WebSocket(`ws://localhost:8000/ws/chat/`);
-    setSocket(newSocket);
+  const { readyState, sendJsonMessage } = useWebSocket("ws://127.0.0.1:8000/", {
+    onOpen: () => {
+      console.log("Connected!");
+    },
+    onClose: () => {
+      console.log("Disconnected!");
+    },
+    // onMessage handler
+    onMessage: (e) => {
+      const data = JSON.parse(e.data);
+      switch (data.type) {
+        case "welcome_message":
+          setWelcomeMessage(data.message);
+          break;
+        case "chat_message_echo":
+          setMessageHistory((prev: MessageProps[]) => prev.concat(data));
+          break;
+        default:
+          console.error("Unknown message type!");
+          break;
+      }
+    },
+  });
 
-    newSocket.onopen = () => console.log("WebSocket connected");
-    newSocket.onclose = () => console.log("WebSocket disconnected");
+  const connectionStatus = {
+    [ReadyState.CONNECTING]: "Connecting",
+    [ReadyState.OPEN]: "Open",
+    [ReadyState.CLOSING]: "Closing",
+    [ReadyState.CLOSED]: "Closed",
+    [ReadyState.UNINSTANTIATED]: "Uninstantiated",
+  }[readyState];
 
-    // Clean up the WebSocket connection when the component unmounts
-    return () => {
-      newSocket.close();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (socket) {
-      socket.onmessage = (event: MessageEvent) => {
-        const data: Message = JSON.parse(event.data);
-        setMessages((prevMessages) => [...prevMessages, data]);
-      };
+  function handleChangeMessage(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target) {
+      setMessage(e.target.value);
     }
-  }, [socket]);
+  }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (message && socket) {
-      const data = {
-        message: message,
-        username: auth.user.first_name,
-      };
-      socket.send(JSON.stringify(data));
-      setMessage("");
-    }
+  const handleSubmit = () => {
+    sendJsonMessage({
+      type: "chat_message",
+      message,
+      name: auth.user.name,
+    });
+    setMessage("");
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="">Chat</div>
-      <div className="flex flex-col gap-5">
-        {messages.map((msg, index) => (
-          <div key={index} className="message">
-            <div className="">{msg.username}:</div>
-            <div className="">{msg.message}</div>
-            <div className="">{msg.timestamp}</div>
+    <div>
+      <span>The WebSocket is currently {connectionStatus}</span>
+      <p>{welcomeMessage}</p>
+
+      <div className="my-4">
+        <input
+          name="message"
+          placeholder="Message"
+          onChange={handleChangeMessage}
+          value={message}
+          className="p-2 min-w-100 shadow-sm sm:text-sm border-gray-300 bg-gray-100 rounded-md"
+        />
+        <button className="ml-3 bg-gray-300 px-3 py-1" onClick={handleSubmit}>
+          Submit
+        </button>
+      </div>
+
+      <hr />
+      <ul>
+        {messageHistory.map((message: MessageProps, idx: number) => (
+          <div className="border border-gray-200 py-3 px-3" key={idx}>
+            {message.name}: {message.message}
           </div>
         ))}
-      </div>
-      <form onSubmit={handleSubmit} className="fixed p-3 bg-white bottom-5 flex gap-3 border-2">
-        <input
-          type="text"
-          placeholder="Type a message..."
-          value={message}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => setMessage(event.target.value)}
-        />
-        <button type="submit">Send</button>
-      </form>
+      </ul>
     </div>
   );
 }
-
-export default ChatPage;
