@@ -9,6 +9,7 @@ import Login from "@/features/auth/Login";
 import ResetPasswordPage from "@/features/auth/ResetPassword";
 import Signup from "@/features/auth/Signup";
 import ChatPage from "@/features/chat/Chat";
+import Conversations from "@/features/chat/Conversation";
 import Home from "@/features/home/Home";
 import PublicPage from "@/features/home/PublicPage";
 import WelcomePage from "@/features/home/Welcome";
@@ -48,7 +49,8 @@ const AppRouter = () => {
           />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
-          <Route path="/messages" element={<ChatPage />} />
+          <Route path="/messages/" element={<Conversations />} />
+          <Route path="/messages/:conversationName" element={<ChatPage />} />
         </Route>
       </Route>
 

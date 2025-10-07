@@ -1,6 +1,7 @@
 import { authSelector } from "@/features/auth/authSlice";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 
 interface MessageProps {
@@ -9,34 +10,44 @@ interface MessageProps {
 }
 
 export default function App() {
+  const { conversationName } = useParams();
   const [welcomeMessage, setWelcomeMessage] = useState("");
   const [messageHistory, setMessageHistory] = useState<MessageProps[]>([]);
   const [message, setMessage] = useState("");
   const auth = useAppSelector(authSelector);
 
-  const { readyState, sendJsonMessage } = useWebSocket("ws://127.0.0.1:8000/", {
-    onOpen: () => {
-      console.log("Connected!");
-    },
-    onClose: () => {
-      console.log("Disconnected!");
-    },
-    // onMessage handler
-    onMessage: (e) => {
-      const data = JSON.parse(e.data);
-      switch (data.type) {
-        case "welcome_message":
-          setWelcomeMessage(data.message);
-          break;
-        case "chat_message_echo":
-          setMessageHistory((prev: MessageProps[]) => prev.concat(data));
-          break;
-        default:
-          console.error("Unknown message type!");
-          break;
-      }
-    },
-  });
+  const { readyState, sendJsonMessage } = useWebSocket(
+    `ws://127.0.0.1:8000/${conversationName}/`,
+    {
+      queryParams: {
+        token: auth.token.access,
+      },
+
+      onOpen: () => {
+        console.log("Connected!");
+      },
+
+      onClose: () => {
+        console.log("Disconnected!");
+      },
+
+      // onMessage handler
+      onMessage: (e) => {
+        const data = JSON.parse(e.data);
+        switch (data.type) {
+          case "welcome_message":
+            setWelcomeMessage(data.message);
+            break;
+          case "chat_message_echo":
+            setMessageHistory((prev: MessageProps[]) => prev.concat(data));
+            break;
+          default:
+            console.error("Unknown message type!");
+            break;
+        }
+      },
+    }
+  );
 
   const connectionStatus = {
     [ReadyState.CONNECTING]: "Connecting",
