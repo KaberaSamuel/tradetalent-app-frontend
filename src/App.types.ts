@@ -48,3 +48,10 @@ export interface MessageTypes {
   timestamp: string;
   read: boolean;
 }
+
+export interface ConversationTypes {
+  id: string;
+  name: string;
+  last_message: MessageTypes | null;
+  other_user: UserTypes;
+}
