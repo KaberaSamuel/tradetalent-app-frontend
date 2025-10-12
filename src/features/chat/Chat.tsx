@@ -4,15 +4,13 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 
-interface MessageProps {
-  name: string;
-  message: string;
-}
+import type { MessageTypes } from "@/App.types";
+import { Message } from "@/features/chat/Message";
 
 export default function App() {
   const { conversationName } = useParams();
   const [welcomeMessage, setWelcomeMessage] = useState("");
-  const [messageHistory, setMessageHistory] = useState<MessageProps[]>([]);
+  const [messageHistory, setMessageHistory] = useState<MessageTypes[]>([]);
   const [message, setMessage] = useState("");
   const auth = useAppSelector(authSelector);
 
@@ -39,7 +37,10 @@ export default function App() {
             setWelcomeMessage(data.message);
             break;
           case "chat_message_echo":
-            setMessageHistory((prev: MessageProps[]) => prev.concat(data));
+            setMessageHistory((prev: MessageTypes[]) => prev.concat(data.message));
+            break;
+          case "last_50_messages":
+            setMessageHistory(data.messages);
             break;
           default:
             console.error("Unknown message type!");
@@ -91,11 +92,9 @@ export default function App() {
       </div>
 
       <hr />
-      <ul>
-        {messageHistory.map((message: MessageProps, idx: number) => (
-          <div className="border border-gray-200 py-3 px-3" key={idx}>
-            {message.name}: {message.message}
-          </div>
+      <ul className="mt-3 flex flex-col-reverse relative w-full border border-gray-200 overflow-y-auto p-6">
+        {messageHistory.map((message: MessageTypes) => (
+          <Message key={message.id} message={message} />
         ))}
       </ul>
     </div>

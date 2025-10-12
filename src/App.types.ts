@@ -38,3 +38,13 @@ export interface ReviewTypes {
   message: string;
   rating: number;
 }
+
+export interface MessageTypes {
+  id: string;
+  room: string;
+  from_user: UserTypes;
+  to_user: UserTypes;
+  content: string;
+  timestamp: string;
+  read: boolean;
+}

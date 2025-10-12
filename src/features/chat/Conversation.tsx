@@ -10,6 +10,7 @@ export default function Conversations() {
 
   useEffect(() => {
     async function fetchUsers() {
+      console.log(token)
       const res = await fetch("http://127.0.0.1:8000/users/all/", {
         headers: {
           Authorization: `Bearer ${token.access}`,
@@ -18,21 +19,25 @@ export default function Conversations() {
       const data = await res.json();
       setUsers(data);
     }
-    fetchUsers();
+    
+
+    if (token) {
+      fetchUsers();
+    }
   }, [user, token]);
 
-  function createConversationName(first_name: string) {
-    const first_namesAlph = [user.first_name, first_name].sort();
-    return `${first_namesAlph[0]}__${first_namesAlph[1]}`;
+  function createConversationName(slug: string) {
+    const slugsAlph = [user.slug, slug].sort();
+    return `${slugsAlph[0]}__${slugsAlph[1]}`;
   }
 
   return (
     <div>
       {users
-        .filter((u: UserTypes) => u.first_name !== user.first_name)
+        .filter((u: UserTypes) => u.slug !== user.slug)
         .map((u: UserTypes) => (
-          <Link to={`${createConversationName(u.first_name!)}`}>
-            <div key={u.first_name}>{u.first_name}</div>
+          <Link to={`${createConversationName(u.slug)}`}>
+            <div key={u.slug}>{u.slug}</div>
           </Link>
         ))}
     </div>
