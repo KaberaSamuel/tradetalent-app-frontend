@@ -54,7 +54,7 @@ const DesktopMenu = () => {
         </Link>
 
         <Link
-          to="/messages"
+          to="/chats"
           onClick={() => dispatch(updateActiveTab("messages"))}
           className={activeTab == "messages" ? "active" : ""}
         >

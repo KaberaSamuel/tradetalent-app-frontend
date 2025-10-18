@@ -48,9 +48,9 @@ const MobileMenu = () => {
       </Link>
 
       <Link
-        to="/messages"
-        onClick={() => setActiveTab("/messages")}
-        className={activeTab.startsWith("/messages") ? "active" : ""}
+        to="/chats"
+        onClick={() => setActiveTab("/chats")}
+        className={activeTab.startsWith("/chats") ? "active" : ""}
       >
         <Icon path={mdiMessageOutline} size={1} />
         <p>Messages</p>
