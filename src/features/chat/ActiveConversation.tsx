@@ -5,18 +5,22 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export function ActiveConversations() {
-  const { user, token } = useAppSelector(authSelector)
-  const [conversations, setActiveConversations] = useState<ConversationTypes[]>([]);
+  const { user, token } = useAppSelector(authSelector);
+  const [conversations, setActiveConversations] = useState<ConversationTypes[]>(
+    []
+  );
 
   useEffect(() => {
     async function fetchUsers() {
-      const response = await fetch("http://127.0.0.1:8000/chats/conversations/", {
-        headers: {
-          Authorization: `Bearer ${token.access}`
+      const response = await fetch(
+        "http://127.0.0.1:8000/chats/conversations/",
+        {
+          headers: {
+            Authorization: `Bearer ${token.access}`,
+          },
         }
-      });
+      );
       const data = await response.json();
-      console.log(data)
       setActiveConversations(data);
     }
     fetchUsers();
@@ -35,16 +39,24 @@ export function ActiveConversations() {
 
   return (
     <div>
-      {conversations.map((c) => (
+      {conversations.map((conversation) => (
         <Link
-          to={`/messages/${createConversationName(c.other_user.slug)}`}
-          key={c.other_user.slug}
+          to={`/messages/${createConversationName(
+            conversation.other_user.slug
+          )}`}
+          key={conversation.other_user.slug}
         >
           <div className="border border-gray-200 w-full p-3">
-            <h3 className="text-xl font-semibold text-gray-800">{c.other_user.slug}</h3>
+            <h3 className="text-xl font-semibold text-gray-800">
+              {conversation.other_user.slug}
+            </h3>
             <div className="flex justify-between">
-              <p className="text-gray-700">{c.last_message?.content}</p>
-              <p className="text-gray-700">{formatMessageTimestamp(c.last_message?.timestamp)}</p>
+              <p className="text-gray-700">
+                {conversation.last_message?.content}
+              </p>
+              <p className="text-gray-700">
+                {formatMessageTimestamp(conversation.last_message?.timestamp)}
+              </p>
             </div>
           </div>
         </Link>

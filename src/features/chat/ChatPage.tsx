@@ -7,7 +7,7 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import type { MessageTypes } from "@/App.types";
 import { Message } from "@/features/chat/Message";
 
-export default function App() {
+export default function ChatPage() {
   const { conversationName } = useParams();
   const [welcomeMessage, setWelcomeMessage] = useState("");
   const [messageHistory, setMessageHistory] = useState<MessageTypes[]>([]);
@@ -37,7 +37,9 @@ export default function App() {
             setWelcomeMessage(data.message);
             break;
           case "chat_message_echo":
-            setMessageHistory((prev: MessageTypes[]) => prev.concat(data.message));
+            setMessageHistory((prev: MessageTypes[]) =>
+              prev.concat(data.message)
+            );
             break;
           case "last_50_messages":
             setMessageHistory(data.messages);

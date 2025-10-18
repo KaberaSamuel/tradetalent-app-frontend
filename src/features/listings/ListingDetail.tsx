@@ -47,6 +47,11 @@ export default function ListingDetail() {
     navigate(-1);
   };
 
+  function createConversationName(slug: string) {
+    const slugsAlph = [auth.user.slug, slug].sort();
+    return `${slugsAlph[0]}__${slugsAlph[1]}`;
+  }
+
   if (isLoading) {
     return (
       <div className="w-full h-full -translate-y-5 flex flex-col gap">
@@ -82,7 +87,10 @@ export default function ListingDetail() {
       </div>
     ) : (
       <div>
-        <Link to="#" className={buttonStyles + " bg-teal-500"}>
+        <Link
+          to={`/chats/${createConversationName(listing.user.slug)}`}
+          className={buttonStyles + " bg-teal-500"}
+        >
           <Icon path={mdiMessageOutline} size={iconSize} />
           <p>Message {listing.user.first_name}</p>
         </Link>
