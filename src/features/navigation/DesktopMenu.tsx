@@ -55,11 +55,11 @@ const DesktopMenu = () => {
 
         <Link
           to="/chats"
-          onClick={() => dispatch(updateActiveTab("messages"))}
-          className={activeTab == "messages" ? "active" : ""}
+          onClick={() => dispatch(updateActiveTab("chats"))}
+          className={activeTab == "chats" ? "active" : ""}
         >
           <Icon path={mdiMessageOutline} size={1} />
-          <p>Messages</p>
+          <p>Chat</p>
         </Link>
 
         <Link

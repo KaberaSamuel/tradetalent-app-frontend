@@ -53,7 +53,7 @@ const MobileMenu = () => {
         className={activeTab.startsWith("/chats") ? "active" : ""}
       >
         <Icon path={mdiMessageOutline} size={1} />
-        <p>Messages</p>
+        <p>Chats</p>
       </Link>
 
       <Link

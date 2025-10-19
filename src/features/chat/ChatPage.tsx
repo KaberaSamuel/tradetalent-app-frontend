@@ -7,6 +7,8 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import type { MessageTypes } from "@/App.types";
 import { Message } from "@/features/chat/Message";
 
+const API_DOMAIN = import.meta.env.VITE_API_DOMAIN;
+
 export default function ChatPage() {
   const { conversationName } = useParams();
   const [welcomeMessage, setWelcomeMessage] = useState("");
@@ -15,7 +17,7 @@ export default function ChatPage() {
   const auth = useAppSelector(authSelector);
 
   const { readyState, sendJsonMessage } = useWebSocket(
-    `ws://127.0.0.1:8000/${conversationName}/`,
+    `ws://${API_DOMAIN}/${conversationName}/`,
     {
       queryParams: {
         token: auth.token.access,

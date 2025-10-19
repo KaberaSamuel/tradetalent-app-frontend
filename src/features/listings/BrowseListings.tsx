@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Link, useSearchParams } from "react-router-dom";
-import { mdiAccountOutline } from "@mdi/js";
-import { useAppSelector } from "@/hooks/reduxHooks";
+import type { ListingTypes } from "@/App.types";
+import { Spinner } from "@/components/Loader";
 import { authSelector } from "@/features/auth/authSlice";
 import { fetchListings } from "@/features/listings/api";
 import FilterBar from "@/features/listings/FilterBar";
 import ListingCard from "@/features/listings/ListingCard";
-import { Spinner } from "@/components/Loader";
-import type { ListingTypes } from "@/App.types";
+import { useAppSelector } from "@/hooks/reduxHooks";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import { mdiAccountOutline } from "@mdi/js";
 import Icon from "@mdi/react";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 
 export const listingsGridStyles = "grid xl:grid-cols-2 gap-5 items-stretch";
 
@@ -67,7 +67,7 @@ export default function BrowseListings() {
   }
 
   if (data) {
-    let listings: ListingTypes[] = getFilteredListings(data, activeFilter);
+    const listings: ListingTypes[] = getFilteredListings(data, activeFilter);
 
     const listingsItems = listings.map((listing) => (
       <li key={listing.id}>

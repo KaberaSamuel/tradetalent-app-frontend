@@ -42,7 +42,7 @@ const PrivateRoute = () => {
       if (isLoading) {
         setWaitingMessage("Hang on, it's taking a bit longer!");
       }
-    }, 8000);
+    }, 10000);
   }, [isLoading]);
 
   // Effect to update redux store when user data is fetched
@@ -65,8 +65,8 @@ const PrivateRoute = () => {
         dispatch(updateActiveTab("my-listings"));
       } else if (path.includes("new")) {
         dispatch(updateActiveTab("post"));
-      } else if (path.includes("messages")) {
-        dispatch(updateActiveTab("messages"));
+      } else if (path.includes("chats")) {
+        dispatch(updateActiveTab("chats"));
       } else if (path.includes("profile")) {
         dispatch(updateActiveTab("profile"));
       } else {
