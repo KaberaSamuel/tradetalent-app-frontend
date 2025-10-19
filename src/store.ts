@@ -1,4 +1,5 @@
 import authReducer from "@/features/auth/authSlice";
+import conversationReducer from "@/features/chat/chatSlice";
 import activitiesReducer from "@/features/home/ActivitiesSlice";
 import navigationReducer from "@/features/navigation/navigationSlice";
 import messageReducer from "@/features/popups/messageSlice";
@@ -10,6 +11,7 @@ export const store = configureStore({
     authReducer,
     activitiesReducer,
     navigationReducer,
+    conversationReducer,
   },
 });
 

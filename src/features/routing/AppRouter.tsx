@@ -8,8 +8,8 @@ import ForgotPasswordPage from "@/features/auth/ForgotPassword";
 import Login from "@/features/auth/Login";
 import ResetPasswordPage from "@/features/auth/ResetPassword";
 import Signup from "@/features/auth/Signup";
-import { ActiveConversations } from "@/features/chat/ActiveConversation";
 import ChatPage from "@/features/chat/ChatPage";
+import Conversations from "@/features/chat/Conversations";
 import Home from "@/features/home/Home";
 import PublicPage from "@/features/home/PublicPage";
 import WelcomePage from "@/features/home/Welcome";
@@ -49,7 +49,7 @@ const AppRouter = () => {
           />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
-          <Route path="/chats" element={<ActiveConversations />} />
+          <Route path="/chats" element={<Conversations />} />
           <Route path="/chats/:conversationName" element={<ChatPage />} />
         </Route>
       </Route>
