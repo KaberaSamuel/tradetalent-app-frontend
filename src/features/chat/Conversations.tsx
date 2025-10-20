@@ -6,10 +6,11 @@ import {
   updateActiveConvesation,
 } from "@/features/chat/chatSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-import useDailyAlert from "@/hooks/useDailyAlert";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+
+const viteEnv = import.meta.env.VITE_ENV;
 
 export default function Conversations() {
   const { user, token } = useAppSelector(authSelector);
@@ -38,9 +39,13 @@ export default function Conversations() {
     }
   }, [conversations, dispatch]);
 
-  useDailyAlert(
-    "Hi there, the chat system is still in development. So don't worry if you UI not looking good or some features not properly working"
-  );
+  if (viteEnv == "production") {
+    return (
+      <div>
+        <p className="md:text-lg">The chat system is still in development</p>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (

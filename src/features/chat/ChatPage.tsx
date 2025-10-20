@@ -1,6 +1,5 @@
 import { authSelector } from "@/features/auth/authSlice";
 import { useAppSelector } from "@/hooks/reduxHooks";
-import useDailyAlert from "@/hooks/useDailyAlert";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useWebSocket, { ReadyState } from "react-use-websocket";
@@ -9,6 +8,7 @@ import type { MessageTypes } from "@/App.types";
 import { Message } from "@/features/chat/Message";
 
 const API_DOMAIN = import.meta.env.VITE_API_DOMAIN;
+const viteEnv = import.meta.env.VITE_ENV;
 
 export default function ChatPage() {
   const { conversationName } = useParams();
@@ -18,7 +18,7 @@ export default function ChatPage() {
   const auth = useAppSelector(authSelector);
 
   const { readyState, sendJsonMessage } = useWebSocket(
-    `ws://${API_DOMAIN}/${conversationName}/`,
+    `wss://${API_DOMAIN}/${conversationName}/`,
     {
       queryParams: {
         token: auth.token.access,
@@ -55,10 +55,6 @@ export default function ChatPage() {
     }
   );
 
-  useDailyAlert(
-    "Hi there, the chat system is still in development. So don't worry if you UI not looking good or some features not properly working"
-  );
-
   const connectionStatus = {
     [ReadyState.CONNECTING]: "Connecting",
     [ReadyState.OPEN]: "Open",
@@ -81,6 +77,14 @@ export default function ChatPage() {
     });
     setMessage("");
   };
+
+  if (viteEnv == "production") {
+    return (
+      <div>
+        <p className="md:text-lg">The chat system is still in development</p>
+      </div>
+    );
+  }
 
   return (
     <div>
