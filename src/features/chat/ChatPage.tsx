@@ -1,5 +1,6 @@
 import { authSelector } from "@/features/auth/authSlice";
 import { useAppSelector } from "@/hooks/reduxHooks";
+import useDailyAlert from "@/hooks/useDailyAlert";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useWebSocket, { ReadyState } from "react-use-websocket";
@@ -52,6 +53,10 @@ export default function ChatPage() {
         }
       },
     }
+  );
+
+  useDailyAlert(
+    "Hi there, the chat system is still in development. So don't worry if you UI not looking good or some features not properly working"
   );
 
   const connectionStatus = {

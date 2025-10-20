@@ -6,6 +6,7 @@ import {
   updateActiveConvesation,
 } from "@/features/chat/chatSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import useDailyAlert from "@/hooks/useDailyAlert";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -37,6 +38,10 @@ export default function Conversations() {
     }
   }, [conversations, dispatch]);
 
+  useDailyAlert(
+    "Hi there, the chat system is still in development. So don't worry if you UI not looking good or some features not properly working"
+  );
+
   if (isLoading) {
     return (
       <div className="w-full h-full">
@@ -47,6 +52,11 @@ export default function Conversations() {
 
   if (conversations) {
     const tabStyles = "py-2 px-4 border-t border-neutral-300 bg-teal-100";
+
+    if (conversations.length === 0) {
+      return <div>No conversations here yet!</div>;
+    }
+
     return (
       <div className="h-screen">
         <div className="w-85 -my-3 -mx-7 h-full border-r border-neutral-300">
