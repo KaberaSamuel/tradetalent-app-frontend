@@ -16,7 +16,7 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Digital Marketing, Financial Consulting",
       profile_image: "https://picsum.photos/seed/davidmiller/200/200",
     },
-    revieweeEmail: "kaberanshutisamuel@gmail.com",
+    revieweeEmail: "kaberanshutis@gmail.com",
     date: "Jun 2, 2025",
     message:
       "Incredibly professional and delivered the work on time. Highly recommend!",
@@ -37,7 +37,7 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Digital Marketing, Web Development",
       profile_image: "https://picsum.photos/seed/mariasanch/200/200",
     },
-    revieweeEmail: "kaberanshutisamuel@gmail.com",
+    revieweeEmail: "kaberanshutis@gmail.com",
     date: "Jul 8, 2025",
     message:
       "Great collaboration and communication throughout the project. Very happy with the result.",
@@ -57,7 +57,7 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Web Development, Social Media Management",
       profile_image: "https://picsum.photos/seed/patrickjones/200/200",
     },
-    revieweeEmail: "kaberanshutisamuel@gmail.com",
+    revieweeEmail: "kaberanshutis@gmail.com",
     date: "Aug 4, 2025",
     message:
       "A pleasure to work with. The quality of work exceeded my expectations.",
@@ -77,7 +77,7 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Copywriting, Data Analysis",
       profile_image: "https://picsum.photos/seed/frankwilliams/200/200",
     },
-    revieweeEmail: "kaberanshutisamuel@gmail.com",
+    revieweeEmail: "kaberanshutis@gmail.com",
     date: "Jul 29, 2025",
     message:
       "Provided valuable insights and a great solution. Will definitely hire again.",
@@ -98,7 +98,7 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "App Development, Video Editing",
       profile_image: "https://picsum.photos/seed/tinawong/200/200",
     },
-    revieweeEmail: "kaberanshutisamuel@gmail.com",
+    revieweeEmail: "kaberanshutis@gmail.com",
     date: "Aug 11, 2025",
     message:
       "Super fast and efficient. The final product was exactly what I was looking for.",
@@ -118,7 +118,7 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Graphic Design, Video Editing",
       profile_image: "https://picsum.photos/seed/jacksmith/200/200",
     },
-    revieweeEmail: "kaberanshutisamuel@gmail.com",
+    revieweeEmail: "kaberanshutis@gmail.com",
     date: "Jun 26, 2025",
     message:
       "Excellent skills and a very positive attitude. Made the entire process enjoyable.",
@@ -138,7 +138,7 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Digital Marketing, Photography",
       profile_image: "https://picsum.photos/seed/oliviawhite/200/200",
     },
-    revieweeEmail: "kaberanshutisamuel@gmail.com",
+    revieweeEmail: "kaberanshutis@gmail.com",
     date: "Jul 17, 2025",
     message: "Very thoughtful and detail-oriented. The work was flawless.",
     rating: 4,
@@ -157,7 +157,7 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "UI/UX Design, Digital Marketing",
       profile_image: "https://picsum.photos/seed/isabellarossi/200/200",
     },
-    revieweeEmail: "kaberanshutisamuel@gmail.com",
+    revieweeEmail: "kaberanshutis@gmail.com",
     date: "May 31, 2025",
     message:
       "Handled all my requests and revisions quickly and professionally.",
@@ -177,7 +177,7 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Graphic Design, Content Writing",
       profile_image: "https://picsum.photos/seed/noahkim/200/200",
     },
-    revieweeEmail: "kaberanshutisamuel@gmail.com",
+    revieweeEmail: "kaberanshutis@gmail.com",
     date: "Jun 16, 2025",
     message:
       "Showed great initiative and helped me improve my original idea. Thank you!",
@@ -197,7 +197,7 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Web Development, Graphic Design",
       profile_image: "https://picsum.photos/seed/samuelgarcia/200/200",
     },
-    revieweeEmail: "kaberanshutisamuel@gmail.com",
+    revieweeEmail: "kaberanshutis@gmail.com",
     date: "Jul 2, 2025",
     message:
       "An expert in their field. I learned a lot just from working with them.",
@@ -218,7 +218,7 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Graphic Design, Web Development",
       profile_image: "https://picsum.photos/seed/liamoconnell/200/200",
     },
-    revieweeEmail: "kaberanshutisamuel@gmail.com",
+    revieweeEmail: "kaberanshutis@gmail.com",
     date: "Aug 7, 2025",
     message: "Highly reliable and committed to the project's success.",
     rating: 4,
@@ -237,7 +237,7 @@ export const mockReviews: ReviewTypes[] = [
       services_needed: "Web Development, Graphic Design",
       profile_image: "https://picsum.photos/seed/yarahaddad/200/200",
     },
-    revieweeEmail: "kaberanshutisamuel@gmail.com",
+    revieweeEmail: "kaberanshutis@gmail.com",
     date: "Aug 4, 2025",
     message:
       "The project was complex, but they made it seem easy. Truly a professional.",
@@ -271,7 +271,7 @@ export const mockReviews: ReviewTypes[] = [
       name: "Anya Sharma",
       first_name: "Anya",
       name_initials: "AS",
-      email: "kaberanshutisamuel@gmail.com",
+      email: "kaberanshutis@gmail.com",
       location: "Mumbai, India",
       about:
         "Graphic designer with a passion for creating impactful brand identities. Experienced in both digital and print media, always looking for new challenges.",

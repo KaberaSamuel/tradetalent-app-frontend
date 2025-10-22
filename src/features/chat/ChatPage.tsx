@@ -18,7 +18,9 @@ export default function ChatPage() {
   const auth = useAppSelector(authSelector);
 
   const { readyState, sendJsonMessage } = useWebSocket(
-    `wss://${API_DOMAIN}/${conversationName}/`,
+    `${
+      viteEnv === "production" ? "wss" : "ws"
+    }://${API_DOMAIN}/${conversationName}/`,
     {
       queryParams: {
         token: auth.token.access,
@@ -77,14 +79,6 @@ export default function ChatPage() {
     });
     setMessage("");
   };
-
-  if (viteEnv == "production") {
-    return (
-      <div>
-        <p className="md:text-lg">The chat system is still in development</p>
-      </div>
-    );
-  }
 
   return (
     <div>

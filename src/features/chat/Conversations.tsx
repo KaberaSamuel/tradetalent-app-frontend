@@ -10,8 +10,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const viteEnv = import.meta.env.VITE_ENV;
-
 export default function Conversations() {
   const { user, token } = useAppSelector(authSelector);
   const activeConversation = useAppSelector(conversationSelector);
@@ -38,14 +36,6 @@ export default function Conversations() {
       dispatch(updateActiveConvesation(conversations[0]));
     }
   }, [conversations, dispatch]);
-
-  if (viteEnv == "production") {
-    return (
-      <div>
-        <p className="md:text-lg">The chat system is still in development</p>
-      </div>
-    );
-  }
 
   if (isLoading) {
     return (
