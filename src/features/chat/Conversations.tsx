@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { differenceInCalendarDays } from "date-fns";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import ProfileImage from "../profile/ProfileImage";
 
 export default function Conversations() {
   const { user, token } = useAppSelector(authSelector);
@@ -58,8 +59,6 @@ export default function Conversations() {
   }
 
   if (conversations) {
-    const tabStyles = "py-2 px-4 border-t border-neutral-300 bg-teal-100";
-
     if (conversations.length === 0) {
       return <div>No conversations here yet!</div>;
     }
@@ -69,7 +68,8 @@ export default function Conversations() {
         <div className="w-85 -my-3 -mx-7 h-full border-r border-neutral-300">
           {conversations.map((conversation) => {
             const isActive = conversation === activeConversation;
-            console.log(formatDate(conversation.last_message?.timestamp || ""));
+            const tabStyles =
+              "py-2 px-4 border-b border-neutral-300 flex gap-3 items-center ";
 
             return (
               <Link
@@ -79,18 +79,23 @@ export default function Conversations() {
                 key={conversation.other_user.slug}
               >
                 <div
-                  className={isActive ? tabStyles : tabStyles + "bg-teal-200"}
+                  className={isActive ? tabStyles + "bg-teal-100" : tabStyles}
                 >
-                  <h3 className="text-lg font-semibold text-gray-800">
-                    {conversation.other_user.name}
-                  </h3>
-                  <div className="flex justify-between">
-                    <p className="text-gray-700">
-                      {conversation.last_message?.content}
-                    </p>
-                    <p className="text-gray-700">
-                      {formatDate(conversation.last_message?.timestamp || "")}
-                    </p>
+                  <ProfileImage
+                    isSmall={true}
+                    size={10}
+                    user={conversation.other_user}
+                  />
+                  <div className="text-gray-500 grow">
+                    <h3 className=" font-bold text-gray-800">
+                      {conversation.other_user.name}
+                    </h3>
+                    <div className="flex justify-between">
+                      <p>{conversation.last_message?.content}</p>
+                      <p>
+                        {formatDate(conversation.last_message?.timestamp || "")}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </Link>
