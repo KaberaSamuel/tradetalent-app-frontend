@@ -7,6 +7,7 @@ import {
 } from "@/features/chat/chatSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { useQuery } from "@tanstack/react-query";
+import { differenceInCalendarDays } from "date-fns";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -20,10 +21,21 @@ export default function Conversations() {
     return `${namesAlph[0]}__${namesAlph[1]}`;
   }
 
-  function formatMessageTimestamp(timestamp?: string) {
-    if (!timestamp) return;
-    const date = new Date(timestamp);
-    return date.toLocaleTimeString().slice(0, 5);
+  function formatDate(date: string) {
+    if (!date) {
+      return "";
+    }
+
+    const currentDate = new Date().toISOString();
+    const difference = differenceInCalendarDays(currentDate, date);
+
+    if (difference == 0) {
+      return "Today";
+    } else if (difference == 1) {
+      return "Yesterday";
+    }
+    const formatedDate = new Date(date).toLocaleString();
+    return formatedDate.split(",")[0];
   }
 
   const { data: conversations, isLoading } = useQuery({
@@ -57,6 +69,7 @@ export default function Conversations() {
         <div className="w-85 -my-3 -mx-7 h-full border-r border-neutral-300">
           {conversations.map((conversation) => {
             const isActive = conversation === activeConversation;
+            console.log(formatDate(conversation.last_message?.timestamp || ""));
 
             return (
               <Link
@@ -76,9 +89,7 @@ export default function Conversations() {
                       {conversation.last_message?.content}
                     </p>
                     <p className="text-gray-700">
-                      {formatMessageTimestamp(
-                        conversation.last_message?.timestamp
-                      )}
+                      {formatDate(conversation.last_message?.timestamp || "")}
                     </p>
                   </div>
                 </div>
