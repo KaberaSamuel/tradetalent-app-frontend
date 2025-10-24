@@ -18,7 +18,7 @@ const DesktopMenu = () => {
   const activeTab = useAppSelector(navigationSelector);
 
   return (
-    <div className="sticky top-0 w-[25vw] min-w-[280px] h-screen p-4 border-r-1 border-neutral-300 [&_.active]:text-black [&_.active]:bg-neutral-200">
+    <div className="sticky w-[25vw] min-w-[280px] h-screen p-4 border-r-1 border-neutral-300 [&_.active]:text-black [&_.active]:bg-neutral-200">
       <div className="mb-10">
         <Link to="/" className="text-xl font-semibold">
           ServiceExchange

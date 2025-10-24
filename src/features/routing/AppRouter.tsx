@@ -49,8 +49,9 @@ const AppRouter = () => {
           />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
-          <Route path="/chats" element={<Conversations />} />
-          <Route path="/chats/:conversationName" element={<ChatPage />} />
+          <Route path="/chats" element={<Conversations />}>
+            <Route path=":conversationName" element={<ChatPage />} />
+          </Route>
         </Route>
       </Route>
 

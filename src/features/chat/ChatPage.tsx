@@ -81,7 +81,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div>
+    <div className="h-full p-2">
       <span>The WebSocket is currently {connectionStatus}</span>
       <p>{welcomeMessage}</p>
 
@@ -91,7 +91,7 @@ export default function ChatPage() {
           placeholder="Message"
           onChange={handleChangeMessage}
           value={message}
-          className="p-2 min-w-100 shadow-sm sm:text-sm border-gray-300 bg-gray-100 rounded-md"
+          className="p-2 shadow-sm sm:text-sm border-gray-300 bg-gray-100 rounded-md"
         />
         <button className="ml-3 bg-gray-300 px-3 py-1" onClick={handleSubmit}>
           Submit

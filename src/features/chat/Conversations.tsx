@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { useQuery } from "@tanstack/react-query";
 import { differenceInCalendarDays } from "date-fns";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import ProfileImage from "../profile/ProfileImage";
 
 export default function Conversations() {
@@ -64,8 +64,8 @@ export default function Conversations() {
     }
 
     return (
-      <div className="h-screen">
-        <div className="w-85 -my-3 -mx-7 h-full border-r border-neutral-300">
+      <div className="absolute inset-0 flex">
+        <div className="w-85 h-[300vh] border-r border-neutral-300">
           {conversations.map((conversation) => {
             const isActive = conversation === activeConversation;
             const tabStyles =
@@ -101,6 +101,10 @@ export default function Conversations() {
               </Link>
             );
           })}
+        </div>
+
+        <div className="sticky top-20 grow">
+          <Outlet />
         </div>
       </div>
     );
