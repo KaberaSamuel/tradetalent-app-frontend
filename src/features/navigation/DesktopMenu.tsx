@@ -11,14 +11,46 @@ import {
   mdiViewDashboardOutline,
 } from "@mdi/js";
 import Icon from "@mdi/react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { updateSidebarDimensions } from "./dimensionsSlice";
 
 const DesktopMenu = () => {
   const dispatch = useAppDispatch();
   const activeTab = useAppSelector(navigationSelector);
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
+
+  // effect to setup function for tracking dimensions
+  useEffect(() => {
+    const updateDimensions = () => {
+      const sidebarDiv = sidebarRef.current;
+      if (sidebarDiv) {
+        const dimensions = {
+          height: sidebarDiv.offsetHeight,
+          width: sidebarDiv.offsetWidth,
+        };
+        dispatch(updateSidebarDimensions(dimensions));
+      }
+    };
+
+    // get initial dimensions
+    updateDimensions();
+
+    window.addEventListener("resize", updateDimensions);
+
+    // Remove event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", updateDimensions);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <div className="sticky w-[25vw] min-w-[280px] h-screen p-4 border-r-1 border-neutral-300 [&_.active]:text-black [&_.active]:bg-neutral-200">
+    <div
+      ref={sidebarRef}
+      className="sticky w-[25vw] min-w-[280px] h-screen p-4 border-r-1 border-neutral-300 [&_.active]:text-black [&_.active]:bg-neutral-200"
+    >
       <div className="mb-10">
         <Link to="/" className="text-xl font-semibold">
           ServiceExchange

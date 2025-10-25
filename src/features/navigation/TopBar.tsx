@@ -6,8 +6,9 @@ import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { mdiBellOutline, mdiMagnify } from "@mdi/js";
 import Icon from "@mdi/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { updateTopbarDimensions } from "./dimensionsSlice";
 import { updateActiveTab } from "./navigationSlice";
 
 const TopBar = () => {
@@ -18,6 +19,7 @@ const TopBar = () => {
   const [query, setQuery] = useState("");
   const [profileModalVisibility, setProfileModalVisibility] = useState(false);
   const [deleteModalVisibility, setDeleteModalVisibility] = useState(false);
+  const topbarRef = useRef<HTMLDivElement | null>(null);
 
   const updateQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
@@ -37,8 +39,38 @@ const TopBar = () => {
     navigate(`/listings?search=${query}`);
   };
 
+  // effect to track dimensions for topbar div
+  useEffect(() => {
+    const updateDimensions = () => {
+      const topbarDiv = topbarRef.current;
+      if (topbarDiv) {
+        const dimensions = {
+          height: topbarDiv.offsetHeight,
+          width: topbarDiv.offsetWidth,
+        };
+
+        dispatch(updateTopbarDimensions(dimensions));
+      }
+    };
+
+    // get initial dimensions
+    updateDimensions();
+
+    window.addEventListener("resize", updateDimensions);
+
+    // Remove event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", updateDimensions);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="sticky top-0 z-10 w-full h-fit p-2 pt-3 sm:py-3 sm:px-4 bg-white flex gap-2 sm:gap-4 justify-between border-b-1 border-neutral-300">
+    <div
+      ref={topbarRef}
+      className="sticky top-0 z-10 w-full h-fit p-2 pt-3 sm:py-3 sm:px-4 bg-white flex gap-2 sm:gap-4 justify-between border-b-1 border-neutral-300"
+    >
       <form onSubmit={onSubmit} className="relative grow max-w-150">
         <Icon
           path={mdiMagnify}

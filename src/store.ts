@@ -1,6 +1,7 @@
 import authReducer from "@/features/auth/authSlice";
 import conversationReducer from "@/features/chat/chatSlice";
 import activitiesReducer from "@/features/home/ActivitiesSlice";
+import dimensionsReducer from "@/features/navigation/dimensionsSlice";
 import navigationReducer from "@/features/navigation/navigationSlice";
 import messageReducer from "@/features/popups/messageSlice";
 import { configureStore } from "@reduxjs/toolkit";
@@ -11,6 +12,7 @@ export const store = configureStore({
     authReducer,
     activitiesReducer,
     navigationReducer,
+    dimensionsReducer,
     conversationReducer,
   },
 });
