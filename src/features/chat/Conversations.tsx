@@ -5,16 +5,19 @@ import {
   conversationSelector,
   updateActiveConvesation,
 } from "@/features/chat/chatSlice";
+import ProfileImage from "@/features/profile/ProfileImage";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { useQuery } from "@tanstack/react-query";
 import { differenceInCalendarDays } from "date-fns";
 import { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
-import ProfileImage from "../profile/ProfileImage";
 
 export default function Conversations() {
   const { user, token } = useAppSelector(authSelector);
   const activeConversation = useAppSelector(conversationSelector);
+  const isTablet = useMediaQuery("(max-width: 1024px)");
+
   const dispatch = useAppDispatch();
 
   function createConversationName(slug: string) {
@@ -24,19 +27,19 @@ export default function Conversations() {
 
   function formatDate(date: string) {
     if (!date) {
-      return "";
+      return { date: "", isNumbers: false };
     }
 
     const currentDate = new Date().toISOString();
     const difference = differenceInCalendarDays(currentDate, date);
 
     if (difference == 0) {
-      return "Today";
+      return { dateString: "Today", isNumbers: false };
     } else if (difference == 1) {
-      return "Yesterday";
+      return { dateString: "Yesterday", isNumbers: false };
     }
     const formatedDate = new Date(date).toLocaleString();
-    return formatedDate.split(",")[0];
+    return { dateString: formatedDate.split(",")[0], isNumbers: true };
   }
 
   const { data: conversations, isLoading } = useQuery({
@@ -63,13 +66,28 @@ export default function Conversations() {
       return <div>No conversations here yet!</div>;
     }
 
-    return (
-      <div className="absolute inset-0 flex">
-        <div className="w-85 h-[300vh] border-r border-neutral-300">
+    const conversationsListUI = (
+      <div className="border-r-2 border-neutral-300 overflow-x-hidden overflow-y-auto custom-scrollbar">
+        <div className={isTablet ? "w-full" : "w-85"}>
           {conversations.map((conversation) => {
             const isActive = conversation === activeConversation;
             const tabStyles =
               "py-2 px-4 border-b border-neutral-300 flex gap-3 items-center ";
+            const dateObject = formatDate(
+              conversation.last_message?.timestamp || ""
+            );
+            let lastMessage = conversation.last_message?.content || "";
+            lastMessage = isTablet
+              ? lastMessage.slice(0, 45)
+              : lastMessage?.slice(0, 20);
+
+            if (conversation.last_message?.content) {
+              if (
+                lastMessage.length < conversation.last_message.content.length
+              ) {
+                lastMessage = lastMessage + "...";
+              }
+            }
 
             return (
               <Link
@@ -90,10 +108,10 @@ export default function Conversations() {
                     <h3 className=" font-bold text-gray-800">
                       {conversation.other_user.name}
                     </h3>
-                    <div className="flex justify-between">
-                      <p>{conversation.last_message?.content}</p>
-                      <p>
-                        {formatDate(conversation.last_message?.timestamp || "")}
+                    <div className="flex justify-between items-center">
+                      <p>{lastMessage}</p>
+                      <p className={dateObject.isNumbers ? "text-sm" : ""}>
+                        {dateObject.dateString}
                       </p>
                     </div>
                   </div>
@@ -102,8 +120,18 @@ export default function Conversations() {
             );
           })}
         </div>
+      </div>
+    );
 
-        <div className="sticky top-20 grow">
+    if (isTablet) {
+      return <div className={`absolute inset-0`}>{conversationsListUI}</div>;
+    }
+
+    return (
+      <div className={`absolute inset-0 flex`}>
+        {conversationsListUI}
+
+        <div className="grow overflow-auto">
           <Outlet />
         </div>
       </div>

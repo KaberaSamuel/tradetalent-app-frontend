@@ -10,8 +10,10 @@ const App = () => {
       <div className="w-[100vw] min-h-screen flex flex-col">
         <TopBar />
 
-        <div className="p-3 pb-30 sm:px-7 grow overflow-x-hidden relative">
-          <Outlet />
+        <div className="relative grow">
+          <div className="p-3 pb-30 sm:px-7 h-full overflow-x-hidden">
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>

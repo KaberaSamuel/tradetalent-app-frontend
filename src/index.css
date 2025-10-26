@@ -24,4 +24,24 @@
   .unset-styles {
     all: unset;
   }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    /* Style for the draggable part */
+    background-color: #a0aec0;
+    border-radius: 50px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    /* Style for the area the thumb scrolls over */
+    background: transparent;
+  }
+
+  /* To remove the arrows buttons */
+  .custom-scrollbar::-webkit-scrollbar-button {
+    display: none;
+  }
 }

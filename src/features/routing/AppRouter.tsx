@@ -21,8 +21,11 @@ import NewListing from "@/features/listings/NewListing";
 import EditProfile from "@/features/profile/EditProfile";
 import Profile from "@/features/profile/Profile";
 import NotFoundPage from "@/features/routing/Notfound";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 const AppRouter = () => {
+  const isTablet = useMediaQuery("(max-width: 1024px)");
+
   return (
     <Routes>
       <Route element={<PublicRoute />}>
@@ -42,16 +45,26 @@ const AppRouter = () => {
           <Route path="/listings" element={<BrowseListings />} />
           <Route path="/listings/new" element={<NewListing />} />
           <Route path="/listings/:listing_slug" element={<ListingDetail />} />
-          <Route path="/users/:user_slug" element={<Profile />} />
           <Route
             path="/listings/:listing_slug/edit"
             element={<EditListing />}
           />
+
+          <Route path="/users/:user_slug" element={<Profile />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
-          <Route path="/chats" element={<Conversations />}>
-            <Route path=":conversationName" element={<ChatPage />} />
-          </Route>
+
+          {/* Chat Pages Routing */}
+          {isTablet ? (
+            <>
+              <Route path="/chats" element={<Conversations />} />
+              <Route path="/chats/:conversationName" element={<ChatPage />} />
+            </>
+          ) : (
+            <Route path="/chats" element={<Conversations />}>
+              <Route path=":conversationName" element={<ChatPage />} />
+            </Route>
+          )}
         </Route>
       </Route>
 
