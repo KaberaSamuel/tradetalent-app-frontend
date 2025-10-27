@@ -26,14 +26,6 @@ export default function ChatPage() {
         token: auth.token.access,
       },
 
-      onOpen: () => {
-        console.log("Connected!");
-      },
-
-      onClose: () => {
-        console.log("Disconnected!");
-      },
-
       // onMessage handler
       onMessage: (e) => {
         const data = JSON.parse(e.data);

@@ -48,10 +48,10 @@ export default function Conversations() {
   });
 
   useEffect(() => {
-    if (conversations) {
+    if (conversations && activeConversation.name === "") {
       dispatch(updateActiveConvesation(conversations[0]));
     }
-  }, [conversations, dispatch]);
+  }, [activeConversation, conversations, dispatch]);
 
   if (isLoading) {
     return (
@@ -63,12 +63,16 @@ export default function Conversations() {
 
   if (conversations) {
     if (conversations.length === 0) {
-      return <div>No conversations here yet!</div>;
+      return (
+        <div className="w-full h-full flex justify-center items-center">
+          <p>No conversations here yet!</p>
+        </div>
+      );
     }
 
     const conversationsListUI = (
       <div className="border-r-2 border-neutral-300 overflow-x-hidden overflow-y-auto custom-scrollbar">
-        <div className={isTablet ? "w-full" : "w-85"}>
+        <div className={isTablet ? "w-full" : "w-[300px] w-min-[300px]"}>
           {conversations.map((conversation) => {
             const isActive = conversation === activeConversation;
             const tabStyles =
@@ -127,7 +131,9 @@ export default function Conversations() {
     );
 
     if (isTablet) {
-      return <div className={`absolute inset-0`}>{conversationsListUI}</div>;
+      return (
+        <div className="absolute inset-0 -margin-5">{conversationsListUI}</div>
+      );
     }
 
     return (

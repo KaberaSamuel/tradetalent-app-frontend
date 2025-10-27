@@ -43,7 +43,7 @@ export default function BrowseListings() {
   const auth = useAppSelector(authSelector);
 
   const [activeFilter, setActiveFilter] = useState("all");
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const queryItem = searchParams.get("search");
 
   const fetchKey = queryItem
