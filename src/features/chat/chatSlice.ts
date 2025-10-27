@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const conversationSlice = createSlice({
   name: "chat",
-  initialState: {},
+  initialState: { name: "" },
   reducers: {
     updateActiveConvesation: (_, action: PayloadAction<ConversationTypes>) => {
       return action.payload;
@@ -14,7 +14,7 @@ export const conversationSlice = createSlice({
 });
 
 export const { updateActiveConvesation } = conversationSlice.actions;
-export const conversationSelector = (state: RootState) =>
+export const activeConversationSelector = (state: RootState) =>
   state.conversationReducer;
 
 export default conversationSlice.reducer;

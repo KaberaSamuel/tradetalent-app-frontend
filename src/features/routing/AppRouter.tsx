@@ -10,6 +10,7 @@ import ResetPasswordPage from "@/features/auth/ResetPassword";
 import Signup from "@/features/auth/Signup";
 import ChatPage from "@/features/chat/ChatPage";
 import Conversations from "@/features/chat/Conversations";
+import DefaultChatPage from "@/features/chat/DefaultChatPage";
 import Home from "@/features/home/Home";
 import PublicPage from "@/features/home/PublicPage";
 import WelcomePage from "@/features/home/Welcome";
@@ -62,6 +63,7 @@ const AppRouter = () => {
             </>
           ) : (
             <Route path="/chats" element={<Conversations />}>
+              <Route index element={<DefaultChatPage />} />
               <Route path=":conversationName" element={<ChatPage />} />
             </Route>
           )}

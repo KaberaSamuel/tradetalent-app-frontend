@@ -2,7 +2,7 @@ import { Spinner } from "@/components/Loader";
 import { authSelector } from "@/features/auth/authSlice";
 import { fetchConversations } from "@/features/chat/api";
 import {
-  conversationSelector,
+  activeConversationSelector,
   updateActiveConvesation,
 } from "@/features/chat/chatSlice";
 import ProfileImage from "@/features/profile/ProfileImage";
@@ -15,7 +15,7 @@ import { Link, Outlet } from "react-router-dom";
 
 export default function Conversations() {
   const { user, token } = useAppSelector(authSelector);
-  const activeConversation = useAppSelector(conversationSelector);
+  const activeConversation = useAppSelector(activeConversationSelector);
   const isTablet = useMediaQuery("(max-width: 1024px)");
 
   const dispatch = useAppDispatch();
@@ -95,6 +95,9 @@ export default function Conversations() {
                   conversation.other_user.slug
                 )}`}
                 key={conversation.other_user.slug}
+                onClick={() => {
+                  dispatch(updateActiveConvesation(conversation));
+                }}
               >
                 <div
                   className={isActive ? tabStyles + "bg-teal-100" : tabStyles}
