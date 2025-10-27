@@ -4,8 +4,8 @@ import { useState } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 
 import type { MessageTypes } from "@/App.types";
-import { Message } from "@/features/chat/Message";
-import { activeConversationSelector } from "./chatSlice";
+import ChatComponent from "@/features/chat/ChatComponent";
+import { activeConversationSelector } from "@/features/chat/chatSlice";
 
 const API_DOMAIN = import.meta.env.VITE_API_DOMAIN;
 const viteEnv = import.meta.env.VITE_ENV;
@@ -65,7 +65,7 @@ export default function DefaultChatPage() {
     [ReadyState.UNINSTANTIATED]: "Uninstantiated",
   }[readyState];
 
-  function handleChangeMessage(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleMessageChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target) {
       setMessage(e.target.value);
     }
@@ -81,29 +81,13 @@ export default function DefaultChatPage() {
   };
 
   return (
-    <div className="h-full p-2">
-      <span>The WebSocket is currently {connectionStatus}</span>
-      <p>{welcomeMessage}</p>
-
-      <div className="my-4">
-        <input
-          name="message"
-          placeholder="Message"
-          onChange={handleChangeMessage}
-          value={message}
-          className="p-2 shadow-sm sm:text-sm border-gray-300 bg-gray-100 rounded-md"
-        />
-        <button className="ml-3 bg-gray-300 px-3 py-1" onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
-
-      <hr />
-      <ul className="mt-3 flex flex-col-reverse relative w-full border border-gray-200 overflow-y-auto p-6">
-        {messageHistory.map((message: MessageTypes) => (
-          <Message key={message.id} message={message} />
-        ))}
-      </ul>
-    </div>
+    <ChatComponent
+      connectionStatus={connectionStatus}
+      welcomeMessage={welcomeMessage}
+      message={message}
+      messageHistory={messageHistory}
+      handleMessageChange={handleMessageChange}
+      handleSubmit={handleSubmit}
+    />
   );
 }
