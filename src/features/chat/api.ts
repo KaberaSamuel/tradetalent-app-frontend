@@ -19,7 +19,7 @@ export const fetchConversations = async (
 };
 
 // api to create conversation in the database if it doesn't exists
-export const createConversation = async (
+export const createConversationApi = async (
   accessToken: string,
   conversationName: string
 ) => {
@@ -33,5 +33,5 @@ export const createConversation = async (
     }
   );
 
-  return response.status;
+  return response;
 };

@@ -1,17 +1,12 @@
 import useMediaQuery from "@/hooks/useMediaQuery";
-import {
-  mdiMapMarkerOutline,
-  mdiMessageOutline,
-  mdiPencilOutline,
-} from "@mdi/js";
+import { mdiMapMarkerOutline, mdiPencilOutline } from "@mdi/js";
 import Icon from "@mdi/react";
+import ButtonToConversation from "@/features/chat/ButtonToConversation";
 import { Link } from "react-router-dom";
 
 import type { UserTypes } from "@/App.types";
-import { authSelector } from "@/features/auth/authSlice";
 import ProfileImage from "@/features/profile/ProfileImage";
 import ReviewsSummary from "@/features/reviews/ReviewsSummary";
-import { useAppSelector } from "@/hooks/reduxHooks";
 
 interface Props {
   user: UserTypes;
@@ -22,12 +17,6 @@ const DesktopHero = ({ user, isLoggedIn }: Props) => {
   const iconSize = 0.9;
   const buttonStyles =
     "min-w-fit py-2 px-3 font-semibold flex items-center gap-2 rounded-lg";
-  const auth = useAppSelector(authSelector);
-
-  function createConversationName() {
-    const slugsAlph = [auth.user.slug, user.slug].sort();
-    return `${slugsAlph[0]}__${slugsAlph[1]}`;
-  }
 
   return (
     <div className="pb-5 flex items-center gap-7 border-b-1 border-neutral-300">
@@ -61,13 +50,7 @@ const DesktopHero = ({ user, isLoggedIn }: Props) => {
             <p className="text-sm">Edit Profile</p>
           </Link>
         ) : (
-          <Link
-            to={`/chats/${createConversationName()}`}
-            className={buttonStyles + " bg-teal-500 text-white"}
-          >
-            <Icon path={mdiMessageOutline} size={iconSize} />
-            <p className="text-sm">Message {user.first_name}</p>
-          </Link>
+          <ButtonToConversation otherUser={user} iconSize={1} />
         )}
       </div>
     </div>
