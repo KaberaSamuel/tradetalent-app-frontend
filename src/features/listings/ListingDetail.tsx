@@ -17,10 +17,12 @@ import {
   mdiTagOutline,
 } from "@mdi/js";
 import Icon from "@mdi/react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { createConversation } from "@/features/chat/api";
+import { updatePopupMessage } from "../popups/messageSlice";
 
 export default function ListingDetail() {
   const [isDelete, setIsDelete] = useState(false);
@@ -28,6 +30,7 @@ export default function ListingDetail() {
   const auth = useAppSelector(authSelector);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const isMobile = useMediaQuery("(max-width: 600px)");
 
   const updateDeleteStatus = (isDelete: boolean) => {
@@ -86,14 +89,27 @@ export default function ListingDetail() {
         </button>
       </div>
     ) : (
-      <div>
-        <Link
-          to={`/chats/${createConversationName(listing.user.slug)}`}
-          className={buttonStyles + " bg-teal-500"}
-        >
-          <Icon path={mdiMessageOutline} size={iconSize} />
-          <p>Message {listing.user.first_name}</p>
-        </Link>
+      <div
+        className={buttonStyles + " bg-teal-500"}
+        onClick={async () => {
+          const conversationName = createConversationName(listing.user.slug);
+          const responseStatus = await createConversation(
+            auth.token.access,
+            conversationName
+          );
+          if (responseStatus === 201) {
+            // Reset user profile query to trigger a refetch for updated user data
+            queryClient.resetQueries({
+              queryKey: ["fetch-conversations"],
+            });
+            navigate(`/chats/${conversationName}`);
+          } else {
+            dispatch(updatePopupMessage("Failed to open the chat"));
+          }
+        }}
+      >
+        <Icon path={mdiMessageOutline} size={iconSize} />
+        <p>Message {listing.user.first_name}</p>
       </div>
     );
 

@@ -67,12 +67,7 @@ function EditProfile() {
       const response = await editUser(auth.token.access, updatedUserData);
       dispatch(updateUser(response.data.user));
 
-      // Invalidate and reset user query to trigger a refetch for new data
-      queryClient.invalidateQueries({
-        queryKey: ["user-data"],
-        refetchType: "all",
-      });
-
+      // Reset user profile query to trigger a refetch for updated user data
       queryClient.resetQueries({
         queryKey: ["user-data"],
       });
