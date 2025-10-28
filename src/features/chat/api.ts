@@ -17,3 +17,21 @@ export const fetchConversations = async (
 
   return response.data;
 };
+
+// api to create conversation in the database if it doesn't exists
+export const createConversation = async (
+  accessToken: string,
+  conversationName: string
+) => {
+  const response = await apiClient.post(
+    "/conversations/",
+    { conversationName },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  return response.status;
+};

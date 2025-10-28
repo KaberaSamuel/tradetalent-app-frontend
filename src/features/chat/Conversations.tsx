@@ -74,6 +74,7 @@ export default function Conversations() {
       <div className="border-r-2 border-neutral-300 overflow-x-hidden overflow-y-auto custom-scrollbar">
         <div className={isTablet ? "w-full" : "w-[300px] w-min-[300px]"}>
           {conversations.map((conversation) => {
+            console.log(conversations);
             const isActive = conversation === activeConversation;
             const tabStyles =
               "py-2 px-4 border-b border-neutral-300 flex gap-3 items-center ";

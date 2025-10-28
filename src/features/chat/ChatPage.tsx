@@ -8,10 +8,11 @@ import type { MessageTypes } from "@/App.types";
 import ChatComponent from "./ChatComponent";
 
 const API_DOMAIN = import.meta.env.VITE_API_DOMAIN;
-const viteEnv = import.meta.env.VITE_ENV;
+const VITE_ENV = import.meta.env.VITE_ENV;
 
 export default function ChatPage() {
   const { conversationName } = useParams();
+
   const [welcomeMessage, setWelcomeMessage] = useState("");
   const [messageHistory, setMessageHistory] = useState<MessageTypes[]>([]);
   const [message, setMessage] = useState("");
@@ -19,7 +20,7 @@ export default function ChatPage() {
 
   const { readyState, sendJsonMessage } = useWebSocket(
     `${
-      viteEnv === "production" ? "wss" : "ws"
+      VITE_ENV === "production" ? "wss" : "ws"
     }://${API_DOMAIN}/${conversationName}/`,
     {
       queryParams: {

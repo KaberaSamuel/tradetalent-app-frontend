@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "@/components/Loader";
 import { loginUser } from "@/features/auth/api";
 import { updateTokens, updateUser } from "@/features/auth/authSlice";
-import { updateMessage } from "@/features/popups/messageSlice";
+import { updatePopupMessage } from "@/features/popups/messageSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 
 import GoogleLoginButton from "@/features/auth/GoogleLoginButton";
@@ -47,7 +47,7 @@ const Login = () => {
 
       if (isAxiosError(error)) {
         dispatch(
-          updateMessage(
+          updatePopupMessage(
             error?.response?.data?.error ||
               "Internal error. Refresh and try again"
           )
@@ -56,7 +56,7 @@ const Login = () => {
         return;
       }
 
-      dispatch(updateMessage("Internal server error. Try again"));
+      dispatch(updatePopupMessage("Internal server error. Try again"));
     } finally {
       setPending(false);
     }

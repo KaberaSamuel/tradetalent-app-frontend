@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import { Spinner } from "@/components/Loader";
 import { resetPassword } from "@/features/auth/api";
-import { updateMessage } from "@/features/popups/messageSlice";
+import { updatePopupMessage } from "@/features/popups/messageSlice";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -30,7 +30,7 @@ const ResetPasswordPage = () => {
     const { password1, password2 } = data;
 
     if (password1 != password2) {
-      dispatch(updateMessage("Passwords don't match"));
+      dispatch(updatePopupMessage("Passwords don't match"));
       return;
     }
 
@@ -45,9 +45,9 @@ const ResetPasswordPage = () => {
       console.log(error);
 
       if (axios.isAxiosError(error)) {
-        dispatch(updateMessage("Invalid or Expired Token"));
+        dispatch(updatePopupMessage("Invalid or Expired Token"));
       } else {
-        dispatch(updateMessage("Internal Server Error. Refresh and try again"));
+        dispatch(updatePopupMessage("Internal Server Error. Refresh and try again"));
       }
     } finally {
       setpending(false);

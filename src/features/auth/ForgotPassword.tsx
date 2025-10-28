@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { Spinner } from "@/components/Loader";
 import { requestPasswordResetLink } from "@/features/auth/api";
-import { updateMessage } from "@/features/popups/messageSlice";
+import { updatePopupMessage } from "@/features/popups/messageSlice";
 import axios from "axios";
 
 export interface formTypes {
@@ -30,9 +30,9 @@ const ForgotPasswordPage = () => {
 
       if (axios.isAxiosError(error) && error.response?.status === 404) {
         // when email is invalid
-        dispatch(updateMessage("No user with that email"));
+        dispatch(updatePopupMessage("No user with that email"));
       } else {
-        dispatch(updateMessage("Internal Server Error. Refresh and try again"));
+        dispatch(updatePopupMessage("Internal Server Error. Refresh and try again"));
       }
     } finally {
       setpending(false);

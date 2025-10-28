@@ -1,6 +1,6 @@
 import { loginByGoogle } from "@/features/auth/api";
 import { updateTokens, updateUser } from "@/features/auth/authSlice";
-import { updateMessage } from "@/features/popups/messageSlice";
+import { updatePopupMessage } from "@/features/popups/messageSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,10 +42,10 @@ export default function GoogleLoginButton({ pending, updatePending }: Props) {
         }
       }
 
-      dispatch(updateMessage("Google login failed: No credential received."));
+      dispatch(updatePopupMessage("Google login failed: No credential received."));
     } catch (error) {
       console.log(error);
-      dispatch(updateMessage("Google login failed, try another way"));
+      dispatch(updatePopupMessage("Google login failed, try another way"));
     } finally {
       updatePending(false);
     }
@@ -53,7 +53,7 @@ export default function GoogleLoginButton({ pending, updatePending }: Props) {
 
   // handle failed login by google
   const handleGoogleError = () => {
-    dispatch(updateMessage("Google login failed, try another way"));
+    dispatch(updatePopupMessage("Google login failed, try another way"));
   };
 
   // Trigger hidden Google Login button

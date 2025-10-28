@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { authSelector, updateUser } from "@/features/auth/authSlice";
-import { updateMessage } from "@/features/popups/messageSlice";
+import { updatePopupMessage } from "@/features/popups/messageSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -80,7 +80,7 @@ function EditProfile() {
       navigate("/profile");
     } catch (error) {
       console.log(error);
-      dispatch(updateMessage("Failed to update user. Refresh and try again"));
+      dispatch(updatePopupMessage("Failed to update user. Refresh and try again"));
     } finally {
       setPending(false);
     }

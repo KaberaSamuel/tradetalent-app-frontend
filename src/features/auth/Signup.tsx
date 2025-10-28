@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Spinner } from "@/components/Loader";
 import { registerUser } from "@/features/auth/api";
-import { updateMessage } from "@/features/popups/messageSlice";
+import { updatePopupMessage } from "@/features/popups/messageSlice";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -33,7 +33,7 @@ const Signup = () => {
       setpending(true);
       const { password, password2 } = data;
       if (password !== password2) {
-        dispatch(updateMessage("Passwords don't match"));
+        dispatch(updatePopupMessage("Passwords don't match"));
         return;
       }
 
@@ -44,20 +44,20 @@ const Signup = () => {
       if (response.status === 201) {
         navigate("/public/login");
       } else {
-        dispatch(updateMessage("Server error, try again"));
+        dispatch(updatePopupMessage("Server error, try again"));
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 400) {
           const errorData = error.response.data;
           dispatch(
-            updateMessage(
+            updatePopupMessage(
               errorData.username || errorData.email || "Validation error"
             )
           );
         }
       } else {
-        dispatch(updateMessage("Internal Server Error. Refresh and try again"));
+        dispatch(updatePopupMessage("Internal Server Error. Refresh and try again"));
       }
     } finally {
       setpending(false);

@@ -2,7 +2,7 @@ import type { ListingTypes } from "@/App.types";
 import FieldValidationError from "@/components/FormValidationError";
 import { Spinner } from "@/components/Loader";
 import { authSelector } from "@/features/auth/authSlice";
-import { updateMessage } from "@/features/popups/messageSlice";
+import { updatePopupMessage } from "@/features/popups/messageSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { mdiSendOutline } from "@mdi/js";
 import Icon from "@mdi/react";
@@ -39,7 +39,7 @@ function EditListing() {
     } catch (error) {
       console.log(error);
       dispatch(
-        updateMessage("Failed to create listing. Refresh and try again")
+        updatePopupMessage("Failed to create listing. Refresh and try again")
       );
     } finally {
       setPending(false);

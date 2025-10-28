@@ -6,7 +6,7 @@ export const messageSlice = createSlice({
   name: "message",
   initialState: "",
   reducers: {
-    updateMessage: (_, action: PayloadAction<string>) => {
+    updatePopupMessage: (_, action: PayloadAction<string>) => {
       return action.payload;
     },
 
@@ -16,7 +16,7 @@ export const messageSlice = createSlice({
   },
 });
 
-export const { updateMessage, clearMessage } = messageSlice.actions;
+export const { updatePopupMessage, clearMessage } = messageSlice.actions;
 export const messageSelector = (state: RootState) => state.messageReducer;
 
 export default messageSlice.reducer;

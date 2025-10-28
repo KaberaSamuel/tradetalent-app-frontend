@@ -6,7 +6,7 @@ import type { ListingTypes } from "@/App.types";
 import FieldValidationError from "@/components/FormValidationError";
 import { Spinner } from "@/components/Loader";
 import { authSelector } from "@/features/auth/authSlice";
-import { updateMessage } from "@/features/popups/messageSlice";
+import { updatePopupMessage } from "@/features/popups/messageSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { useState } from "react";
 import { postListing } from "./api";
@@ -32,7 +32,7 @@ function NewListing() {
       setPending(false);
       console.log(error);
       dispatch(
-        updateMessage("Failed to create listing. Refresh and try again")
+        updatePopupMessage("Failed to create listing. Refresh and try again")
       );
     }
   };
