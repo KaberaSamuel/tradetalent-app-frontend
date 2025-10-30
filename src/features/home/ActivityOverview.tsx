@@ -56,9 +56,9 @@ const ActivityOverview = () => {
           <div className={rightStyles}>
             <Icon path={mdiMessageOutline} size={1} />
             <Link
-              to="/messages"
+              to="/chats"
               onClick={() => {
-                dispatch(updateActiveTab("messages"));
+                dispatch(updateActiveTab("chats"));
               }}
             >
               Go to Messages

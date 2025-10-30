@@ -1,13 +1,14 @@
 import type { ConversationTypes, UserTypes } from "@/App.types";
 import { authSelector } from "@/features/auth/authSlice";
 import { createConversationApi } from "@/features/chat/api";
+import { updateActiveConvesation } from "@/features/chat/chatSlice";
+import { updateActiveTab } from "@/features/navigation/navigationSlice";
 import { updatePopupMessage } from "@/features/popups/messageSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { mdiMessageOutline } from "@mdi/js";
 import Icon from "@mdi/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { updateActiveConvesation } from "./chatSlice";
 
 interface Props {
   otherUser: UserTypes;
@@ -37,9 +38,9 @@ export default function ButtonToConversation({ otherUser, iconSize }: Props) {
       queryClient.resetQueries({
         queryKey: ["fetch-conversations"],
       });
-      const conversation: ConversationTypes = response.data.conversation;
 
-      // set selected conversation to be the active one
+      const conversation: ConversationTypes = response.data.conversation;
+      dispatch(updateActiveTab("chats"));
       dispatch(updateActiveConvesation(conversation));
       navigate(`/chats/${conversationName}`);
     } else {

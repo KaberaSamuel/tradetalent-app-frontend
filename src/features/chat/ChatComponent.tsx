@@ -37,7 +37,7 @@ function ChatComponent({
         }
       >
         {/* message history */}
-        <ul className="mt-3 flex flex-col-reverse gap-3 justify-start relative w-full p-5">
+        <ul className="mt-3 flex flex-col-reverse gap-2 justify-start relative w-full p-5">
           {messageHistory.map((message) => (
             <Message key={message.id} message={message} />
           ))}

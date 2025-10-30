@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom";
-import { mdiSearchWeb } from "@mdi/js";
-import { useQuery } from "@tanstack/react-query";
-import { authSelector } from "../auth/authSlice";
+import { Spinner } from "@/components/Loader";
 import { useAppSelector } from "@/hooks/reduxHooks";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import { mdiSearchWeb } from "@mdi/js";
+import Icon from "@mdi/react";
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import { authSelector } from "../auth/authSlice";
 import { fetchActiveListings } from "./api";
 import { listingsGridStyles } from "./BrowseListings";
-import { Spinner } from "@/components/Loader";
-import Icon from "@mdi/react";
 import ListingCard from "./ListingCard";
-import useMediaQuery from "@/hooks/useMediaQuery";
 
 export default function MyListings() {
   const auth = useAppSelector(authSelector);
