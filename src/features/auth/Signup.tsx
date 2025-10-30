@@ -1,6 +1,6 @@
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -10,7 +10,8 @@ import { updatePopupMessage } from "@/features/popups/messageSlice";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import GoogleLoginButton from "./GoogleLoginButton";
+import GoogleLoginButton from "@/features/auth/GoogleLoginButton";
+import WakingServer from "@/features/auth/WakingServer";
 
 export interface SignupFormTypes {
   name: string;
@@ -23,6 +24,7 @@ const Signup = () => {
   const [pending, setpending] = useState(false);
   const [passwordVisibility1, setPasswordVisibility1] = useState(false);
   const [passwordVisibility2, setPasswordVisibility2] = useState(false);
+  const [isServerWaking, setIsServerWaking] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -57,16 +59,32 @@ const Signup = () => {
           );
         }
       } else {
-        dispatch(updatePopupMessage("Internal Server Error. Refresh and try again"));
+        dispatch(
+          updatePopupMessage("Internal Server Error. Refresh and try again")
+        );
       }
     } finally {
       setpending(false);
+      setIsServerWaking(false);
     }
   };
 
   const updatePending = (choice: boolean) => {
     setpending(choice);
   };
+
+  // effect to notify user if server is waking up
+  useEffect(() => {
+    setTimeout(() => {
+      if (pending) {
+        setIsServerWaking(true);
+      }
+    }, 3000);
+  }, [pending]);
+
+  if (isServerWaking) {
+    return <WakingServer action={"signup"} />;
+  }
 
   return (
     <div className="mt-25">

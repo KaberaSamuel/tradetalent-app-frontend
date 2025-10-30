@@ -1,17 +1,19 @@
-import { useState } from "react";
+import type { ListingTypes } from "@/App.types";
+import TagItems from "@/components/TagItems";
+import DeleteListing from "@/features/modals/DeleteListing";
+import { updateActiveTab } from "@/features/navigation/navigationSlice";
+import { useAppDispatch } from "@/hooks/reduxHooks";
 import {
   mdiEyeOutline,
   mdiMapMarkerOutline,
-  mdiWeb,
   mdiSquareEditOutline,
   mdiTrashCanOutline,
+  mdiWeb,
 } from "@mdi/js";
-import { Link } from "react-router-dom";
-import type { ListingTypes } from "@/App.types";
-import TagItems from "@/components/TagItems";
 import Icon from "@mdi/react";
-import DeleteListing from "../modals/DeleteListing";
 import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface Props {
   listing: ListingTypes;
@@ -24,6 +26,7 @@ export default function ListingCard({ listing, isOwner }: Props) {
   const updateDeleteStatus = (isDelete: boolean) => {
     setIsDelete(isDelete);
   };
+  const dispatch = useAppDispatch();
 
   const coveredskills = listing.skills.split(",");
   const lastNameInitial = " " + listing.user.name_initials?.slice(1) || "";
@@ -37,6 +40,9 @@ export default function ListingCard({ listing, isOwner }: Props) {
     <Link
       to={"/listings/" + listing.slug}
       className={linkStyles + "bg-teal-500 text-white"}
+      onClick={() => {
+        dispatch(updateActiveTab("listings"));
+      }}
     >
       <Icon path={mdiEyeOutline} size={0.8} />
       <p>View Details</p>

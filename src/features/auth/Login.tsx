@@ -1,13 +1,14 @@
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isAxiosError } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Spinner } from "@/components/Loader";
 import { loginUser } from "@/features/auth/api";
 import { updateTokens, updateUser } from "@/features/auth/authSlice";
+import WakingServer from "@/features/auth/WakingServer";
 import { updatePopupMessage } from "@/features/popups/messageSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
 
@@ -21,6 +22,7 @@ export interface LoginFormTypes {
 
 const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [isServerWaking, setIsServerWaking] = useState(false);
   const [pending, setPending] = useState(false);
 
   const navigate = useNavigate();
@@ -52,19 +54,31 @@ const Login = () => {
               "Internal error. Refresh and try again"
           )
         );
-
-        return;
+      } else {
+        dispatch(updatePopupMessage("Internal server error. Try again"));
       }
-
-      dispatch(updatePopupMessage("Internal server error. Try again"));
     } finally {
       setPending(false);
+      setIsServerWaking(false);
     }
   };
 
   const updatePending = (choice: boolean) => {
     setPending(choice);
   };
+
+  // effect to notify user if server is waking up
+  useEffect(() => {
+    setTimeout(() => {
+      if (pending) {
+        setIsServerWaking(true);
+      }
+    }, 3000);
+  }, [pending]);
+
+  if (isServerWaking) {
+    return <WakingServer action={"login"} />;
+  }
 
   return (
     <div className="mt-25">
@@ -112,9 +126,11 @@ const Login = () => {
           <a href="/public/forgot-password">Forgot Password?</a>
         </div>
 
-        <div className="text-teal-500 font-semibold flex justify-center items-center gap-2">
+        <div className="font-semibold flex justify-center items-center gap-2">
           <span>Don't have an account ?</span>{" "}
-          <Link to="/public/signup">Sign Up</Link>
+          <Link to="/public/signup" className="text-teal-500">
+            Sign Up
+          </Link>
         </div>
       </form>
     </div>

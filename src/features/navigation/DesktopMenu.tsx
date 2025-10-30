@@ -59,7 +59,7 @@ const DesktopMenu = () => {
           className={activeTab == "chats" ? "active" : ""}
         >
           <Icon path={mdiMessageOutline} size={1} />
-          <p>Chat</p>
+          <p>Chats</p>
         </Link>
 
         <Link

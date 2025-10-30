@@ -34,15 +34,15 @@ const PrivateRoute = () => {
     retry: false,
   });
 
-  const [waitingMessage, setWaitingMessage] = useState("");
+  const [isServerWaking, setIsServerWaking] = useState(false);
 
   // Effect to show waiting message on page load
   useEffect(() => {
     setTimeout(() => {
       if (isLoading) {
-        setWaitingMessage("Hang on, it's taking a bit longer!");
+        setIsServerWaking(true);
       }
-    }, 10000);
+    }, 3000);
   }, [isLoading]);
 
   // Effect to update redux store when user data is fetched
@@ -59,10 +59,8 @@ const PrivateRoute = () => {
 
       // updating activetab
       const path = location.pathname;
-      if (path == "/listings") {
+      if (path.includes("listings")) {
         dispatch(updateActiveTab("listings"));
-      } else if (path == "/my-listings") {
-        dispatch(updateActiveTab("my-listings"));
       } else if (path.includes("new")) {
         dispatch(updateActiveTab("post"));
       } else if (path.includes("chats")) {
@@ -98,10 +96,13 @@ const PrivateRoute = () => {
           <div className="w-fit">
             <Spinner />
           </div>
-          {waitingMessage && (
-            <p className="pt-5 px-4 sm:text-lg text-teal-500">
-              {waitingMessage}
-            </p>
+          {isServerWaking && (
+            <div className="mt-8 sm:text-lg flex flex-col sm:flex-row gap-1">
+              <p className=" text-teal-500">
+                Hang on, The server is waking up,
+              </p>
+              <p className=" text-red-500">This can take 1-3 minutes</p>
+            </div>
           )}
         </div>
       );
