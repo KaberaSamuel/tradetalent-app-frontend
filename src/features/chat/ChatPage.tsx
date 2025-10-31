@@ -15,7 +15,7 @@ export default function ChatPage() {
 
   const [welcomeMessage, setWelcomeMessage] = useState("");
   const [messageHistory, setMessageHistory] = useState<MessageTypes[]>([]);
-  const [message, setMessage] = useState("");
+  const [inputMessage, setInputMessage] = useState("");
   const auth = useAppSelector(authSelector);
 
   const { readyState, sendJsonMessage } = useWebSocket(
@@ -59,27 +59,27 @@ export default function ChatPage() {
     [ReadyState.UNINSTANTIATED]: "Uninstantiated",
   }[readyState];
 
-  function handleMessageChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleInputMessageChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target) {
-      setMessage(e.target.value);
+      setInputMessage(e.target.value);
     }
   }
 
   const handleSubmit = () => {
     sendJsonMessage({
       type: "chat_message",
-      message,
+      message: inputMessage,
     });
-    setMessage("");
+    setInputMessage("");
   };
 
   return (
     <ChatComponent
       connectionStatus={connectionStatus}
       welcomeMessage={welcomeMessage}
-      message={message}
+      inputMessage={inputMessage}
       messageHistory={messageHistory}
-      handleMessageChange={handleMessageChange}
+      handleInputMessageChange={handleInputMessageChange}
       handleSubmit={handleSubmit}
     />
   );

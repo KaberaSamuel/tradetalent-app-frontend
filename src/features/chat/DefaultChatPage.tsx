@@ -13,9 +13,10 @@ const viteEnv = import.meta.env.VITE_ENV;
 export default function DefaultChatPage() {
   const [welcomeMessage, setWelcomeMessage] = useState("");
   const [messageHistory, setMessageHistory] = useState<MessageTypes[]>([]);
-  const [message, setMessage] = useState("");
+  const [inputMessage, setInputMessage] = useState("");
   const auth = useAppSelector(authSelector);
-  const { name: conversationName } = useAppSelector(activeConversationSelector);
+  const activeConversation = useAppSelector(activeConversationSelector);
+  const conversationName = activeConversation?.name || "";
 
   const { readyState, sendJsonMessage } = useWebSocket(
     `${
@@ -34,9 +35,10 @@ export default function DefaultChatPage() {
             setWelcomeMessage(data.message);
             break;
           case "chat_message_echo":
-            setMessageHistory((prev: MessageTypes[]) =>
-              prev.concat(data.message)
-            );
+            setMessageHistory((prev: MessageTypes[]) => [
+              data.message,
+              ...prev,
+            ]);
             break;
           case "last_50_messages":
             setMessageHistory(data.messages);
@@ -57,28 +59,28 @@ export default function DefaultChatPage() {
     [ReadyState.UNINSTANTIATED]: "Uninstantiated",
   }[readyState];
 
-  function handleMessageChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleInputMessageChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target) {
-      setMessage(e.target.value);
+      setInputMessage(e.target.value);
     }
   }
 
   const handleSubmit = () => {
     sendJsonMessage({
       type: "chat_message",
-      message,
+      message: inputMessage,
       name: auth.user.name,
     });
-    setMessage("");
+    setInputMessage("");
   };
 
   return (
     <ChatComponent
       connectionStatus={connectionStatus}
       welcomeMessage={welcomeMessage}
-      message={message}
+      inputMessage={inputMessage}
       messageHistory={messageHistory}
-      handleMessageChange={handleMessageChange}
+      handleInputMessageChange={handleInputMessageChange}
       handleSubmit={handleSubmit}
     />
   );

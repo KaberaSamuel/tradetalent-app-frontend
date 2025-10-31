@@ -1,7 +1,7 @@
 import type { ConversationTypes, UserTypes } from "@/App.types";
 import { authSelector } from "@/features/auth/authSlice";
 import { createConversationApi } from "@/features/chat/api";
-import { updateActiveConvesation } from "@/features/chat/chatSlice";
+import { updateActiveConversation } from "@/features/chat/chatSlice";
 import { updateActiveTab } from "@/features/navigation/navigationSlice";
 import { updatePopupMessage } from "@/features/popups/messageSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
@@ -41,7 +41,7 @@ export default function ButtonToConversation({ otherUser, iconSize }: Props) {
 
       const conversation: ConversationTypes = response.data.conversation;
       dispatch(updateActiveTab("chats"));
-      dispatch(updateActiveConvesation(conversation));
+      dispatch(updateActiveConversation(conversation));
       navigate(`/chats/${conversationName}`);
     } else {
       dispatch(updatePopupMessage("Failed to open the chat"));

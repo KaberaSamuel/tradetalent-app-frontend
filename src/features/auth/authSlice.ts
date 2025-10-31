@@ -10,7 +10,7 @@ interface InitialStateTypes {
   user: UserTypes;
 }
 
-const initialUser = {
+export const initialUser = {
   name: "",
   slug: "",
   first_name: "",

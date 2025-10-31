@@ -2,6 +2,7 @@ import type { MessageTypes } from "@/App.types";
 import { authSelector } from "@/features/auth/authSlice";
 import { useAppSelector } from "@/hooks/reduxHooks";
 
+// function to joing multiple tailwind classes into one string
 function classNames(...classes: (string | false | null | undefined)[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -18,8 +19,10 @@ export function Message({ message }: { message: MessageTypes }) {
     >
       <div
         className={classNames(
-          "relative max-w-xl rounded-lg px-3 py-1.5 text-gray-700 shadow",
-          user.slug === message.to_user.slug ? "" : "bg-gray-100"
+          "relative max-w-[85%] rounded-2xl px-4 py-2 text-gray-700 ",
+          user.slug === message.to_user.slug
+            ? "bg-neutral-200 rounded-bl-none"
+            : "bg-teal-500 text-white rounded-br-none"
         )}
       >
         <div className="flex items-end">

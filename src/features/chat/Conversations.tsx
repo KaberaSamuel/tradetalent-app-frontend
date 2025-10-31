@@ -3,7 +3,7 @@ import { authSelector } from "@/features/auth/authSlice";
 import { fetchConversations } from "@/features/chat/api";
 import {
   activeConversationSelector,
-  updateActiveConvesation,
+  updateActiveConversation,
 } from "@/features/chat/chatSlice";
 import ProfileImage from "@/features/profile/ProfileImage";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
@@ -49,7 +49,7 @@ export default function Conversations() {
 
   useEffect(() => {
     if (conversations && activeConversation.name === "") {
-      dispatch(updateActiveConvesation(conversations[0]));
+      dispatch(updateActiveConversation(conversations[0]));
     }
   }, [activeConversation, conversations, dispatch]);
 
@@ -71,8 +71,8 @@ export default function Conversations() {
     }
 
     const conversationsListUI = (
-      <div className="border-r-2 border-neutral-300 overflow-x-hidden overflow-y-auto custom-scrollbar">
-        <div className={isTablet ? "w-full" : "w-[300px] w-min-[300px]"}>
+      <div className="border-r border-neutral-300 w-min-[300] overflow-x-hidden overflow-y-auto custom-scrollbar">
+        <div>
           {conversations.map((conversation) => {
             const isActive = conversation.name === activeConversation.name;
             const tabStyles =
@@ -81,9 +81,6 @@ export default function Conversations() {
               conversation.last_message?.timestamp || ""
             );
             let lastMessage = conversation.last_message?.content || "";
-            lastMessage = isTablet
-              ? lastMessage.slice(0, 45)
-              : lastMessage?.slice(0, 20);
 
             if (conversation.last_message?.content) {
               if (
@@ -100,7 +97,7 @@ export default function Conversations() {
                 )}`}
                 key={conversation.other_user.slug}
                 onClick={() => {
-                  dispatch(updateActiveConvesation(conversation));
+                  dispatch(updateActiveConversation(conversation));
                 }}
               >
                 <div
@@ -115,9 +112,11 @@ export default function Conversations() {
                     <h3 className=" font-bold text-gray-800">
                       {conversation.other_user.name}
                     </h3>
-                    <div className="flex justify-between items-center">
-                      <p>{lastMessage}</p>
-                      <p className={dateObject.isNumbers ? "text-sm" : ""}>
+                    <div className="flex gap-1 items-center">
+                      <p className="w-40 grow truncate">{lastMessage}</p>
+                      <p
+                        className={dateObject.isNumbers ? "text-xs" : "text-sm"}
+                      >
                         {dateObject.dateString}
                       </p>
                     </div>
@@ -137,7 +136,7 @@ export default function Conversations() {
     }
 
     return (
-      <div className={`absolute inset-0 flex`}>
+      <div className={"absolute inset-0 grid grid-cols-[330px_minmax(0,1fr)]"}>
         {conversationsListUI}
 
         <div className="grow overflow-auto">
