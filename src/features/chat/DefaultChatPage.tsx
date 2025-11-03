@@ -35,6 +35,8 @@ export default function DefaultChatPage() {
             setWelcomeMessage(data.message);
             break;
           case "chat_message_echo":
+            // mark incoming message as read
+            sendJsonMessage({ type: "read_messages" });
             setMessageHistory((prev: MessageTypes[]) => [
               data.message,
               ...prev,
@@ -82,6 +84,7 @@ export default function DefaultChatPage() {
       messageHistory={messageHistory}
       handleInputMessageChange={handleInputMessageChange}
       handleSubmit={handleSubmit}
+      sendJsonMessage={sendJsonMessage}
     />
   );
 }

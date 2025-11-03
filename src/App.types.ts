@@ -55,3 +55,8 @@ export interface ConversationTypes {
   last_message: MessageTypes | null;
   other_user: UserTypes;
 }
+
+export interface NotificationTypes {
+  unreadMessageCount: number;
+  connectionStatus: string;
+}

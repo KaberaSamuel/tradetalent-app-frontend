@@ -5,6 +5,8 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { mdiAlert, mdiSendOutline } from "@mdi/js";
 import Icon from "@mdi/react";
+import { useEffect } from "react";
+import type { jsonMessageTypes } from "./ChatPage";
 import ChatProfile from "./ChatProfile";
 import { activeConversationSelector } from "./chatSlice";
 
@@ -15,6 +17,7 @@ interface Props {
   messageHistory: MessageTypes[];
   handleInputMessageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => void;
+  sendJsonMessage: (jsonMessage: jsonMessageTypes) => void;
 }
 
 function ChatComponent({
@@ -23,11 +26,31 @@ function ChatComponent({
   inputMessage,
   handleSubmit,
   messageHistory,
+  sendJsonMessage,
 }: Props) {
   const isTablet = useMediaQuery("(max-width: 1024px)");
   const isMobile = useMediaQuery("(max-width: 768px)");
   const styles = "h-full px-2 flex flex-col overflow-y-auto ";
   const { other_user } = useAppSelector(activeConversationSelector);
+
+  // mark new messages as read
+  useEffect(() => {
+    if (connectionStatus === "Open") {
+      sendJsonMessage({
+        type: "read_messages",
+      });
+    }
+  }, [connectionStatus, sendJsonMessage]);
+
+  // loading screening
+  if (connectionStatus === "Connecting") {
+    return (
+      <div className="w-full h-full">
+        <Spinner />
+      </div>
+    );
+  }
+
   if (connectionStatus == "Open") {
     return (
       <div
@@ -79,15 +102,6 @@ function ChatComponent({
             </div>
           </button>
         </div>
-      </div>
-    );
-  }
-
-  // loading screening
-  if (connectionStatus === "Connecting") {
-    return (
-      <div className="w-full h-full">
-        <Spinner />
       </div>
     );
   }

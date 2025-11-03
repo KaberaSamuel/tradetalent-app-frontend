@@ -1,5 +1,6 @@
 import { authSelector } from "@/features/auth/authSlice";
 import { updateActiveTab } from "@/features/navigation/navigationSlice";
+import { NotificationContext } from "@/features/notifications/Notifications";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import {
   mdiEyeOutline,
@@ -7,11 +8,13 @@ import {
   mdiMessageOutline,
 } from "@mdi/js";
 import Icon from "@mdi/react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 const ActivityOverview = () => {
   const dispatch = useAppDispatch();
   const auth = useAppSelector(authSelector);
+  const { unreadMessageCount } = useContext(NotificationContext);
 
   const cardsContainerStyles = "grid grid-cols-1 lg:grid-cols-2 gap-6 ";
   const cardStyles =
@@ -50,7 +53,7 @@ const ActivityOverview = () => {
         <div className={cardStyles}>
           <div className={leftStyles}>
             <p>New Messages</p>
-            <p className={numberStyles}>0</p>
+            <p className={numberStyles}>{unreadMessageCount}</p>
           </div>
 
           <div className={rightStyles}>

@@ -5,10 +5,15 @@ import { useParams } from "react-router-dom";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 
 import type { MessageTypes } from "@/App.types";
-import ChatComponent from "./ChatComponent";
+import ChatComponent from "@/features/chat/ChatComponent";
 
 const API_DOMAIN = import.meta.env.VITE_API_DOMAIN;
 const VITE_ENV = import.meta.env.VITE_ENV;
+
+export interface jsonMessageTypes {
+  type: string;
+  message?: string;
+}
 
 export default function ChatPage() {
   const { conversationName } = useParams();
@@ -35,6 +40,8 @@ export default function ChatPage() {
             setWelcomeMessage(data.message);
             break;
           case "chat_message_echo":
+            // mark message as read
+            sendJsonMessage({ type: "read_messages" });
             setMessageHistory((prev: MessageTypes[]) => [
               data.message,
               ...prev,
@@ -81,6 +88,7 @@ export default function ChatPage() {
       messageHistory={messageHistory}
       handleInputMessageChange={handleInputMessageChange}
       handleSubmit={handleSubmit}
+      sendJsonMessage={sendJsonMessage}
     />
   );
 }
