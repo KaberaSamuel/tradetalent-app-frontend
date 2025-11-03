@@ -77,7 +77,7 @@ function ChatComponent({
         <div
           className={`sticky ${
             isMobile ? "bottom-16.5" : "bottom-0"
-          } z-20 mt-auto -mx-2 py-2 px-3 bg-white border-t border-neutral-300 flex gap-3`}
+          } z-5 mt-auto -mx-2 py-2 px-3 bg-white border-t border-neutral-300 flex gap-3`}
         >
           <input
             name="message"

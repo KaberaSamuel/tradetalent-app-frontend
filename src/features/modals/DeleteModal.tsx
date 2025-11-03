@@ -27,7 +27,7 @@ function DeleteModal({
   const buttonStyles =
     "py-2 px-3 text-sm font-semibold flex gap-1 justify-center items-center border border-neutral-300 rounded-xl";
   const modalStyles =
-    "w-[90%] sm:w-150 fixed z-10 p-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-50 flex flex-col gap-3";
+    "w-[90%] sm:w-150 fixed z-30 p-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-50 flex flex-col gap-3";
 
   const isMobile = useMediaQuery("(max-width: 600px)");
 

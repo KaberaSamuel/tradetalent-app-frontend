@@ -54,7 +54,7 @@ function ProfileModal({ updateVisibility, updateDeleteStatus }: Props) {
     <div>
       <ModalOveraly updateVisibility={updateVisibility} />
 
-      <div className="absolute z-20 top-full w-[85vw] sm:w-fit mt-2 right-5 pb-3 bg-neutral-50 rounded-lg">
+      <div className="absolute z-30 top-full w-[85vw] sm:w-fit mt-2 right-5 pb-3 bg-neutral-50 rounded-lg">
         <div className="py-5 px-7 mb-3 border-b border-neutral-300">
           <div className="flex gap-3 items-center -translate-x-3">
             <ProfileImage size={15} isSmall={true} user={auth.user} />
