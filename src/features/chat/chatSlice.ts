@@ -20,7 +20,7 @@ const initialState: ConversationTypes = {
 };
 
 const conversationSlice = createSlice({
-  name: "conversationReducer",
+  name: "chat",
   initialState,
   reducers: {
     updateActiveConversation: (_, action: PayloadAction<ConversationTypes>) => {

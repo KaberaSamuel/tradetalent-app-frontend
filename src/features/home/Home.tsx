@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 import ActivityOverview from "@/features/home/ActivityOverview";
 import { updateActiveTab } from "@/features/navigation/navigationSlice";
-import { NotificationContextProvider } from "@/features/notifications/Notifications";
 
 const Welcome = () => {
   const dispatch = useAppDispatch();
@@ -51,9 +50,7 @@ const Home = () => {
   return (
     <div className="flex flex-col gap-10">
       <Welcome />
-      <NotificationContextProvider>
-        <ActivityOverview />
-      </NotificationContextProvider>
+      <ActivityOverview />
     </div>
   );
 };

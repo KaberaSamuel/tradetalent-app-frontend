@@ -75,7 +75,9 @@ function EditProfile() {
       navigate("/profile");
     } catch (error) {
       console.log(error);
-      dispatch(updatePopupMessage("Failed to update user. Refresh and try again"));
+      dispatch(
+        updatePopupMessage("Failed to update user. Refresh and try again")
+      );
     } finally {
       setPending(false);
     }
