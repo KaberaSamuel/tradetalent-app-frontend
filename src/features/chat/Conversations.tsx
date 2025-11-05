@@ -11,13 +11,13 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import { useQuery } from "@tanstack/react-query";
 import { differenceInCalendarDays } from "date-fns";
 import { useEffect } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 export default function Conversations() {
   const { user, token } = useAppSelector(authSelector);
   const activeConversation = useAppSelector(activeConversationSelector);
+  const navigate = useNavigate();
   const isTablet = useMediaQuery("(max-width: 1024px)");
-
   const dispatch = useAppDispatch();
 
   function createConversationName(slug: string) {
@@ -47,11 +47,13 @@ export default function Conversations() {
     queryFn: () => fetchConversations(token.access),
   });
 
+  // navigate to active conversation
   useEffect(() => {
-    if (conversations && activeConversation.name === "") {
-      dispatch(updateActiveConversation(conversations[0]));
+    if (activeConversation) {
+      navigate(`/chats/${activeConversation.name}`);
     }
-  }, [activeConversation, conversations, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) {
     return (
