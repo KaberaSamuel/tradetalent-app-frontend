@@ -73,7 +73,7 @@ const Login = () => {
       if (pending) {
         setIsServerWaking(true);
       }
-    }, 5000);
+    }, 8000);
   }, [pending]);
 
   if (isServerWaking) {

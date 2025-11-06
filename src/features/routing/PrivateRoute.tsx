@@ -42,7 +42,7 @@ const PrivateRoute = () => {
       if (isLoading) {
         setIsServerWaking(true);
       }
-    }, 3000);
+    }, 5000);
   }, [isLoading]);
 
   // Effect to update redux store when user data is fetched

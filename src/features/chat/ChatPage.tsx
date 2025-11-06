@@ -1,11 +1,13 @@
 import { authSelector } from "@/features/auth/authSlice";
-import { useAppSelector } from "@/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 
 import type { MessageTypes } from "@/App.types";
 import ChatComponent from "@/features/chat/ChatComponent";
+import { useQueryClient } from "@tanstack/react-query";
+import { clearActiveConversation } from "./chatSlice";
 
 const API_DOMAIN = import.meta.env.VITE_API_DOMAIN;
 const VITE_ENV = import.meta.env.VITE_ENV;
@@ -17,6 +19,9 @@ export interface jsonMessageTypes {
 
 export default function ChatPage() {
   const { conversationName } = useParams();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const [welcomeMessage, setWelcomeMessage] = useState("");
   const [messageHistory, setMessageHistory] = useState<MessageTypes[]>([]);
@@ -39,6 +44,7 @@ export default function ChatPage() {
           case "welcome_message":
             setWelcomeMessage(data.message);
             break;
+
           case "chat_message_echo":
             // mark message as read
             sendJsonMessage({ type: "read_messages" });
@@ -47,9 +53,19 @@ export default function ChatPage() {
               ...prev,
             ]);
             break;
+
           case "last_50_messages":
             setMessageHistory(data.messages);
             break;
+          case "conversation_deleted":
+            dispatch(clearActiveConversation());
+            // refetch chats to remove deleted conversation
+            queryClient.resetQueries({
+              queryKey: ["fetch-conversations"],
+            });
+            navigate("/chats");
+            break;
+
           default:
             console.error("Unknown message type!");
             break;

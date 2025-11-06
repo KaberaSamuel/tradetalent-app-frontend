@@ -50,6 +50,13 @@ export default function Conversations() {
   // navigate to active conversation
   useEffect(() => {
     if (activeConversation) {
+      const activeConversationIndex = conversations?.findIndex(
+        (conversation) => conversation.name == activeConversation.name
+      );
+
+      if (activeConversationIndex == -1) {
+        return;
+      }
       navigate(`/chats/${activeConversation.name}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
