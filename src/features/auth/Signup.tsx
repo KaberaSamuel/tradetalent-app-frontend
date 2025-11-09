@@ -1,6 +1,6 @@
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -21,7 +21,7 @@ export interface SignupFormTypes {
 }
 
 const Signup = () => {
-  const [pending, setpending] = useState(false);
+  const [pending, setPending] = useState(false);
   const [passwordVisibility1, setPasswordVisibility1] = useState(false);
   const [passwordVisibility2, setPasswordVisibility2] = useState(false);
   const [isServerWaking, setIsServerWaking] = useState(false);
@@ -32,7 +32,16 @@ const Signup = () => {
 
   const onSubmit = async (data: SignupFormTypes): Promise<void> => {
     try {
-      setpending(true);
+      // start a loding indicator
+      setPending(true);
+
+      // wait for 7s to detect if server is still waking up
+      setTimeout(() => {
+        if (pending) {
+          setIsServerWaking(true);
+        }
+      }, 7000);
+
       const { password, password2 } = data;
       if (password !== password2) {
         dispatch(updatePopupMessage("Passwords don't match"));
@@ -64,23 +73,15 @@ const Signup = () => {
         );
       }
     } finally {
-      setpending(false);
+      // set signup state back to normal
+      setPending(false);
       setIsServerWaking(false);
     }
   };
 
   const updatePending = (choice: boolean) => {
-    setpending(choice);
+    setPending(choice);
   };
-
-  // effect to notify user if server is waking up
-  useEffect(() => {
-    setTimeout(() => {
-      if (pending) {
-        setIsServerWaking(true);
-      }
-    }, 8000);
-  }, [pending]);
 
   if (isServerWaking) {
     return <WakingServer action={"signup"} />;
