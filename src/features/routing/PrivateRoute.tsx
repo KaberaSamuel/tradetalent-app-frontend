@@ -60,9 +60,11 @@ const PrivateRoute = () => {
       // updating activetab
       const path = location.pathname;
       if (path.includes("listings")) {
-        dispatch(updateActiveTab("listings"));
-      } else if (path.includes("new")) {
-        dispatch(updateActiveTab("post"));
+        if (path.includes("new")) {
+          dispatch(updateActiveTab("post"));
+        } else {
+          dispatch(updateActiveTab("listings"));
+        }
       } else if (path.includes("chats")) {
         dispatch(updateActiveTab("chats"));
       } else if (path.includes("profile")) {
