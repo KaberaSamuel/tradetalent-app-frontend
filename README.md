@@ -34,9 +34,10 @@ I built this using a few popular tools. They help make the app fast and easier t
 
 ---
 
-## Live Demo
+## Quick links
 
-This project really took my frontend skills to next level, I am proud of the final product. The app is live here: https://tradetalent-app-frontend-bktj.vercel.app/
+The app is live here: https://tradetalent-app-frontend-bktj.vercel.app/
+Watch a demo video here: https://youtu.be/om9zlA_7fOo?si=A7nJSN6yFvmecvgg
 
 _Note: This only runs the frontend of the app. You can find the backend code here:_
 **Backend Repo Link:** https://github.com/KaberaSamuel/tradetalent-app-backend
