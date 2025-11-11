@@ -37,6 +37,7 @@ I built this using a few popular tools. They help make the app fast and easier t
 ## Quick links
 
 The app is live here: https://tradetalent-app-frontend-bktj.vercel.app/
+
 Watch a demo video here: https://youtu.be/om9zlA_7fOo?si=A7nJSN6yFvmecvgg
 
 _Note: This only runs the frontend of the app. You can find the backend code here:_

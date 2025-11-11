@@ -1,7 +1,7 @@
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isAxiosError } from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -31,7 +31,14 @@ const Login = () => {
 
   const onSubmit = async (data: LoginFormTypes): Promise<void> => {
     try {
+      // start a loding indicator
       setPending(true);
+
+      // wait for 7s to detect if server is still waking up
+      setTimeout(() => {
+        setIsServerWaking(true);
+      }, 7000);
+
       const response = await loginUser(data);
       const { user, tokens } = response.data;
 
@@ -58,6 +65,7 @@ const Login = () => {
         dispatch(updatePopupMessage("Internal server error. Try again"));
       }
     } finally {
+      // set login state to normal
       setPending(false);
       setIsServerWaking(false);
     }
@@ -66,15 +74,6 @@ const Login = () => {
   const updatePending = (choice: boolean) => {
     setPending(choice);
   };
-
-  // effect to notify user if server is waking up
-  useEffect(() => {
-    setTimeout(() => {
-      if (pending) {
-        setIsServerWaking(true);
-      }
-    }, 8000);
-  }, [pending]);
 
   if (isServerWaking) {
     return <WakingServer action={"login"} />;
