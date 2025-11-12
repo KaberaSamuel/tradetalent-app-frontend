@@ -29,13 +29,15 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm<LoginFormTypes>();
 
+  let loadingTimeout: ReturnType<typeof setTimeout> | null = null;
+
   const onSubmit = async (data: LoginFormTypes): Promise<void> => {
     try {
       // start a loding indicator
       setPending(true);
 
       // wait for 7s to detect if server is still waking up
-      setTimeout(() => {
+      loadingTimeout = setTimeout(() => {
         setIsServerWaking(true);
       }, 7000);
 
@@ -65,7 +67,10 @@ const Login = () => {
         dispatch(updatePopupMessage("Internal server error. Try again"));
       }
     } finally {
-      // set login state to normal
+      // clear timeout function
+      if (loadingTimeout !== null) {
+        clearTimeout(loadingTimeout);
+      }
       setPending(false);
       setIsServerWaking(false);
     }

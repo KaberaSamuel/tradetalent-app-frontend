@@ -30,13 +30,15 @@ const Signup = () => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm<SignupFormTypes>();
 
+  let loadingTimeout: ReturnType<typeof setTimeout> | null = null;
+
   const onSubmit = async (data: SignupFormTypes): Promise<void> => {
     try {
       // start a loding indicator
       setPending(true);
 
       // wait for 7s to detect if server is still waking up
-      setTimeout(() => {
+      loadingTimeout = setTimeout(() => {
         setIsServerWaking(true);
       }, 7000);
 
@@ -71,7 +73,10 @@ const Signup = () => {
         );
       }
     } finally {
-      // set signup state back to normal
+      // clear timeout function
+      if (loadingTimeout !== null) {
+        clearTimeout(loadingTimeout);
+      }
       setPending(false);
       setIsServerWaking(false);
     }
