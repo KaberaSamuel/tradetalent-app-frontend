@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 
+import WakingServerOverlay from "@/features/auth/WakingServerOverlay";
 import PrivateRoute from "@/features/routing/PrivateRoute";
 import PublicRoute from "@/features/routing/PublicRoute";
+import { useServerWake } from "@/hooks/useServerWake";
 
 import App from "@/App";
 import ForgotPasswordPage from "@/features/auth/ForgotPassword";
@@ -26,9 +28,12 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 
 const AppRouter = () => {
   const isTablet = useMediaQuery("(max-width: 1024px)");
+  const { isWaking } = useServerWake();
 
   return (
-    <Routes>
+    <>
+      {isWaking && <WakingServerOverlay />}
+      <Routes>
       <Route element={<PublicRoute />}>
         <Route path="/public/" element={<PublicPage />}>
           <Route index element={<WelcomePage />} />
@@ -71,7 +76,8 @@ const AppRouter = () => {
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+      </Routes>
+    </>
   );
 };
 
