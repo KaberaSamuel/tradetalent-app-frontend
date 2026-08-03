@@ -11,7 +11,8 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import GoogleLoginButton from "@/features/auth/GoogleLoginButton";
-import WakingServer from "@/features/auth/WakingServer";
+import WakingServerOverlay from "@/features/auth/WakingServerOverlay";
+import { WAKE_DELAY } from "@/hooks/useServerWake";
 
 export interface SignupFormTypes {
   name: string;
@@ -37,10 +38,9 @@ const Signup = () => {
       // start a loding indicator
       setPending(true);
 
-      // wait for 7s to detect if server is still waking up
       loadingTimeout = setTimeout(() => {
         setIsServerWaking(true);
-      }, 7000);
+      }, WAKE_DELAY);
 
       const { password, password2 } = data;
       if (password !== password2) {
@@ -86,12 +86,10 @@ const Signup = () => {
     setPending(choice);
   };
 
-  if (isServerWaking) {
-    return <WakingServer action={"signup"} />;
-  }
-
   return (
-    <div className="mt-25">
+    <>
+      {isServerWaking && <WakingServerOverlay />}
+      <div className="mt-25">
       <form className="form gap-3!" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="form-header">Join Our Community!</h1>
 
@@ -159,6 +157,7 @@ const Signup = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 

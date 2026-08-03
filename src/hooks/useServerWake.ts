@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL;
-const WAKE_DELAY = 2000;
+export const WAKE_DELAY = 2000;
 const RETRY_DELAY = 5000;
 
 const checkServer = (): Promise<boolean> => {

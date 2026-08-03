@@ -1,11 +1,13 @@
 import { loginByGoogle } from "@/features/auth/api";
 import { updateTokens, updateUser } from "@/features/auth/authSlice";
+import WakingServerOverlay from "@/features/auth/WakingServerOverlay";
 import { updatePopupMessage } from "@/features/popups/messageSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
+import { WAKE_DELAY } from "@/hooks/useServerWake";
 import { faChrome } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { type CredentialResponse, GoogleLogin } from "@react-oauth/google";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -17,11 +19,17 @@ export default function GoogleLoginButton({ pending, updatePending }: Props) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const googleLoginRef = useRef<HTMLDivElement>(null);
+  const [isServerWaking, setIsServerWaking] = useState(false);
 
   // handle success login
   const handleGoogleSuccess = async (response: CredentialResponse) => {
+    let loadingTimeout: ReturnType<typeof setTimeout> | null = null;
+
     try {
       updatePending(true);
+      loadingTimeout = setTimeout(() => {
+        setIsServerWaking(true);
+      }, WAKE_DELAY);
 
       if (response.credential) {
         // Send the JWT credential to backend
@@ -47,6 +55,10 @@ export default function GoogleLoginButton({ pending, updatePending }: Props) {
       console.log(error);
       dispatch(updatePopupMessage("Google login failed, try another way"));
     } finally {
+      if (loadingTimeout !== null) {
+        clearTimeout(loadingTimeout);
+      }
+      setIsServerWaking(false);
       updatePending(false);
     }
   };
@@ -68,6 +80,7 @@ export default function GoogleLoginButton({ pending, updatePending }: Props) {
 
   return (
     <div>
+      {isServerWaking && <WakingServerOverlay />}
       {/* Custom button that triggers Google Login */}
       <button
         type="button"

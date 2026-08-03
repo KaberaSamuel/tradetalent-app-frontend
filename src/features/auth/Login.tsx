@@ -8,9 +8,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "@/components/Loader";
 import { loginUser } from "@/features/auth/api";
 import { updateTokens, updateUser } from "@/features/auth/authSlice";
-import WakingServer from "@/features/auth/WakingServer";
+import WakingServerOverlay from "@/features/auth/WakingServerOverlay";
 import { updatePopupMessage } from "@/features/popups/messageSlice";
 import { useAppDispatch } from "@/hooks/reduxHooks";
+import { WAKE_DELAY } from "@/hooks/useServerWake";
 
 import GoogleLoginButton from "@/features/auth/GoogleLoginButton";
 
@@ -36,10 +37,9 @@ const Login = () => {
       // start a loding indicator
       setPending(true);
 
-      // wait for 7s to detect if server is still waking up
       loadingTimeout = setTimeout(() => {
         setIsServerWaking(true);
-      }, 7000);
+      }, WAKE_DELAY);
 
       const response = await loginUser(data);
       const { user, tokens } = response.data;
@@ -80,12 +80,10 @@ const Login = () => {
     setPending(choice);
   };
 
-  if (isServerWaking) {
-    return <WakingServer action={"login"} />;
-  }
-
   return (
-    <div className="mt-25">
+    <>
+      {isServerWaking && <WakingServerOverlay />}
+      <div className="mt-25">
       <form onSubmit={handleSubmit(onSubmit)} className="form gap-3!">
         <h1 className="form-header">Login In to Service Exchange</h1>
 
@@ -138,6 +136,7 @@ const Login = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 
