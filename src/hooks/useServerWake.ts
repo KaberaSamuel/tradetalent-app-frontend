@@ -5,7 +5,7 @@ const WAKE_DELAY = 2000;
 const RETRY_DELAY = 5000;
 
 const checkServer = (): Promise<boolean> => {
-  return fetch(`${API_URL}/health/`, { method: "GET" })
+  return fetch(`${API_URL}/ping/`, { method: "GET" })
     .then((response) => response.ok)
     .catch(() => false);
 };
